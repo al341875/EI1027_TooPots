@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modificar client</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2>Modifica Client</h2>
+<form th:action="@{/client/update}"
+      th:object="${client}" method="post">
+    <table>
+        <tr>
+            <td><label>DNI</label></td>
+            <td><input type="text" th:field="*{clientId}" /></td>
+        </tr>
+        <tr>
+            <td><label>Nom</label></td>
+            <td><input type="text" th:field="*{nom}" /></td>
+        </tr>
+        <tr>
+            <td><label>Email</label></td>
+            <td><input type="text" th:field="*{email}" /></td>
+        </tr>
+        <tr>
+            <td><label>Sexe</label></td>
+            <td><input type="text" placeholder="M|F" maxlength="1" th:field="*{sexe}" /></td>
+        </tr>
+        <tr>
+            <td><label>Data Naixement</label></td>
+            <td><input type="text" placeholder="dd/mm/yyyy" th:field="*{dataNaixement}" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Modifica client" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
