@@ -34,8 +34,8 @@ public class PreferenciaDao {
 		return preferencies;
 	}
 	
-	public void update(short id, String nomTipusActivitat) {
+	public void update(Preferencia preferencia) {
 		String sql = "update preferencies set nom_tipus_activitat = ? where id = ?";
-		jdbcTemplate.update(sql, nomTipusActivitat, id);
+		jdbcTemplate.update(sql, preferencia.getNomTipusActivitat(), preferencia.getPreferenciaId());
 	}
 }
