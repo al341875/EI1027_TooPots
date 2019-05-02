@@ -24,7 +24,7 @@ public class PreferenciaDao {
 	
 	public Preferencia findOne(short id) {
 		String sql = "select id from preferencies where id = ?";
-		return jdbcTemplate.queryForObject(sql, new PreferenciaMapper());
+		return jdbcTemplate.queryForObject(sql, new PreferenciaMapper(), id);
 		
 	}
 	

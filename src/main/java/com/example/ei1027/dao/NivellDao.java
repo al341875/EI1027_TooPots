@@ -19,14 +19,14 @@ public class NivellDao {
 		jdbcTemplate.update(sql, nivell.getNivellId(), nivell.getDescripcio());
 	}
 	
-	public void delete(short nivellId) {
+	public void delete(short id) {
 		String sql = "delete from nivell where id = ?";
-		jdbcTemplate.update(sql, nivellId);
+		jdbcTemplate.update(sql, id);
 	}
 	
 	public Nivell findOne(short id) {
 		String sql = "select id from nivell where id = ?";
-		return jdbcTemplate.queryForObject(sql, new NivellMapper());
+		return jdbcTemplate.queryForObject(sql, new NivellMapper(), id);
 	}
 	
 	public List<Nivell> findAll(){
@@ -35,9 +35,9 @@ public class NivellDao {
 		return nivells;
 	}
 	
-	public void update(short id, String descripcio) {
+	public void update(Nivell nivell) {
 		String sql = "update nivell set descripcio = ? where id = ?";
-		jdbcTemplate.update(sql, descripcio, id);
+		jdbcTemplate.update(sql, nivell.getDescripcio(), nivell.getNivellId());
 	}
 
 }
