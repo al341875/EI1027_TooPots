@@ -3,8 +3,7 @@ package com.example.ei1027.model;
 public class Acredita {
 	String nomTipusActivitat;
 	String certificatUrl;
-	
-	
+
 	@Override
 	public String toString() {
 		return "Acredita [nomTipusActivitat=" + nomTipusActivitat + ", certificatUrl=" + certificatUrl + "]";

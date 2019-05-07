@@ -1,18 +1,18 @@
 package com.example.ei1027.model;
 
 public class Preferencia{
-    private short preferenciaId;
+    private String clientId;
     private String nomTipusActivitat;
 
     public Preferencia() {
     }
 
-    public short getPreferenciaId() {
-        return preferenciaId;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setPreferenciaId(short preferenciaId) {
-        this.preferenciaId = preferenciaId;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
     public String getNomTipusActivitat() {

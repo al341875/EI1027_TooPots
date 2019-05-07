@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nivells</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Descripció</th>
+        </tr>
+        <tr th:each="nivell: ${nivells}">
+            <td th:text="${nivell.nivellId}"></td>
+            <td th:text="${nivell.descripcio}"></td>
+            <td><a th:href="@{/nivell/update/{nivellId}(nivellId=${nivell.nivellId})}">Edita</a>
+            <td><a th:href="@{/nivell/delete/{nivellId}(nivellId=${nivell.nivellId})}">Borra</a></td>
+        </tr>
+    </table>
+    <td><a th:href="@{/nivell/add/}">Afegeix</a>
+</body>
+</html>

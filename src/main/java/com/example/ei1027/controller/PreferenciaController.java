@@ -20,11 +20,14 @@ public class PreferenciaController {
         model.addAttribute("preferencias", preferenciaDao.findAll());
         return "";
     }
-    @GetMapping(value="/preferencia/{preferenciaId}")
-    public String getPreferencia(Model model, @PathVariable Short preferenciaId) {
-        model.addAttribute("preferencia", preferenciaDao.findOne(preferenciaId));
+
+    @GetMapping("/my-preferences")
+    public String listMyPreferences(Model model) {
+        //Obtener el Id del cliente que está loggeado
+        model.addAttribute("preferencias", preferenciaDao.findByClient("ID_CLIENTE_LOGGEADO"));
         return "";
     }
+
     @GetMapping(value = "/add")
     public String addPreferencia(Model model) {
         model.addAttribute("preferencia", new Preferencia());
@@ -37,22 +40,14 @@ public class PreferenciaController {
         preferenciaDao.add(preferencia);
         return "redirect:list";
     }
-    @GetMapping(value="/update/{preferenciaId}")
-    public String update(Model model, @PathVariable Short preferenciaId) {
-        model.addAttribute("preferencia", preferenciaDao.findOne(preferenciaId));
-        return "preferencia/update";
-    }
-    @PostMapping(value="/update")
-    public String update(@ModelAttribute("preferencia") Preferencia preferencia,
-                         BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "preferencia/update";
-        preferenciaDao.update(preferencia);
-        return "redirect:list";
-    }
-    @RequestMapping(value = "/delete/{preferenciaId}")
-    public String delete(@PathVariable Short preferenciaId) {
-        preferenciaDao.delete(preferenciaId);
+
+    @RequestMapping(value = "/delete/{nom_tipus_activitat}")
+    public String delete(@PathVariable String nomTipusActivitat) {
+        Preferencia pref = new Preferencia();
+        //OBTENER ID DEL CLIENTE
+        pref.setClientId("CLIENT_ID");
+        pref.setNomTipusActivitat(nomTipusActivitat);
+        preferenciaDao.delete(pref);
         return "redirect:../list";
     }
 }

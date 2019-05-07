@@ -11,7 +11,7 @@ public class PreferenciaMapper implements RowMapper<Preferencia>{
 	@Override
 	public Preferencia mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Preferencia preferencia = new Preferencia();
-		preferencia.setPreferenciaId(rs.getShort("id"));
+		preferencia.setClientId(rs.getString("id_client"));
 		preferencia.setNomTipusActivitat(rs.getString("nom_tipus_activitat"));
 		return preferencia;
 	}

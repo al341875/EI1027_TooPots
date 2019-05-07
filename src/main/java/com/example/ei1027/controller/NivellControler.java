@@ -9,7 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/nivells")
+@RequestMapping("/nivell")
 public class NivellControler {
 
     @Autowired
@@ -42,13 +42,14 @@ public class NivellControler {
         model.addAttribute("nivell", nivellDao.findOne(nivellId));
         return "nivell/update";
     }
-    @PostMapping(value="/update")
-    public String update(@ModelAttribute("nivell") Nivell nivell,
+    @PostMapping(value="/update/{nivellId}")
+    public String update(@PathVariable Short nivellId, @ModelAttribute("nivell") Nivell nivell,
                          BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "nivell/update";
+        nivell.setNivellId(nivellId);
         nivellDao.update(nivell);
-        return "redirect:list";
+        return "redirect:../list";
     }
     @RequestMapping(value = "/delete/{nivellId}")
     public String delete(@PathVariable Short nivellId) {

@@ -1,7 +1,7 @@
 package com.example.ei1027.model;
 
 public class Nivell {
-    private short nivellId;
+    private Short nivellId;
     private String descripcio;
 
     public Nivell() {
@@ -11,7 +11,7 @@ public class Nivell {
         return nivellId;
     }
 
-    public void setNivellId(short nivellId) {
+    public void setNivellId(Short nivellId) {
         this.nivellId = nivellId;
     }
 
