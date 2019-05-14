@@ -25,16 +25,17 @@ public class ClientDao{
 	        Client client = new Client();
 	        client.setNom(rs.getString("nom"));
 	        client.setEmail(rs.getString("email"));
-	        client.setDataNaixement(rs.getDate("data_naixement").toString());
-	        client.setClientId(rs.getString("id_client"));
-	        client.setSexe(rs.getString("sexe"));
+            LocalDate DOB = rs.getObject("data_naixement", LocalDate.class);
+            client.setDataNaixement(String.format("%d/%d/%d", DOB.getDayOfMonth(), DOB.getMonthValue(), DOB.getYear()));
+            client.setClientId(rs.getString("id_client"));
+            client.setSexe(rs.getString("sexe"));
 			client.setContrasenya(rs.getString("contrasenya"));
 			return client;
 	    }
 	}
 
 	public void addClient(Client client) {
-		LocalDate DOB = LocalDate.parse(client.getDataNaixement(), DateTimeFormatter.ofPattern("d/MM/yyyy"));
+        LocalDate DOB = LocalDate.parse(client.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
 
 		this.jdbcTemplate.update(
 				"insert into Client(id_client,nom,email,data_naixement,sexe,contrasenya) values(?,?,?,?,?,?)",
@@ -57,7 +58,7 @@ public class ClientDao{
 
 	
 	public void updateClient(Client client) {
-		LocalDate DOB = LocalDate.parse(client.getDataNaixement(), DateTimeFormatter.ofPattern("d/MM/yyyy"));
+        LocalDate DOB = LocalDate.parse(client.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
 
 		this.jdbcTemplate.update("update Client set nom=?,email=?,sexe=?,data_naixement=?, contrasenya=? "
 				+ "where id_client=?",

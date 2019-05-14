@@ -50,7 +50,7 @@ public class InstructorDao {
 				new Object[] {idInstructor}, new InstructorMapper());
 	}
 	public void addInstructor(Instructor instructor) {
-		LocalDate DOB = LocalDate.parse(instructor.getDataNaixement(), DateTimeFormatter.ofPattern("d/MM/yyyy"));
+		LocalDate DOB = LocalDate.parse(instructor.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
 
 		this.jdbcTemplate.update(
 				"insert into Instructor(id_instructor,nom,email,iban,estat,domicili,data_naixement,sexe,contrasenya) values(?,?,?,?,?,?,?,?,?)",
@@ -58,7 +58,7 @@ public class InstructorDao {
 				instructor.getIban(), Estat.PENDENT.toString(), instructor.getDomicili(), DOB, instructor.getSexe(), instructor.getContrasenya());
 	}
 	public void updateInstructor(Instructor instructor) {
-		LocalDate DOB = LocalDate.parse(instructor.getDataNaixement(), DateTimeFormatter.ofPattern("d/MM/yyyy"));
+		LocalDate DOB = LocalDate.parse(instructor.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
 
 		this.jdbcTemplate.update("update Instructor set nom=?,email=?,iban=?,estat=?,domicili=?,data_naixement=?,sexe=?,contrasenya=? where id_instructor=?",
 				instructor.getNom(), instructor.getEmail(), instructor.getIban(),
