@@ -6,6 +6,8 @@ public class Client {
 	String email;
 	String sexe;
 	String dataNaixement;
+	String contrasenya;
+	String recontrasenya;
 	
 	public String getClientId() {
 		return clientId;
@@ -45,6 +47,22 @@ public class Client {
 
 	public void setDataNaixement(String data_naixement) {
 		this.dataNaixement = data_naixement;
+	}
+
+	public String getContrasenya() {
+		return contrasenya;
+	}
+
+	public void setContrasenya(String contrasenya) {
+		this.contrasenya = contrasenya;
+	}
+
+	public String getRecontrasenya() {
+		return recontrasenya;
+	}
+
+	public void setRecontrasenya(String recontrasenya) {
+		this.recontrasenya = recontrasenya;
 	}
 
 	@Override

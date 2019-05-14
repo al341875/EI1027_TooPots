@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Crear nou client</title>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
@@ -10,69 +10,63 @@
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <style>
-        .helper-text {
-            color: red !important;
-        }
-
-        .inputError {
-            color: red;
-        }
-    </style>
 </head>
 <body>
 <div class="row">
-    <form class="col s6 offset-s3" th:action="@{/client/add}"
-          th:object="${client}" method="post">
+    <form class="col s6 offset-s3" th:action="@{/instructor/add}"
+          th:object="${instructor}" method="post">
+        <div class="row">
+            <div class="input-field col s6 offset-s3">
+                <img class="responsive-img circle"
+                     src="http://www.jdevoto.cl/web/wp-content/uploads/2018/04/default-user-img.jpg">
+            </div>
+        </div>
         <div class="row">
             <div class="input-field col s7">
                 <input id="nom" type="text" class="validate" th:field="*{nom}" required>
                 <label for="nom">Nom</label>
-                <span class="helper-text" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
             </div>
             <div class="input-field col s5">
-                <input id="nif" type="text" class="validate" th:field="*{clientId}" required>
+                <input id="nif" type="text" class="validate" th:field="*{instructorId}" required>
                 <label for="nif">NIF</label>
-                <span th:if="${#fields.hasErrors('clientId')}" th:errors="*{clientId}" class="helper-text"></span>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s8">
+            <div class="input-field col s3">
                 <input id="naixement" type="text" class="datepicker validate" th:field="*{dataNaixement}" required>
                 <label for="naixement">Data de naixement</label>
-                <span th:if="${#fields.hasErrors('dataNaixement')}" th:errors="*{dataNaixement}"
-                      class="helper-text"></span>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col s3">
                 <select th:field="*{sexe}" required>
                     <option value="" disabled selected>Tria una opció</option>
                     <option value="H">Home</option>
                     <option value="D">Dona</option>
                 </select>
                 <label>Sexe</label>
-                <span th:if="${#fields.hasErrors('sexe')}" th:errors="*{sexe}" class="helper-text"></span>
+            </div>
+            <div class="input-field col s6">
+                <input id="domicili" type="text" class="autocomplete" th:field="*{domicili}" required>
+                <label for="domicili">Adreça</label>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s12">
+            <div class="input-field col s6">
+                <input id="iban" type="text" class="validate" th:field="*{iban}" required>
+                <label for="iban">IBAN</label>
+            </div>
+            <div class="input-field col s6">
                 <input id="email" type="email" class="validate" th:field="*{email}" required>
                 <label for="email">Email</label>
-                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="helper-text"></span>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s12">
+            <div class="input-field col s6">
                 <input id="password" type="password" class="validate" th:field="*{contrasenya}" required>
                 <label for="password">Contrasenya</label>
-                <span th:if="${#fields.hasErrors('contrasenya')}" th:errors="*{contrasenya}" class="helper-text"></span>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
+            <div class="input-field col s6">
                 <input id="re-password" type="password" class="validate" th:field="*{recontrasenya}" required>
                 <label for="re-password">Repeteix la contrasenya</label>
-                <span th:if="${#fields.hasErrors('recontrasenya')}" th:errors="*{recontrasenya}"
-                      class="helper-text"></span>
             </div>
         </div>
         <div class="row">
@@ -93,7 +87,7 @@
     const today = new Date();
     var startYear = today.getFullYear() - 90;
     var startDate = new Date(new String(startYear));
-    M.Datepicker.init(Calendar, {
+    var instances = M.Datepicker.init(Calendar, {
         format: 'dd/mm/yyyy',
         minDate: startDate,
         maxDate: today,
@@ -146,7 +140,26 @@
 </script>
 <script>
     const Sexo = document.querySelector('select');
-    M.FormSelect.init(Sexo, {});
+    var instances = M.FormSelect.init(Sexo, {});
+</script>
+<script>
+    var elems = document.querySelectorAll('.autocomplete');
+    var options = {
+        data: {
+            'Carrer': null,
+            'Avinguda': null,
+            'Plaça': null,
+            'Diagonal': null,
+            'Via': null,
+            'Carretera': null,
+            'Camí': null,
+            'Calçada': null,
+            'Carreró': null,
+            'Boulevar': null
+        }
+    };
+
+    var instances = M.Autocomplete.init(elems, options);
 </script>
 </body>
 </html>

@@ -1,17 +1,23 @@
 package com.example.ei1027.model;
 
 public class Instructor {
-	String idInstructor;
+	String instructorId;
 	String nom;
 	String email;
 	String iban;
 	String estat;
 	String domicili;
-	public String getIdInstructor() {
-		return idInstructor;
+	String sexe;
+	String dataNaixement;
+	String contrasenya;
+	String recontrasenya;
+
+	public String getInstructorId() {
+		return instructorId;
 	}
-	public void setIdInstructor(String idInstructor) {
-		this.idInstructor = idInstructor;
+
+	public void setInstructorId(String instructorId) {
+		this.instructorId = instructorId;
 	}
 	public String getNom() {
 		return nom;
@@ -43,9 +49,42 @@ public class Instructor {
 	public void setDomicili(String domicili) {
 		this.domicili = domicili;
 	}
+
+	public String getSexe() {
+		return sexe;
+	}
+
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
+	}
+
+	public String getDataNaixement() {
+		return dataNaixement;
+	}
+
+	public void setDataNaixement(String dataNaixement) {
+		this.dataNaixement = dataNaixement;
+	}
+
+	public String getContrasenya() {
+		return contrasenya;
+	}
+
+	public void setContrasenya(String contrasenya) {
+		this.contrasenya = contrasenya;
+	}
+
+	public String getRecontrasenya() {
+		return recontrasenya;
+	}
+
+	public void setRecontrasenya(String recontrasenya) {
+		this.recontrasenya = recontrasenya;
+	}
+
 	@Override
 	public String toString() {
-		return "Instructor [idInstructor=" + idInstructor + ", nom=" + nom + ", email=" + email + ", iban=" + iban
+		return "Instructor [instructorId=" + instructorId + ", nom=" + nom + ", email=" + email + ", iban=" + iban
 				+ ", estat=" + estat + ", domicili=" + domicili + "]";
 	}
 	

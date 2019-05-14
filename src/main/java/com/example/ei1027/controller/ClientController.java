@@ -3,6 +3,7 @@ package com.example.ei1027.controller;
 
 import com.example.ei1027.dao.ClientDao;
 import com.example.ei1027.model.Client;
+import com.example.ei1027.validation.ClientValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,9 @@ public class ClientController {
 	}
 	@PostMapping(value = "/add")
 	public String addClient(@ModelAttribute("client") Client client, BindingResult bindingResult) {
-		if (bindingResult.hasErrors())
+        ClientValidator clientValidator = new ClientValidator();
+        clientValidator.validate(client, bindingResult);
+        if (bindingResult.hasErrors())
 			return "client/add";
 		clientDao.addClient(client);
 		return "redirect:list";
@@ -56,5 +59,4 @@ public class ClientController {
 		clientDao.deleteClient(clientId);
 		return "redirect:../list";
 	}
-
 }

@@ -9,13 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Repository
 public class ClientDao{
@@ -32,24 +28,18 @@ public class ClientDao{
 	        client.setDataNaixement(rs.getDate("data_naixement").toString());
 	        client.setClientId(rs.getString("id_client"));
 	        client.setSexe(rs.getString("sexe"));
-	        return client;
+			client.setContrasenya(rs.getString("contrasenya"));
+			return client;
 	    }
 	}
 
-
-	
 	public void addClient(Client client) {
-		// TODO Auto-generated method stub
-		Date DOB = null;
-		try {
-			DOB = new SimpleDateFormat("dd/MM/yyyy").parse(client.getDataNaixement());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		LocalDate DOB = LocalDate.parse(client.getDataNaixement(), DateTimeFormatter.ofPattern("d/MM/yyyy"));
+
 		this.jdbcTemplate.update(
-				"insert into Client(id_client,nom,email,data_naixement,sexe) values(?,?,?,?,?)",
+				"insert into Client(id_client,nom,email,data_naixement,sexe,contrasenya) values(?,?,?,?,?,?)",
 				client.getClientId(), client.getNom(), client.getEmail(), DOB ,
-				client.getSexe() );
+				client.getSexe(), client.getContrasenya());
 		
 	}
 
@@ -67,25 +57,15 @@ public class ClientDao{
 
 	
 	public void updateClient(Client client) {
-		Date DOB = null;
+		LocalDate DOB = LocalDate.parse(client.getDataNaixement(), DateTimeFormatter.ofPattern("d/MM/yyyy"));
 
-		try {
-			Logger.getAnonymousLogger().log(Level.WARNING, client.getDataNaixement());
-			DOB = new SimpleDateFormat("dd/MM/yyyy").parse(client.getDataNaixement());
-			Logger.getAnonymousLogger().log(Level.WARNING, DOB.toString());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		this.jdbcTemplate.update("update Client set nom=?,email=?,sexe=?,data_naixement=? "
+		this.jdbcTemplate.update("update Client set nom=?,email=?,sexe=?,data_naixement=?, contrasenya=? "
 				+ "where id_client=?",
-			 client.getNom(), client.getEmail(), client.getSexe(), DOB,
+				client.getNom(), client.getEmail(), client.getSexe(), DOB, client.getContrasenya(),
 					client.getClientId());
 	}
-	
 
-	
 	public List<Client> getClients() {
-		// TODO Auto-generated method stub
 		return this.jdbcTemplate.query(
 				"select * from Client", new ClientMapper());
 	}

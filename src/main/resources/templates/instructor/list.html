@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+<ul class="collection">
+    <li class="collection-item avatar valign-wrapper" th:each="instructor : ${instructors}">
+        <img src="https://img.icons8.com/color/420/person-male.png" alt="" class="circle">
+        <span class="title" th:text="${instructor.nom + ' (' + instructor.instructorId + ')'}">Nombre (DNI)</span>
+        <div class="secondary-content">
+            <a href="#!" class="btn blue"><i class="material-icons">info</i></a>
+            <a th:if="${instructor.estat.equals('acceptada')}"
+               th:href="@{/instructor/update/{instructorId}(instructorId=${instructor.instructorId})}" class="btn teal"><i
+                    class="material-icons">create</i></a>
+            <a th:if="${instructor.estat.equals('pendent')}"
+               th:href="@{/instructor/accept/{instructorId}(instructorId=${instructor.instructorId})}"
+               class="btn green"><i class="material-icons">done</i></a>
+            <a th:if="${instructor.estat.equals('pendent')}"
+               th:href="@{/instructor/decline/{instructorId}(instructorId=${instructor.instructorId})}" class="btn red"><i
+                    class="material-icons">delete</i></a>
+            <a th:if="${instructor.estat.equals('rebutjada')}"
+               th:href="@{/instructor/recover/{instructorId}(instructorId=${instructor.instructorId})}"
+               class="btn tooltipped amber" data-position="left" data-tooltip="Envia la solicitud a pendents"><i
+                    class="material-icons">undo</i></a>
+        </div>
+    </li>
+</ul>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<script>
+    var elems = document.querySelector('.tooltipped');
+    var instances = M.Tooltip.init(elems, {});
+</script>
+</body>
+</html>

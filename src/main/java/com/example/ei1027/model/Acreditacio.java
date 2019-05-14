@@ -33,7 +33,7 @@ public class Acreditacio {
 	}
 	@Override
 	public String toString() {
-		return "Acreditacio [idInstructor=" + idInstructor + ", nomTipusActivitat=" + nomTipusActivitat
-				+ ", certificatUrl=" + certificatUrl + ", estat=" + estat + "]";
+        return "Acreditacio [instructorId=" + idInstructor + ", nomTipusActivitat=" + nomTipusActivitat
+                + ", certificatUrl=" + certificatUrl + ", estat=" + estat + "]";
 	}
 }
