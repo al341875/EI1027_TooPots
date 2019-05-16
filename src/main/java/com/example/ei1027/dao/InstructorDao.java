@@ -39,9 +39,9 @@ public class InstructorDao {
 		        return instructor;
 		    }
 	}
-	public List<Instructor> getInstructors(){
+	public List<Instructor> getInstructorsByStatus(String status){
 		return this.jdbcTemplate.query(
-				"select * from instructor", new InstructorMapper());
+				"select * from instructor where estat = ?", new InstructorMapper(), status);
 	}
 
 	public Instructor getInstructor(String idInstructor) {
