@@ -22,6 +22,7 @@ public class InstructorController {
         return "instructor/list";
     }
 
+
     @GetMapping(value = "/list/{instructorId}")
     public String getInstructor(Model model, @PathVariable String instructorId) {
         model.addAttribute("instructor", instructorDao.getInstructor(instructorId));

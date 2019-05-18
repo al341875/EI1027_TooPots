@@ -29,11 +29,11 @@ public class TipusActivitatDao {
 	}
 	public List<TipusActivitat> getTipusActivitats(){
 		return this.jdbcTemplate.query(
-				"select * from tipus_activitat", new TipusActivitatMapper());
+				"select * from Tipus_activitat", new TipusActivitatMapper());
 	}
 	public TipusActivitat getTipusActivitat( String nomTipusActivitat){
 		return this.jdbcTemplate.queryForObject(
-				"select * from tipus_activitat where nom_tipus_activitat=? ",
+				"select * from Tipus_activitat where nom_tipus_activitat=? ",
 				new Object[] {nomTipusActivitat}, new TipusActivitatMapper());
 	}
 	public void addTipusActivitat(TipusActivitat tipusActivitat) {
@@ -42,10 +42,10 @@ public class TipusActivitatDao {
 				tipusActivitat.getNomTipusActivitat(), tipusActivitat.getNivell());
 	}
 	public void updateTipusActivitat(TipusActivitat tipusActivitat) {
-		this.jdbcTemplate.update("update tipus_activitat set nivell=? where nom_tipus_activitat=?",
+		this.jdbcTemplate.update("update Tipus_activitat set nivell=? where nom_tipus_activitat=?",
 				tipusActivitat.getNivell(),tipusActivitat.getNomTipusActivitat());
 	}
 	public void deleteTipusActivitat(String nomTipusActivitat) {
-		this.jdbcTemplate.update("delete from tipus_activitat where nom_tipus_activitat=?", nomTipusActivitat);
+		this.jdbcTemplate.update("delete from Tipus_activitat where nom_tipus_activitat=?", nomTipusActivitat);
 	}
 }

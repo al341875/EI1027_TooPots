@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title> Login</title>
+	<meta charset="UTF-8" />
+	<!-- Afegim una fulla d'estil (Bootstrap) -->
+	<link rel="stylesheet"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+
+</head>
+<body>
+<center>
+		<h2>LOGIN</h2>
+		<form action="#" th:action="@{/login}"
+			  th:object="${user}" method="post">
+			<p>
+				<label>Nom d'usuari:</label>
+				<input class="form_control" type="text" th:field="*{usuari}"/>
+			</p>
+			<p>
+				<label>password:</label>
+				<input class="form_control" type="password" th:field="*{contrasenya}"/>
+			</p>
+			<input type="submit" value="Accedir" />
+		</form>
+</center>
+</body>
+</html>

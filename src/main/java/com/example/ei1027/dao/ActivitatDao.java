@@ -2,6 +2,8 @@ package com.example.ei1027.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.example.ei1027.model.Activitat;
@@ -23,7 +25,7 @@ public class ActivitatDao {
 			Activitat.setEstat(rs.getString("estat"));
 			Activitat.setDescripcio(rs.getString("descripcio"));
 			Activitat.setDurada(rs.getFloat("durada"));
-			Activitat.setData(rs.getDate("data"));
+			Activitat.setData(rs.getString("data"));
 			Activitat.setPreu(rs.getFloat("preu"));
 			Activitat.setMinAssistents(rs.getInt("min_assistents"));
 			Activitat.setMaxAssistents(rs.getInt("max_assistents"));
@@ -46,17 +48,19 @@ public class ActivitatDao {
 				new Object[] {nomLlarg}, new ActivitatMapper());
 	}
 	public void addActivitat(Activitat Activitat) {
+		LocalDate DOB = LocalDate.parse(Activitat.getData(), DateTimeFormatter.ofPattern("d/M/yyyy"));
+
 		this.jdbcTemplate.update(
 				"insert into Activitat(nom_llarg,estat,descripcio,durada,data,preu,min_assistents,max_assistents,lloc,punt_de_trobada,hora_de_trobada,"
-				+ "text_per_clients,id_instructor,nom_tipus_activitat) values(?,?,?,?,?,?,?,?,?,?,?)",
-				Activitat.getNomLlarg(), Activitat.getEstat(), Activitat.getDescripcio(),Activitat.getDurada(),
+				+ "text_per_clients,id_instructor,nom_tipus_activitat) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+				Activitat.getNomLlarg(), Activitat.getEstat(), Activitat.getDescripcio(),Activitat.getDurada(),DOB,
 				 Activitat.getPreu(), Activitat.getMinAssistents(), Activitat.getMaxAssistents(), Activitat.getLloc(),
-				 Activitat.getPuntDeTrobada(), Activitat.getHoraDeTrobada(), Activitat.getIdInstructor(), Activitat.getNomTipusActivitat());
+				 Activitat.getPuntDeTrobada(), Activitat.getHoraDeTrobada(),Activitat.getTextPerClient(), Activitat.getIdInstructor(), Activitat.getNomTipusActivitat());
 	}
 	public void updateActivitat(Activitat Activitat) {
 		this.jdbcTemplate.update("update Activitat set estat=?,descripcio=?,durada=?,data=?,preu=?,min_assistents=?,max_assistents=?,lloc=?,punt_de_trobada=?,hora_de_trobada=?,"
 				 + " text_per_clients=?,id_instructor=?,nom_tipus_activitat=? where nom_llarg=?",
-				 Activitat.getEstat(), Activitat.getDescripcio(),Activitat.getDurada(),
+				 Activitat.getEstat(), Activitat.getDescripcio(),Activitat.getDurada(),Activitat.getData(),
 				 Activitat.getPreu(), Activitat.getMinAssistents(), Activitat.getMaxAssistents(), Activitat.getLloc(),
 				 Activitat.getPuntDeTrobada(), Activitat.getHoraDeTrobada(), Activitat.getIdInstructor(), Activitat.getNomTipusActivitat(), Activitat.getNomLlarg());
 	}
