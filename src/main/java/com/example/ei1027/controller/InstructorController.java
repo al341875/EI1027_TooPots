@@ -1,6 +1,7 @@
 package com.example.ei1027.controller;
 
 import com.example.ei1027.dao.InstructorDao;
+import com.example.ei1027.model.Estat;
 import com.example.ei1027.model.Instructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,14 +17,29 @@ public class InstructorController {
     @Autowired
     private InstructorDao instructorDao;
 
-    @GetMapping("/list")
-    public String listInstructors(Model model) {
-        model.addAttribute("instructors", instructorDao.getInstructors());
+    @GetMapping("/pendents")
+    public String listInstructorsPendents(Model model) {
+        model.addAttribute("instructors", instructorDao.getInstructorsByStatus(Estat.PENDENT.toString()));
+        model.addAttribute("boldPendent", true);
         return "instructor/list";
     }
 
 
-    @GetMapping(value = "/list/{instructorId}")
+    @GetMapping("/acceptats")
+    public String listInstructorsAcceptats(Model model) {
+        model.addAttribute("instructors", instructorDao.getInstructorsByStatus(Estat.ACCEPTADA.toString()));
+        model.addAttribute("boldAcceptat", true);
+        return "instructor/list";
+    }
+
+    @GetMapping("/rebutjats")
+    public String listInstructorsRebutjats(Model model) {
+        model.addAttribute("instructors", instructorDao.getInstructorsByStatus(Estat.REBUTJADA.toString()));
+        model.addAttribute("boldRebutjat", true);
+        return "instructor/list";
+    }
+
+    @GetMapping(value = "/{instructorId}")
     public String getInstructor(Model model, @PathVariable String instructorId) {
         model.addAttribute("instructor", instructorDao.getInstructor(instructorId));
         return "instructor/list";
@@ -63,25 +79,31 @@ public class InstructorController {
     @RequestMapping(value = "/delete/{instructorId}")
     public String delete(@PathVariable String instructorId) {
         instructorDao.deleteInstructor(instructorId);
-        return "redirect:../list";
+        //Hi ha que vore on redirigix
+        return "redirect:../pendents";
     }
 
     @RequestMapping(value = "/accept/{instructorId}")
     public String accept(@PathVariable String instructorId) {
         instructorDao.aceptarSolicitud(instructorId);
-        return "redirect:../list";
+        return "redirect:../pendents";
     }
 
     @RequestMapping(value = "/decline/{instructorId}")
     public String decline(@PathVariable String instructorId) {
         instructorDao.rebutjarSolicitud(instructorId);
-        return "redirect:../list";
+        return "redirect:../pendents";
     }
 
     @RequestMapping(value = "/recover/{instructorId}")
     public String recover(@PathVariable String instructorId) {
         instructorDao.recuperarSolicitud(instructorId);
-        return "redirect:../list";
+        return "redirect:../rebutjats";
+    }
+
+    @RequestMapping(value = "/prova")
+    public String prova(){
+        return "prova/index";
     }
 
 

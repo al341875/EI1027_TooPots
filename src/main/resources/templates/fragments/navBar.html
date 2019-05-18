@@ -1,0 +1,20 @@
+<header th:fragment="navBar">
+        <nav class="nav-extended">
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">TooPots</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="sass.html">Activitats</a></li>
+                    <li><a href="badges.html">Perfil</a></li>
+                    <li><a href="collapsible.html">Eixir</a></li>
+                </ul>
+
+            </div>
+            <div class="nav-content">
+                <ul class="tabs tabs-transparent">
+                    <li class="tab col s2" th:style="${boldPendent} ? 'color:white; font-weight:bold; border-bottom: 3px solid white' : 'color: rgba(255,255,255,0.7)' "><a th:style="${boldPendent} ? 'color: white' : 'color: rgba(255,255,255,0.7)' " target="_self" href="pendents">Pendents</a></li>
+                    <li class="tab col s2"><a target="_self" href="acceptats" th:style="${boldAcceptat} ? 'color:white; font-weight:bold; border-bottom: 3px solid white' : 'color: rgba(255,255,255,0.7)' ">Acceptats</a></li>
+                    <li class="tab col s2"><a target="_self" href="rebutjats" th:style="${boldRebutjat} ? 'color:white; font-weight:bold; border-bottom: 3px solid white' : 'color: rgba(255,255,255,0.7)' ">Rebutjats</a></li>
+                </ul>
+            </div>
+        </nav>
+</header>
