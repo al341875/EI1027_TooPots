@@ -26,6 +26,7 @@ public class InstructorController {
         return "instructor/list";
     }
 
+
     @GetMapping("/acceptats")
     public String listInstructorsAcceptats(Model model) {
         model.addAttribute("instructors", instructorDao.getInstructorsByStatus(Estat.ACCEPTADA.toString()));

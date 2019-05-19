@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+</head>
+<body>
+
+<div class="row">
+    <form class="col s6 offset-s3" th:action="@{/tipusActivitat/update}"
+          th:object="${tipusActivitat}" method="post">
+        <div class="row">
+            <div class="input-field col s5">
+                <input id="nomTipusActivitat" type="text"    class="validate" th:field="*{nomTipusActivitat}" required>
+                <label for="nomTipusActivitat">nomTipusActivitat</label>
+            </div>
+            <div class="input-field col s8">
+
+                <select th:field="*{nivell}" required>
+                    <option value="" disabled selected >Tria una opció</option>
+                    <option value="Baix" >Baix</option>
+                    <option value="Mitjà">Mitja</option>
+                    <option value="Alt">Alt</option>
+                    <option value="Extrem">Extrem</option>
+
+                </select>
+                <label>nivell</label>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

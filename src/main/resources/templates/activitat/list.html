@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>NOMlARG</th>
+            <th>NOMTIPUSACTIVITAT</th>
+            <th>LLOC</th>
+        </tr>
+        <tr th:each="activitat : ${activitats}">
+            <td th:text="${activitat.idInstructor}">idInstructor</td>
+            <td th:text="${activitat.nomLlarg}">nomLlarg</td>
+            <td th:text="${activitat.nomTipusActivitat}">nomTipusActivitat</td>
+            <td th:text="${activitat.lloc}">LLOC</td>
+
+            <td><a th:href="@{/activitat/list/{nomLlarg}(clientId=${activitat.nomLlarg})}">Visualitza</a>
+            <td><a th:href="@{/activitat/update/{nomLlarg}(clientId=${activitat.nomLlarg})}">Edita</a>
+            <td><a th:href="@{/activitat/delete/{nomLlarg} (clientId=${activitat.nomLlarg})}">Borra</a></td>
+        </tr>
+    </table>
+    <td><a th:href="@{/activitat/add/}">Afegeix</a>
+</body>
+</html>
