@@ -1,5 +1,7 @@
 package com.example.ei1027.dao;
 
+import com.example.ei1027.mapper.ActivitatMapper;
+import com.example.ei1027.model.Activitat;
 import com.example.ei1027.model.Estat;
 import com.example.ei1027.model.Instructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,5 +83,9 @@ public class InstructorDao {
 	public void recuperarSolicitud(String idInstructor) {
 		this.jdbcTemplate.update("update Instructor set estat = ? where id_instructor = ?",
 				Estat.PENDENT.toString(), idInstructor);
+	}
+
+	public List<Activitat> findActivitiesByInstructorId(String instructorId){
+		return this.jdbcTemplate.query("select * from activitat where id_instructor = ?", new ActivitatMapper(), instructorId);
 	}
 }

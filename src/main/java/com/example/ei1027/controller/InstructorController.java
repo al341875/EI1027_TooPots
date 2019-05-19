@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
+
 
 @Controller
 @RequestMapping("/instructor")
@@ -98,6 +100,12 @@ public class InstructorController {
     public String recover(@PathVariable String instructorId) {
         instructorDao.recuperarSolicitud(instructorId);
         return "redirect:../rebutjats";
+    }
+
+    @RequestMapping(value = "/{instructorId}/activitats")
+    public String getActivitatsInstructor(Model model, @PathVariable String instructorId){
+        model.addAttribute("activitats", instructorDao.findActivitiesByInstructorId(instructorId));
+        return "instructor/activitats";
     }
 
     @RequestMapping(value = "/prova")

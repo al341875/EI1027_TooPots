@@ -1,0 +1,70 @@
+<style>
+
+    .vertical-align{
+        padding-right: 3%!important;
+        vertical-align: middle;
+    }
+
+    .dificultad{
+        color: rgba(0,0,0,0.75);
+        font-weight:bold;
+        font-size: 1.1em;
+        padding-right: 3%!important;
+    }
+
+    .top-right {
+        position: absolute;
+        font-weight:bold;
+        color: white!important;
+        top: 16px;
+        right: 16px;
+    }
+
+    .blue-btn{
+        background-color: transparent!important;
+        border: 1px solid black;
+        color: black;
+        font-weight: bold;
+        border-radius: 50%;
+        text-transform: lowercase!important;
+    }
+</style>
+
+<div th:fragrment="card-instructor-activitat" class="card sticky-action">
+    <div class="card-image">
+        <img src="https://materializecss.com/images/sample-1.jpg">
+        <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">create</i></a>
+    </div>
+
+    <div class="card-content">
+        <span class="card-title valign-wrapper">
+            <a href="#" class="activator black-text" >
+                Senderisme
+            </a>
+        </span>
+        <a href="#" class="top-right tooltipped" data-position="right" data-tooltip="Elimina"><i class="small material-icons">close</i></a>
+    </div>
+
+    <div class="card-action">
+        <div class="center-align">
+            <span style="padding-right: 2%!important;">
+                <i class="material-icons vertical-align">event</i>
+                    <span class="vertical-align">23 Abril</span>
+            </span>
+            <span class="vertical-align dificultad">Dificultad:</span><span class="vertical-align">fácil</span>
+        </div>
+    </div>
+
+
+    <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">Senderisme<i class="material-icons right">close</i></span>
+        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+    </div>
+</div>
+</div>
+
+
+<script>
+    var elems = document.querySelector('.tooltipped');
+    var instances = M.Tooltip.init(elems, {});
+</script>

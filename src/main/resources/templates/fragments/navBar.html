@@ -11,9 +11,29 @@
             </div>
             <div class="nav-content">
                 <ul class="tabs tabs-transparent">
-                    <li class="tab col s2" th:style="${boldPendent} ? 'color:white; font-weight:bold; border-bottom: 3px solid white' : 'color: rgba(255,255,255,0.7)' "><a th:style="${boldPendent} ? 'color: white' : 'color: rgba(255,255,255,0.7)' " target="_self" href="pendents">Pendents</a></li>
-                    <li class="tab col s2"><a target="_self" href="acceptats" th:style="${boldAcceptat} ? 'color:white; font-weight:bold; border-bottom: 3px solid white' : 'color: rgba(255,255,255,0.7)' ">Acceptats</a></li>
-                    <li class="tab col s2"><a target="_self" href="rebutjats" th:style="${boldRebutjat} ? 'color:white; font-weight:bold; border-bottom: 3px solid white' : 'color: rgba(255,255,255,0.7)' ">Rebutjats</a></li>
+                    <li class="tab col s2" th:style="${boldPendent} ?
+                        'color:white; font-weight:bold; border-bottom: 3px solid white' :
+                        'color: rgba(255,255,255,0.7)' ">
+                        <a th:style="${boldPendent} ?
+                            'color: white' :
+                            'color: rgba(255,255,255,0.7)' " target="_self" href="pendents">
+                                Pendents
+                        </a>
+                    </li>
+                    <li class="tab col s2" th:style="${boldAcceptat} ?
+                        'color:white; font-weight:bold; border-bottom: 3px solid white' :
+                        'color: rgba(255,255,255,0.7)' ">
+                        <a target="_self" href="acceptats" >
+                            Acceptats
+                        </a>
+                    </li>
+                    <li class="tab col s2" th:style="${boldRebutjat} ?
+                    'color:white; font-weight:bold; border-bottom: 3px solid white' :
+                    'color: rgba(255,255,255,0.7)' ">
+                        <a target="_self" href="rebutjats">
+                            Rebutjats
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
