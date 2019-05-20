@@ -1,14 +1,14 @@
 package com.example.ei1027.model;
 
 import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Activitat {
 	String nomLlarg;
 	String estat;
 	String descripcio;
 	Float durada;
-	String data;
+	LocalDate data;
 	Float preu;
 	Integer minAssistents;
 	Integer maxAssistents;
@@ -42,10 +42,10 @@ public class Activitat {
 	public void setDurada(Float durada) {
 		this.durada = durada;
 	}
-	public String getData() {
+	public LocalDate getData() {
 		return data;
 	}
-	public void setData(String data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 	public Float getPreu() {
