@@ -16,7 +16,7 @@ public class ActivitatMapper implements RowMapper<Activitat> {
         Activitat.setEstat(rs.getString("estat"));
         Activitat.setDescripcio(rs.getString("descripcio"));
         Activitat.setDurada(rs.getFloat("durada"));
-        Activitat.setData(rs.getDate("data"));
+        Activitat.setData(rs.getString("data"));
         Activitat.setPreu(rs.getFloat("preu"));
         Activitat.setMinAssistents(rs.getInt("min_assistents"));
         Activitat.setMaxAssistents(rs.getInt("max_assistents"));

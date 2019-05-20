@@ -37,7 +37,7 @@ public class ActivitatController {
             return "activitat/add";
         }
         activitatDao.addActivitat(activitat);
-        return "activitat:list";
+        return "redirect:list";
     }
     @GetMapping(value="/update/{nomLlarg}")
     public String update(Model model, @PathVariable String nomLlarg) {

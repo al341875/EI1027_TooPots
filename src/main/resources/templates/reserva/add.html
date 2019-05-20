@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Crear nova activitat</title>
+    <title>CReservar activitat</title>
     <meta charset="UTF-8"/>
     <!--Import Google Icon Font-->
     <!-- Compiled and minified CSS -->
-
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
@@ -13,28 +12,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
+
+Integer idReserva;
+Date dataReserva;
+Date dataActivitat;
+String numTransaccio;
+String idClient;
+String nomActivitat;
+Integer numAssistents;
+Double preuPersona;
+Double preuTotal;
+String estatPagament;
+
 <div class="row">
-    <form class="col s6 offset-s3" th:action="@{/activitat/add}"
-          th:object="${activitat}" method="post">
+    <form class="col s6 offset-s3" th:action="@{/reserva/add}"
+          th:object="${reserva}" method="post">
         <div class="row">
-            <div class="input-field col s5">
-                <input id="idInstructor" type="text"    class="validate" th:field="*{idInstructor}" required>
-                <label for="idInstructor">id instructor</label>
+            <div >
+                <input id="dataReserva" type="text"   class="datepicker validate" th:field="*{dataReserva}" required>
+                <label for="dataReserva">Data</label>
+
             </div>
-            <div class="input-field col s5">
-                <input id="nomLlarg" type="text" class="validate" th:field="*{nomLlarg}" required>
-                <label for="nomLlarg">nomLlarg</label>
+            <div >
+                <input id="dataActivitat" type="text"   class="datepicker validate" th:field="*{dataActivitat}" required>
+                <label for="dataActivitat">Data</label>
+
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s3" >
-                <input id="data" type="text"   class="datepicker validate" th:field="*{data}" required>
+            <div >
+                <input id="data" type="text"   class="datepicker validate" th:field="*{idClient}" required>
                 <label for="data">Data</label>
 
             </div>
-            <div class="input-field col s5">
+            <div class="input-field col s8">
 
-                <select th:field="*{estat}" required>
+                <select th:readonly="*{estatPagament}" required>
                     <option value="" disabled selected >Tria una opció</option>
                     <option value="oberta" >oberta</option>
                     <option value="tancada">tancada</option>
@@ -42,24 +55,23 @@
                     <option value="cancelada">cancelada</option>
 
                 </select>
-                <label>estat</label>
+                <label>estat pagament </label>
             </div>
 
         </div>
         <div class="row">
             <div class="input-field col s6">
-                <textarea id="descripcio" type="text" class="autocomplete" th:field="*{descripcio}" required/>
+                <input id="descripcio" type="text" class="autocomplete" th:field="*{descripcio}" required>
                 <label for="descripcio">Descripcio</label>
             </div>
-            <div class="input-field col s3">
-                <input id="preu"  placeholder="20" class="validate" type="number"  th:field="*{preu}" />
+            <div class="input-field col s6">
+                <input id="preu"  placeholder="20h" class="validate" type="number"  th:field="*{preu}" />
                 <label for="preu">preu</label>
             </div>
         </div>
             <div class="row">
-            <div class="input-field col s3">
-                <input id="durada" placeholder="20"  type="number" class="validate" th:field="*{durada}" required>
-                <label for="durada">durada</label>
+            <div class="input-field col s6">
+                <input id="durada"   type="number" class="validate" th:field="*{durada}" required>
 
             </div>
                 <div class="input-field col s6">
@@ -68,11 +80,11 @@
 
         </div>
         <div class="row">
-            <div class="input-field col s3">
+            <div class="input-field col s6">
                 <input id="minAssistents" class="validate" placeholder="15" type="number"  th:field="*{minAssistents}" />
                 <label for="minAssistents">Minim nombre de asistents</label>
             </div>
-            <div class="input-field col s3">
+            <div class="input-field col s6">
                 <input id="maxAssistents" class="validate" placeholder="15" type="number"  th:field="*{maxAssistents}" />
                 <label for="maxAssistents">Maxim nombre de asistents</label>
             </div>
@@ -88,23 +100,19 @@
             <label for="puntDeTrobada">puntDeTrobada</label>
         </div>
         </div>
-        <div class="row">
-
-        <div class="input-field col s3" >
+            <div >
                 <input   id="horaDeTrobada"  class="validate" type="text" th:field="*{horaDeTrobada}"   />
                 <label for="horaDeTrobada">horaDeTrobada</label>
             </div>
+            <div class="input-field col s6">
+                <input id="textPerClient" type="text"  class="validate" placeholder="Descripció per als clients "  th:field="*{textPerClient}"  />
+                <label for="textPerClient">textPerClient</label>
+            </div>
+
         <div class="input-field col s3">
-           ss
             <input id="nomTipusActivitat" type="text" placeholder="nomTipusActivitat "   th:field="*{nomTipusActivitat}"  />
             <label for="nomTipusActivitat">nomTipusActivitat</label>
         </div>
-            <div class="input-field col s8">
-                <textarea id="textPerClient" type="text"  class="validate" placeholder="Descripció per als clients "  th:field="*{textPerClient}"  />
-                <label for="textPerClient">textPerClient</label>
-            </div>
-        </div>
-
         <div class="row">
             <div class="col s12">
                 <button class="btn waves-effect waves-light right" type="submit" name="action">Afegeix activitat
