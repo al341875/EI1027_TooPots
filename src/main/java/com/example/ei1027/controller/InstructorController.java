@@ -1,6 +1,7 @@
 package com.example.ei1027.controller;
 
 import com.example.ei1027.dao.InstructorDao;
+import com.example.ei1027.message.EmailService;
 import com.example.ei1027.model.Estat;
 import com.example.ei1027.model.Instructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,14 @@ public class InstructorController {
     @Autowired
     private InstructorDao instructorDao;
 
+    @Autowired
+    private EmailService emailService;
+
     @GetMapping("/pendents")
     public String listInstructorsPendents(Model model) {
         model.addAttribute("instructors", instructorDao.getInstructorsByStatus(Estat.PENDENT.toString()));
         model.addAttribute("boldPendent", true);
+        model.addAttribute("tabs", true);
         return "instructor/list";
     }
 
@@ -31,6 +36,7 @@ public class InstructorController {
     public String listInstructorsAcceptats(Model model) {
         model.addAttribute("instructors", instructorDao.getInstructorsByStatus(Estat.ACCEPTADA.toString()));
         model.addAttribute("boldAcceptat", true);
+        model.addAttribute("tabs", true);
         return "instructor/list";
     }
 
@@ -38,6 +44,7 @@ public class InstructorController {
     public String listInstructorsRebutjats(Model model) {
         model.addAttribute("instructors", instructorDao.getInstructorsByStatus(Estat.REBUTJADA.toString()));
         model.addAttribute("boldRebutjat", true);
+        model.addAttribute("tabs", true);
         return "instructor/list";
     }
 
@@ -60,7 +67,7 @@ public class InstructorController {
         if (bindingResult.hasErrors())
             return "instructor/add";
         instructorDao.addInstructor(instructor);
-        return "redirect:list";
+        return "redirect:pendents";
     }
 
     @GetMapping(value = "/update/{instructorId}")
@@ -94,6 +101,7 @@ public class InstructorController {
     @RequestMapping(value = "/decline/{instructorId}")
     public String decline(@PathVariable String instructorId) {
         instructorDao.rebutjarSolicitud(instructorId);
+        emailService.sendSimpleMessage(instructorDao.getEmail(instructorId),"PRUEBA", "Este es un correo de prueba diciendote que tu solicitud ha sido rechazada");
         return "redirect:../pendents";
     }
 
@@ -108,11 +116,5 @@ public class InstructorController {
         model.addAttribute("activitats", instructorDao.findActivitiesByInstructorId(instructorId));
         return "instructor/activitats";
     }
-
-    @RequestMapping(value = "/prova")
-    public String prova(){
-        return "prova/index";
-    }
-
 
 }

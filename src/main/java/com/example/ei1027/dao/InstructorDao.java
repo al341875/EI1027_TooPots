@@ -88,4 +88,8 @@ public class InstructorDao {
 	public List<Activitat> findActivitiesByInstructorId(String instructorId){
 		return this.jdbcTemplate.query("select * from activitat where id_instructor = ?", new ActivitatMapper(), instructorId);
 	}
+
+	public String getEmail(String instructorId){
+		return this.jdbcTemplate.queryForObject("select email from instructor where id_instructor = ?", String.class, instructorId);
+	}
 }
