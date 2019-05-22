@@ -43,7 +43,7 @@ public class InstructorValidator implements Validator {
 			errors.rejectValue("sexe", "value.sexe");
 		/*if(!ESTAT_VALUES.contains(instructor.getEstat()))
 			errors.rejectValue("estat", "value.estat");*/
-		LocalDate DOB = LocalDate.parse(instructor.getDataNaixement(), DateTimeFormatter.ofPattern("d/MM/yyyy"));
+		LocalDate DOB = LocalDate.parse(instructor.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
 		if (DOB.isAfter(LocalDate.now()))
 			errors.rejectValue("dataNaixement", "value.dob");
 		if (instructor.getContrasenya().length() < PASSWORD_MIN_LENGTH)

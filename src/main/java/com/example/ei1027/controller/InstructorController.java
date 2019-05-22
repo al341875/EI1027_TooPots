@@ -88,7 +88,7 @@ public class InstructorController {
         if (bindingResult.hasErrors())
             return "instructor/update";
         instructorDao.updateInstructor(instructor);
-        return "redirect:pendents";
+        return "redirect:acceptats";
     }
 
     @RequestMapping(value = "/delete/{instructorId}")

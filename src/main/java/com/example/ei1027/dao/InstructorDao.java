@@ -49,7 +49,7 @@ public class InstructorDao {
 	public Instructor getInstructor(String idInstructor) {
 		return this.jdbcTemplate.queryForObject(
 				"select * from instructor where id_instructor=?",
-				new Object[] {idInstructor}, new InstructorMapper());
+				 new InstructorMapper(),idInstructor);
 	}
 	public void addInstructor(Instructor instructor) {
 		LocalDate DOB = LocalDate.parse(instructor.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
@@ -61,7 +61,6 @@ public class InstructorDao {
 	}
 	public void updateInstructor(Instructor instructor) {
 		LocalDate DOB = LocalDate.parse(instructor.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
-
 		this.jdbcTemplate.update("update Instructor set nom=?,email=?,iban=?,estat=?,domicili=?,data_naixement=?,sexe=?,contrasenya=? where id_instructor=?",
 				instructor.getNom(), instructor.getEmail(), instructor.getIban(),
 				Estat.ACCEPTADA.toString(), instructor.getDomicili(), DOB, instructor.getSexe(), instructor.getContrasenya(), instructor.getInstructorId());

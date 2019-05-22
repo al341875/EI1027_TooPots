@@ -37,7 +37,7 @@ public class ClientValidator implements Validator {
         else if (client.getClientId().matches("^[A-Z]{8}\\d{1}"))
             if (!SEXE_VALUES.contains(client.getSexe()))
                 errors.rejectValue("sexe", "value.sexe");
-        LocalDate DOB = LocalDate.parse(client.getDataNaixement(), DateTimeFormatter.ofPattern("d/MM/yyyy"));
+        LocalDate DOB = LocalDate.parse(client.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
         if (DOB.isAfter(LocalDate.now()))
             errors.rejectValue("dataNaixement", "value.dob");
         if (client.getContrasenya().length() < PASSWORD_MIN_LENGTH)
