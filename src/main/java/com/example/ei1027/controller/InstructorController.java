@@ -1,16 +1,20 @@
 package com.example.ei1027.controller;
 
-import com.example.ei1027.dao.InstructorDao;
-import com.example.ei1027.message.EmailService;
-import com.example.ei1027.model.Estat;
-import com.example.ei1027.model.Instructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.nio.file.Path;
+import com.example.ei1027.dao.InstructorDao;
+import com.example.ei1027.message.EmailService;
+import com.example.ei1027.model.Estat;
+import com.example.ei1027.model.Instructor;
+import com.example.ei1027.validation.InstructorValidator;
 
 
 @Controller
@@ -62,8 +66,8 @@ public class InstructorController {
 
     @PostMapping(value = "/add")
     public String addInstructor(@ModelAttribute("instructor") Instructor instructor, BindingResult bindingResult) {
-        //ClientValidator clientValidator = new ClientValidator();
-        //clientValidator.validate(instructor, bindingResult);
+    	InstructorValidator instructorValidator = new InstructorValidator();
+    	instructorValidator.validate(instructor, bindingResult);
         if (bindingResult.hasErrors())
             return "instructor/add";
         instructorDao.addInstructor(instructor);
@@ -79,10 +83,12 @@ public class InstructorController {
     @PostMapping(value = "/update")
     public String update(@ModelAttribute("instructor") Instructor instructor,
                          BindingResult bindingResult) {
+    	InstructorValidator instructorValidator = new InstructorValidator();
+    	instructorValidator.validate(instructor, bindingResult);
         if (bindingResult.hasErrors())
             return "instructor/update";
         instructorDao.updateInstructor(instructor);
-        return "redirect:list";
+        return "redirect:pendents";
     }
 
     @RequestMapping(value = "/delete/{instructorId}")
