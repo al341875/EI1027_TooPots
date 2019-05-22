@@ -44,9 +44,7 @@ public class LoginController {
 	@RequestMapping("/login")
 	public String login(Model model, HttpSession session) {
 		model.addAttribute("user", new UserDetails());
-		if ((String) session.getAttribute("user") != null) {
-			return "redirect:/home";
-		}
+
 		return "login";
 	}
 
@@ -76,9 +74,9 @@ public class LoginController {
 			return "redirect:/home/monitor";
 			}else{
 				session.setAttribute("home", "home/admin");
-				return "redirect:/home/admin";
 
 			}
+		return "redirect:/home/admin";
 
 
 		
@@ -99,7 +97,7 @@ public class LoginController {
 	}
 	@RequestMapping("/home")
 	public String home(HttpSession session) {
-		String tipus = (String) session.getAttribute("type");
+		String tipus = (String) session.getAttribute("tipus");
 
 		if (tipus.compareTo("monitor") == 0) {
 			session.setAttribute("home", "/home/monitor");

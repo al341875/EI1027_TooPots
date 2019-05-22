@@ -40,7 +40,7 @@ public class UserProvider implements UserDao {
 
 		UserDetails user = null;
 		try {
-			user = this.jdbcTemplate.queryForObject("SELECT usuari, contrasenya,tipus, type FROM usuaris WHERE usuari = ?;",
+			user = this.jdbcTemplate.queryForObject("SELECT * FROM usuaris WHERE usuari = ?;",
 					new Object[] { usuari }, new UserMapper());
 		} catch (DataAccessException e) {
 			// TODO Auto-generated catch block
@@ -71,7 +71,7 @@ public class UserProvider implements UserDao {
 	}
 
 	public void deleteUser(String userDni) {
-		this.jdbcTemplate.update("delete from usuarios where usuari = ?", userDni);
+		this.jdbcTemplate.update("delete from usuaris where usuari = ?", userDni);
 	}
 
 }

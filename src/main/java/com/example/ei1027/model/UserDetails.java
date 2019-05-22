@@ -10,8 +10,8 @@ public class UserDetails {
         return usuari;
     }
 
-    public void setUsername(String username) {
-        this.usuari = username;
+    public void setUsername(String usuari) {
+        this.usuari = usuari;
     }
 
     public String getPassword() {

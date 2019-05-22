@@ -13,16 +13,7 @@
 </head>
 <body>
 
-Integer idReserva;
-Date dataReserva;
-Date dataActivitat;
-String numTransaccio;
-String idClient;
-String nomActivitat;
-Integer numAssistents;
-Double preuPersona;
-Double preuTotal;
-String estatPagament;
+
 
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/reserva/add}"
@@ -30,97 +21,53 @@ String estatPagament;
         <div class="row">
             <div >
                 <input id="dataReserva" type="text"   class="datepicker validate" th:field="*{dataReserva}" required>
-                <label for="dataReserva">Data</label>
+                <label for="dataReserva">Data Reserva</label>
 
             </div>
             <div >
                 <input id="dataActivitat" type="text"   class="datepicker validate" th:field="*{dataActivitat}" required>
-                <label for="dataActivitat">Data</label>
+                <label for="dataActivitat">Data activitat </label>
 
             </div>
         </div>
         <div class="row">
-            <div >
-                <input id="data" type="text"   class="datepicker validate" th:field="*{idClient}" required>
-                <label for="data">Data</label>
+            <div class="input-field col s5">
+                <input id="idClient" type="text"   th:field="*{idClient}" required>
+                <label for="idClient">idClient</label>
 
             </div>
-            <div class="input-field col s8">
 
-                <select th:readonly="*{estatPagament}" required>
-                    <option value="" disabled selected >Tria una opció</option>
-                    <option value="oberta" >oberta</option>
-                    <option value="tancada">tancada</option>
-                    <option value="completa">completa</option>
-                    <option value="cancelada">cancelada</option>
-
-                </select>
-                <label>estat pagament </label>
-            </div>
 
         </div>
         <div class="row">
-            <div class="input-field col s6">
-                <input id="descripcio" type="text" class="autocomplete" th:field="*{descripcio}" required>
-                <label for="descripcio">Descripcio</label>
+            <div class="input-field col s3">
+                <input id="preuPersona" type="number" th:field="*{preuPersona}" required>
+                <label for="preuPersona">preuPersona</label>
             </div>
-            <div class="input-field col s6">
-                <input id="preu"  placeholder="20h" class="validate" type="number"  th:field="*{preu}" />
-                <label for="preu">preu</label>
+            <div class="input-field col s3">
+                <input id="preuTotal"  placeholder="20" class="validate" type="number"  th:field="*{preuTotal}" />
+                <label for="preuTotal">preu total</label>
             </div>
         </div>
-            <div class="row">
-            <div class="input-field col s6">
-                <input id="durada"   type="number" class="validate" th:field="*{durada}" required>
 
-            </div>
-                <div class="input-field col s6">
-                <input type="file" class="form-control-file" id="exampleFormControlFile1"/>
-                </div>
-
-        </div>
         <div class="row">
-            <div class="input-field col s6">
-                <input id="minAssistents" class="validate" placeholder="15" type="number"  th:field="*{minAssistents}" />
-                <label for="minAssistents">Minim nombre de asistents</label>
+            <div class="input-field col s3">
+                <input id="numAssistents" class="validate" placeholder="2" type="number"  th:field="*{numAssistents}" />
+                <label for="numAssistents"> nombre de asistents</label>
             </div>
             <div class="input-field col s6">
-                <input id="maxAssistents" class="validate" placeholder="15" type="number"  th:field="*{maxAssistents}" />
-                <label for="maxAssistents">Maxim nombre de asistents</label>
+                <input id="nomActivitat"type="text" th:field="*{nomActivitat}" class="validate"  maxlength="20" />
+                <label for="nomActivitat">nomActivitat</label>
             </div>
+        </div>
 
-        </div>
-        <div class="row">
-        <div class="input-field col s6">
-            <input id="Lloc"type="text" th:field="*{lloc}" class="validate"  minlength="8" maxlength="20" />
-            <label for="Lloc">Lloc</label>
-        </div>
-        <div class="input-field col s6">
-            <input   id="puntDeTrobada"type="text" class="validate" th:field="*{puntDeTrobada}"   maxlength="20" />
-            <label for="puntDeTrobada">puntDeTrobada</label>
-        </div>
-        </div>
-            <div >
-                <input   id="horaDeTrobada"  class="validate" type="text" th:field="*{horaDeTrobada}"   />
-                <label for="horaDeTrobada">horaDeTrobada</label>
-            </div>
-            <div class="input-field col s6">
-                <input id="textPerClient" type="text"  class="validate" placeholder="Descripció per als clients "  th:field="*{textPerClient}"  />
-                <label for="textPerClient">textPerClient</label>
-            </div>
-
-        <div class="input-field col s3">
-            <input id="nomTipusActivitat" type="text" placeholder="nomTipusActivitat "   th:field="*{nomTipusActivitat}"  />
-            <label for="nomTipusActivitat">nomTipusActivitat</label>
-        </div>
         <div class="row">
             <div class="col s12">
-                <button class="btn waves-effect waves-light right" type="submit" name="action">Afegeix activitat
+                <button class="btn waves-effect waves-light right" type="submit" name="action"> reserva
                     <i class="material-icons right">send</i>
                 </button>
             </div>
         </div>
-
     </form>
 </div>
 

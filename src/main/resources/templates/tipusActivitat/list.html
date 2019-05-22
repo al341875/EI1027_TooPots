@@ -15,6 +15,7 @@
             <td th:text="${tipusActivitat.nivell}"></td>
             <td><a th:href="@{/tipusActivitat/update/{nomTipusActivitat}(nomTipusActivitat=${tipusActivitat.nomTipusActivitat})}">Edita</a>
             <td><a th:href="@{/tipusActivitat/delete/{nomTipusActivitat}(nomTipusActivitat=${tipusActivitat.nomTipusActivitat})}">Borra</a></td>
+
         </tr>
     </table>
     <td><a th:href="@{/tipusActivitat/add/}">Afegeix</a>

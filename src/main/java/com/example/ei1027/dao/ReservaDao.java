@@ -41,6 +41,7 @@ public class ReservaDao {
 		
 	}
 
+
 	public List<Reserva> getReservas(){
 		return this.jdbcTemplate.query(
 				"select * from Reserva", new ReservaMapper());
@@ -51,11 +52,14 @@ public class ReservaDao {
 				new Object[] {idReserva}, new ReservaMapper());
 	}
 	public void addReserva(Reserva Reserva) {
+		Integer idReserva = (int)((Math.random() * ((2000000 - 1) + 1)) + 1);
+		String numTransaccio = Double.toString((Math.random() * ((2000000 - 1) + 1)) + 1);
+		String estat_pagament = "pendent";
 		this.jdbcTemplate.update(
 				"insert into Reserva(id_Reserva,data_activitat,data_reserva,nom_activitat,num_transaccio,id_client,num_assistents,preu_persona,preu_total,estat_pagament) values(?,?,?,?,?,?,?,?,?,?)",
-				Reserva.getIdReserva(), Reserva.getDataActivitat(), Reserva.getDataReserva(),
-				 Reserva.getNomActivitat(), Reserva.getNumTransaccio(), Reserva.getIdClient(), Reserva.getNumAssistents(),
-				 Reserva.getPreuPersona(), Reserva.getPreuTotal(), Reserva.getEstatPagament());
+				idReserva, Reserva.getDataActivitat(), Reserva.getDataReserva(),
+				 Reserva.getNomActivitat(),numTransaccio, Reserva.getIdClient(), Reserva.getNumAssistents(),
+				 Reserva.getPreuPersona(), Reserva.getPreuTotal(),estat_pagament);
 	}
 	public void updateReserva(Reserva Reserva) {
 		this.jdbcTemplate.update("update Reserva set data_activitat =?,data_reserva =?,nom_activitat=?,num_transaccio=?,id_client=?,num_assistents=?,preu_persona=?,preu_total=?,estat_pagament=? where id_Reserva=?",

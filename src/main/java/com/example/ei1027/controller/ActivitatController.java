@@ -1,6 +1,7 @@
 package com.example.ei1027.controller;
 
 import com.example.ei1027.dao.ActivitatDao;
+import com.example.ei1027.dao.TipusActivitatDao;
 import com.example.ei1027.model.Activitat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,9 @@ public class ActivitatController {
 
     @Autowired
     private ActivitatDao activitatDao;
+    @Autowired
+    private TipusActivitatDao tipusactivitatDao;
+
 
     @GetMapping("/list")
     public String listActivitats(Model model) {
@@ -28,6 +32,8 @@ public class ActivitatController {
     @GetMapping(value = "/add")
     public String addActivitat(Model model) {
         model.addAttribute("activitat", new Activitat());
+        model.addAttribute("tipusActivitats", tipusactivitatDao.getTipusActivitats() );
+
         return "activitat/add";
     }
     @PostMapping(value = "/add")

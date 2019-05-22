@@ -8,21 +8,24 @@
     <table>
         <tr>
             <th>ID</th>
-            <th>NOMlARG</th>
-            <th>NOMTIPUSACTIVITAT</th>
-            <th>LLOC</th>
-        </tr>
-        <tr th:each="activitat : ${activitats}">
-            <td th:text="${activitat.idInstructor}">idInstructor</td>
-            <td th:text="${activitat.nomLlarg}">nomLlarg</td>
-            <td th:text="${activitat.nomTipusActivitat}">nomTipusActivitat</td>
-            <td th:text="${activitat.lloc}">LLOC</td>
+            <th>dataReserva</th>
+            <th>idClient</th>
+            <th>nomActivitat</th>
+            <th>estatPagament</th>
 
-            <td><a th:href="@{/activitat/list/{nomLlarg}(clientId=${activitat.nomLlarg})}">Visualitza</a>
-            <td><a th:href="@{/activitat/update/{nomLlarg}(clientId=${activitat.nomLlarg})}">Edita</a>
-            <td><a th:href="@{/activitat/delete/{nomLlarg} (clientId=${activitat.nomLlarg})}">Borra</a></td>
+        </tr>
+        <tr th:each="reserva : ${reserves}">
+            <td th:text="${reserva.idReserva}">ID</td>
+            <td th:text="${reserva.dataReserva}">dataReserva</td>
+            <td th:text="${reserva.idClient}">idClient</td>
+            <td th:text="${reserva.nomActivitat}">nomActivitat</td>
+            <td th:text="${reserva.estatPagament}">estatPagament</td>
+
+            <td><a th:href="@{/activitat/list/{idReserva}(idReserva=${reserva.idReserva})}">Visualitza</a>
+            <td><a th:href="@{/activitat/update/{idReserva}(idReserva=${reserva.idReserva})}">Edita</a>
+            <td><a th:href="@{/activitat/delete/{idReserva} (idReserva=${reserva.idReserva})}">Borra</a></td>
         </tr>
     </table>
-    <td><a th:href="@{/activitat/add/}">Afegeix</a>
+    <td><a th:href="@{/reserva/add/}">Afegeix</a>
 </body>
 </html>

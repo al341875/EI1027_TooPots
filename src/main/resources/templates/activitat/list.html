@@ -21,6 +21,8 @@
             <td><a th:href="@{/activitat/list/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}">Visualitza</a>
             <td><a th:href="@{/activitat/update/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}">Edita</a>
             <td><a th:href="@{/activitat/delete/{nomLlarg} (nomLlarg=${activitat.nomLlarg})}">Borra</a></td>
+            <td><a th:href="@{/reserva/add/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}">Reserva</a></td>
+
         </tr>
     </table>
     <td><a th:href="@{/activitat/add/}">Afegeix</a>
