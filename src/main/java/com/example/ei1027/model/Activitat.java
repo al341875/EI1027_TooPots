@@ -8,7 +8,7 @@ public class Activitat {
 	String estat;
 	String descripcio;
 	Float durada;
-	LocalDate data;
+	String data;
 	Float preu;
 	Integer minAssistents;
 	Integer maxAssistents;
@@ -42,10 +42,10 @@ public class Activitat {
 	public void setDurada(Float durada) {
 		this.durada = durada;
 	}
-	public LocalDate getData() {
+	public String getData() {
 		return data;
 	}
-	public void setData(LocalDate data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 	public Float getPreu() {

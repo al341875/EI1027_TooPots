@@ -6,8 +6,8 @@ import java.util.HashSet;
 
 public class Reserva {
 	Integer idReserva;
-    Date dataReserva;
-    Date dataActivitat;
+    String dataReserva;
+    String dataActivitat;
     String numTransaccio;
     String idClient;
     String nomActivitat;
@@ -22,16 +22,16 @@ public class Reserva {
 	public void setIdReserva(Integer idReserva) {
 		this.idReserva = idReserva;
 	}
-	public Date getDataReserva() {
+	public String getDataReserva() {
 		return dataReserva;
 	}
-	public void setDataReserva(Date dataReserva) {
+	public void setDataReserva(String dataReserva) {
 		this.dataReserva = dataReserva;
 	}
-	public Date getDataActivitat() {
+	public String getDataActivitat() {
 		return dataActivitat;
 	}
-	public void setDataActivitat(Date dataActivitat) {
+	public void setDataActivitat(String dataActivitat) {
 		this.dataActivitat = dataActivitat;
 	}
 	public String getNumTransaccio() {

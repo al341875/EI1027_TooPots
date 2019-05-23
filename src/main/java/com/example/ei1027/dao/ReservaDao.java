@@ -27,8 +27,8 @@ public class ReservaDao {
 		public Reserva mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Reserva reserva = new Reserva();
 			reserva.setIdReserva(rs.getInt("id_reserva"));
-			reserva.setDataReserva(rs.getDate("data_reserva"));
-			reserva.setDataActivitat(rs.getDate("data_activitat"));
+			reserva.setDataReserva(rs.getString("data_reserva"));
+			reserva.setDataActivitat(rs.getString("data_activitat"));
 			reserva.setNumTransaccio(rs.getString("id_reserva"));
 			reserva.setIdClient(rs.getString("id_reserva"));
 			reserva.setNomActivitat(rs.getString("id_reserva"));
