@@ -6,6 +6,8 @@ import org.springframework.validation.Validator;
 
 
 public class UserValidator implements Validator {
+	private static final int PASSWORD_MIN_LENGTH = 4;
+	private static final int PASSWORD_MAX_LENGTH = 100;
     @Override
     public boolean supports(Class<?> cls) {
         return UserDetails.class.isAssignableFrom(cls);
@@ -18,6 +20,8 @@ public class UserValidator implements Validator {
             errors.rejectValue("username", "Required", "A Username is required");
         if (user.getPassword().trim().equals(""))
             errors.rejectValue("password", "Required", "A password is required");
+        if(user.getPassword().length()<=PASSWORD_MIN_LENGTH || user.getPassword().length()<=PASSWORD_MAX_LENGTH )
+        	errors.reject("password","userLenght.password");
 
     }
 }

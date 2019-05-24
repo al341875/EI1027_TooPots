@@ -15,6 +15,7 @@ public class ClientValidator implements Validator {
     private static final int NIF_LENGTH = 9;
     private static final String SEXE_VALUES = "H|D";
     private static final int PASSWORD_MIN_LENGTH = 4;
+    private static final int PASSWORD_MAX_LENGTH = 20;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -32,6 +33,7 @@ public class ClientValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "recontrasenya", "required");
 
         Client client = (Client) target;
+
         if (client.getClientId().length() != NIF_LENGTH)
             errors.rejectValue("clientId", "length.nif");
         else if (client.getClientId().matches("^[A-Z]{8}\\d{1}"))
@@ -40,9 +42,9 @@ public class ClientValidator implements Validator {
         LocalDate DOB = LocalDate.parse(client.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
         if (DOB.isAfter(LocalDate.now()))
             errors.rejectValue("dataNaixement", "value.dob");
-        if (client.getContrasenya().length() < PASSWORD_MIN_LENGTH)
+        if (client.getContrasenya().length() <= PASSWORD_MIN_LENGTH || client.getRecontrasenya().length() >= PASSWORD_MAX_LENGTH)
             errors.rejectValue("contrasenya", "length.password");
-        if (client.getRecontrasenya().length() < PASSWORD_MIN_LENGTH)
+        if (client.getRecontrasenya().length() <= PASSWORD_MIN_LENGTH || client.getRecontrasenya().length() >= PASSWORD_MAX_LENGTH)
             errors.rejectValue("recontrasenya", "length.password");
         else if (!client.getContrasenya().equals(client.getRecontrasenya()))
             errors.rejectValue("recontrasenya", "noMatch.password");

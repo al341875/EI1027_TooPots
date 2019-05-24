@@ -49,6 +49,8 @@ public class ClientController {
 	@PostMapping(value="/update")
 	public String update(@ModelAttribute("client") Client client,
 						 BindingResult bindingResult) {
+        ClientValidator clientValidator = new ClientValidator();
+        clientValidator.validate(client, bindingResult);
 		if (bindingResult.hasErrors())
 			return "client/update";
 		clientDao.updateClient(client);

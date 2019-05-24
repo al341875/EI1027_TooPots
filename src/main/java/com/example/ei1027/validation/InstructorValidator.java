@@ -13,6 +13,7 @@ public class InstructorValidator implements Validator {
 	private static final int NIF_LENGTH = 9;
 	private static final String SEXE_VALUES = "H|D";
 	private static final int PASSWORD_MIN_LENGTH = 4;
+	private static final int PASSWORD_MAX_LENGTH = 20;
 	//private static final String ESTAT_VALUES = "pendent|rebutjada|acceptada";
 
 	@Override
@@ -46,10 +47,10 @@ public class InstructorValidator implements Validator {
 		LocalDate DOB = LocalDate.parse(instructor.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
 		if (DOB.isAfter(LocalDate.now()))
 			errors.rejectValue("dataNaixement", "value.dob");
-		if (instructor.getContrasenya().length() < PASSWORD_MIN_LENGTH)
-			errors.rejectValue("contrasenya", "length.password");
-		if (instructor.getRecontrasenya().length() < PASSWORD_MIN_LENGTH)
-			errors.rejectValue("recontrasenya", "length.password");
+		 if (instructor.getContrasenya().length() <= PASSWORD_MIN_LENGTH || instructor.getRecontrasenya().length() >= PASSWORD_MAX_LENGTH)
+	            errors.rejectValue("contrasenya", "length.password");
+	        if (instructor.getRecontrasenya().length() <= PASSWORD_MIN_LENGTH || instructor.getRecontrasenya().length() >= PASSWORD_MAX_LENGTH)
+	            errors.rejectValue("recontrasenya", "length.password");
 		else if (!instructor.getContrasenya().equals(instructor.getRecontrasenya()))
 			errors.rejectValue("recontrasenya", "noMatch.password");
 	}
