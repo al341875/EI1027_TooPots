@@ -3,8 +3,10 @@ package com.example.ei1027.controller;
 
 import com.example.ei1027.dao.ClientDao;
 import com.example.ei1027.model.Client;
+import com.example.ei1027.validation.ClientException;
 import com.example.ei1027.validation.ClientValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,7 +40,12 @@ public class ClientController {
         clientValidator.validate(client, bindingResult);
         if (bindingResult.hasErrors())
 			return "client/add";
-		clientDao.addClient(client);
+        try {
+        	clientDao.addClient(client);
+        }catch(DuplicateKeyException e) {
+        	throw new ClientException("Ja existeix un client en el NIF: "+client.getClientId(),"ClauPrimariaDuplicada");
+        }
+	
 		return "redirect:list";
 	}
 	@GetMapping(value="/update/{clientId}")
