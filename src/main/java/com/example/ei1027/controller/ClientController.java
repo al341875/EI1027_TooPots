@@ -3,8 +3,9 @@ package com.example.ei1027.controller;
 
 import com.example.ei1027.dao.ClientDao;
 import com.example.ei1027.model.Client;
-import com.example.ei1027.validation.ClientException;
 import com.example.ei1027.validation.ClientValidator;
+import com.example.ei1027.validation.excepcions.ClientException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;

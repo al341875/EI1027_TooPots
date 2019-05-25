@@ -13,7 +13,7 @@
 <div class="container">
    <div class="alert" th:classappend= "${#strings.equals(name,'ClauPrimariaDuplicada')}? 'alert-danger' : 'alert-info'">
        <h3 th:text="${message}"></h3> 
-       <p>Pulsa el botó per anar a l'inici o el botó del navegador per anar cap enrere</p>
+       <p>Pulsa el botó per anar a l'inici</p>
    </div>
    <div th:align="center" >
        <a href="/" class="btn btn-primary" th:align="left">Inici</a>

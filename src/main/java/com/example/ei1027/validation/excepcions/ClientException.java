@@ -1,4 +1,4 @@
-package com.example.ei1027.validation;
+package com.example.ei1027.validation.excepcions;
 
 public class ClientException extends RuntimeException{
 

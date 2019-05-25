@@ -1,6 +1,7 @@
 package com.example.ei1027.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import com.example.ei1027.message.EmailService;
 import com.example.ei1027.model.Estat;
 import com.example.ei1027.model.Instructor;
 import com.example.ei1027.validation.InstructorValidator;
+import com.example.ei1027.validation.excepcions.ClientException;
 
 
 @Controller
@@ -70,7 +72,11 @@ public class InstructorController {
     	instructorValidator.validate(instructor, bindingResult);
         if (bindingResult.hasErrors())
             return "instructor/add";
-        instructorDao.addInstructor(instructor);
+        try {
+        	instructorDao.addInstructor(instructor);
+        }catch(DuplicateKeyException e) {
+        	throw new ClientException("DNI o camp unic(iban, email) duplicat","ClauPrimariaDuplicada");
+        }
         return "redirect:pendents";
     }
 
