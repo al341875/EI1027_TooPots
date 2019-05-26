@@ -1,5 +1,6 @@
 package com.example.ei1027.dao;
 
+import com.example.ei1027.config.EncryptorFactory;
 import com.example.ei1027.mapper.ActivitatMapper;
 import com.example.ei1027.model.Activitat;
 import com.example.ei1027.model.Estat;
@@ -20,27 +21,13 @@ import java.util.List;
 public class InstructorDao {
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
-	public void setDataSource(DataSource dataSource) {
-	        this.jdbcTemplate = new JdbcTemplate(dataSource); 
-	}
-	
-	private static final class InstructorMapper implements RowMapper<Instructor> { 
-		 public Instructor mapRow(ResultSet rs, int rowNum) throws SQLException {
-			 Instructor instructor = new Instructor();
-			 instructor.setInstructorId(rs.getString("id_instructor"));
-			 instructor.setNom(rs.getString("nom"));
-			 instructor.setEmail(rs.getString("email"));
-			 instructor.setIban(rs.getString("iban"));
-			 instructor.setEstat(rs.getString("estat"));
-			 instructor.setDomicili(rs.getString("domicili"));
-			 LocalDate DOB = rs.getObject("data_naixement", LocalDate.class);
-			 instructor.setDataNaixement(String.format("%d/%d/%d", DOB.getDayOfMonth(), DOB.getMonthValue(), DOB.getYear()));
-			 instructor.setSexe(rs.getString("sexe"));
-			 instructor.setContrasenya(rs.getString("contrasenya"));
+	private EncryptorFactory encryptorFactory;
 
-		        return instructor;
-		    }
+	@Autowired
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
+
 	public List<Instructor> getInstructorsByStatus(String status){
 		return this.jdbcTemplate.query(
 				"select * from instructor where estat = ?", new InstructorMapper(), status);
@@ -48,23 +35,29 @@ public class InstructorDao {
 
 	public Instructor getInstructor(String idInstructor) {
 		return this.jdbcTemplate.queryForObject(
-				"select * from instructor where id_instructor=?",
-				 new InstructorMapper(),idInstructor);
+				"select * from instructor where id_instructor = ?", new InstructorMapper(), idInstructor);
 	}
+
 	public void addInstructor(Instructor instructor) {
 		LocalDate DOB = LocalDate.parse(instructor.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
+		String contrasenyaEnc = encryptorFactory.getEncryptor().encryptPassword(instructor.getContrasenya());
 
 		this.jdbcTemplate.update(
 				"insert into Instructor(id_instructor,nom,email,iban,estat,domicili,data_naixement,sexe,contrasenya) values(?,?,?,?,?,?,?,?,?)",
 				instructor.getInstructorId(), instructor.getNom(), instructor.getEmail(),
-				instructor.getIban(), Estat.PENDENT.toString(), instructor.getDomicili(), DOB, instructor.getSexe(), instructor.getContrasenya());
+				instructor.getIban(), Estat.PENDENT.toString(), instructor.getDomicili(), DOB, instructor.getSexe(), contrasenyaEnc);
 	}
+
 	public void updateInstructor(Instructor instructor) {
 		LocalDate DOB = LocalDate.parse(instructor.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
+		String contrasenyaEnc = encryptorFactory.getEncryptor().encryptPassword(instructor.getContrasenya());
+
+
 		this.jdbcTemplate.update("update Instructor set nom=?,email=?,iban=?,estat=?,domicili=?,data_naixement=?,sexe=?,contrasenya=? where id_instructor=?",
 				instructor.getNom(), instructor.getEmail(), instructor.getIban(),
 				Estat.ACCEPTADA.toString(), instructor.getDomicili(), DOB, instructor.getSexe(), instructor.getContrasenya(), instructor.getInstructorId());
 	}
+
 	public void deleteInstructor(String idInstructor) {
 		this.jdbcTemplate.update("delete from instructor where id_instructor=?", idInstructor);
 	}
@@ -90,5 +83,23 @@ public class InstructorDao {
 
 	public String getEmail(String instructorId){
 		return this.jdbcTemplate.queryForObject("select email from instructor where id_instructor = ?", String.class, instructorId);
+	}
+
+	private static final class InstructorMapper implements RowMapper<Instructor> {
+		public Instructor mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Instructor instructor = new Instructor();
+			instructor.setInstructorId(rs.getString("id_instructor"));
+			instructor.setNom(rs.getString("nom"));
+			instructor.setEmail(rs.getString("email"));
+			instructor.setIban(rs.getString("iban"));
+			instructor.setEstat(rs.getString("estat"));
+			instructor.setDomicili(rs.getString("domicili"));
+			LocalDate DOB = rs.getObject("data_naixement", LocalDate.class);
+			instructor.setDataNaixement(String.format("%d/%d/%d", DOB.getDayOfMonth(), DOB.getMonthValue(), DOB.getYear()));
+			instructor.setSexe(rs.getString("sexe"));
+			instructor.setContrasenya(rs.getString("contrasenya"));
+
+			return instructor;
+		}
 	}
 }

@@ -1,6 +1,6 @@
 package com.example.ei1027.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.ei1027.model.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,8 @@ public class HomeController {
 
 	@RequestMapping("/client")
 	public String Client(Model model) {
-		return "home/client";
+        model.addAttribute("userDetails", new UserDetails());
+        return "home/client";
 	}
 	@RequestMapping("/admin")
 	public String Admin(Model model) {

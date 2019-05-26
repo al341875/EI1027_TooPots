@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
@@ -8,6 +8,7 @@
     <h1>
         Benvingut a tooPots
     </h1>
+    <p th:text="${session.user.usuari}"></p>
     <ul>
         <li><a href="client/list">Lista de clients.</a></li>
         <li><a href="instructor/add">Sol·licitud d'instructor.</a></li>
