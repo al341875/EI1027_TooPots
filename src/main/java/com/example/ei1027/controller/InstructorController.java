@@ -68,6 +68,12 @@ public class InstructorController {
     public String addInstructor(@ModelAttribute("instructor") Instructor instructor, BindingResult bindingResult) throws MessagingException {
         InstructorValidator instructorValidator = new InstructorValidator();
         instructorValidator.validate(instructor, bindingResult);
+//        if (instructorDao.existId(instructor.getInstructorId()))
+//            //Accion si ya existe un instructor con dicho id
+//        if (instructorDao.existEmail(instructor.getEmail()))
+//            //Accion si ya existe el email en un instructor
+//        if (instructorDao.existIban(instructor.getIban()))
+//            //Accion si ya existe el iban en un instructor
         if (bindingResult.hasErrors())
             return "instructor/add";
         try {
@@ -75,7 +81,6 @@ public class InstructorController {
         }catch(DuplicateKeyException e) {
         	throw new ClientException("DNI o camp unic(iban, email) duplicat","ClauPrimariaDuplicada");
         }
-        instructorDao.addInstructor(instructor);
         emailService.sendSimpleMessage(instructorDao.getEmail(instructor.getInstructorId()), EmailTemplates.SOLICITUD_ENVIADA.subject(), EmailTemplates.SOLICITUD_ENVIADA.fileName());
         return "redirect:pendents";
     }
@@ -91,6 +96,12 @@ public class InstructorController {
                          BindingResult bindingResult) {
     	InstructorValidator instructorValidator = new InstructorValidator();
     	instructorValidator.validate(instructor, bindingResult);
+//        if (instructorDao.existId(instructor.getInstructorId()))
+//            //Accion si ya existe un instructor con dicho id
+//        if (instructorDao.existEmail(instructor.getEmail()))
+//            //Accion si ya existe el email en un instructor
+//        if (instructorDao.existIban(instructor.getIban()))
+//            //Accion si ya existe el iban en un instructor
         if (bindingResult.hasErrors())
             return "instructor/update";
         instructorDao.updateInstructor(instructor);

@@ -20,13 +20,6 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
-
-    @RequestMapping("")
-    public String addUser() {
-        userDao.add();
-        return "home/login";
-    }
-
     @RequestMapping("/login")
     public String login(Model model) {
         //model.addAttribute("user", new UserDetails());

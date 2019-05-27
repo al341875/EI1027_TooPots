@@ -55,7 +55,7 @@ public class InstructorDao {
 
 		this.jdbcTemplate.update("update Instructor set nom=?,email=?,iban=?,estat=?,domicili=?,data_naixement=?,sexe=?,contrasenya=? where id_instructor=?",
 				instructor.getNom(), instructor.getEmail(), instructor.getIban(),
-				Estat.ACCEPTADA.toString(), instructor.getDomicili(), DOB, instructor.getSexe(), instructor.getContrasenya(), instructor.getInstructorId());
+				Estat.ACCEPTADA.toString(), instructor.getDomicili(), DOB, instructor.getSexe(), contrasenyaEnc, instructor.getInstructorId());
 	}
 
 	public void deleteInstructor(String idInstructor) {
@@ -83,6 +83,18 @@ public class InstructorDao {
 
 	public String getEmail(String instructorId){
 		return this.jdbcTemplate.queryForObject("select email from instructor where id_instructor = ?", String.class, instructorId);
+	}
+
+	public boolean existId(String instructorId) {
+		return this.jdbcTemplate.queryForObject("select count(id_instructor) from instructor where id_instructor = ?", Integer.class, instructorId) > 0;
+	}
+
+	public boolean existEmail(String email) {
+		return this.jdbcTemplate.queryForObject("select count(email) from instructor where email = ?", Integer.class, email) > 0;
+	}
+
+	public boolean existIban(String iban) {
+		return this.jdbcTemplate.queryForObject("select count(iban) from instructor where iban = ?", Integer.class, iban) > 0;
 	}
 
 	private static final class InstructorMapper implements RowMapper<Instructor> {

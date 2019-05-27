@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class EncryptorFactory {
 
+    private BasicPasswordEncryptor encryptor;
+
     public BasicPasswordEncryptor getEncryptor() {
-        return new BasicPasswordEncryptor();
+        if (this.encryptor == null)
+            this.encryptor = new BasicPasswordEncryptor();
+        return this.encryptor;
     }
 }

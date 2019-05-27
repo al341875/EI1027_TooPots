@@ -5,7 +5,6 @@ import com.example.ei1027.dao.ClientDao;
 import com.example.ei1027.model.Client;
 import com.example.ei1027.validation.ClientValidator;
 import com.example.ei1027.validation.excepcions.ClientException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
@@ -39,6 +38,10 @@ public class ClientController {
 	public String addClient(@ModelAttribute("client") Client client, BindingResult bindingResult) {
         ClientValidator clientValidator = new ClientValidator();
         clientValidator.validate(client, bindingResult);
+        //if (clientDao.existId(client.getClientId()))
+        //El id ya existe!
+        //if (clientDao.existMail(client.getEmail()))
+        //El email ya existe!
         if (bindingResult.hasErrors())
 			return "client/add";
         try {
@@ -59,7 +62,11 @@ public class ClientController {
 						 BindingResult bindingResult) {
         ClientValidator clientValidator = new ClientValidator();
         clientValidator.validate(client, bindingResult);
-		if (bindingResult.hasErrors())
+        //if (clientDao.existId(client.getClientId()))
+        //El id ya existe!
+        //if (clientDao.existMail(client.getEmail()))
+        //El email ya existe!
+        if (bindingResult.hasErrors())
 			return "client/update";
 		clientDao.updateClient(client);
 		return "redirect:list";

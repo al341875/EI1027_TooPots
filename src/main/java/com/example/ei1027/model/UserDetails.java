@@ -4,7 +4,7 @@ public class UserDetails {
 
     String usuari;
     String  contrasenya;
-    String tipus ;
+    String tipus;
 
     public String getUsuari() {
         return usuari;

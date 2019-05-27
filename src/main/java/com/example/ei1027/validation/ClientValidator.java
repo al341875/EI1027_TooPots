@@ -38,16 +38,17 @@ public class ClientValidator implements Validator {
 
 		if (client.getClientId().length() != NIF_LENGTH)
 			errors.rejectValue("clientId", "length.nif");
-		else if (client.getClientId().matches("^[A-Z]{8}\\d{1}"))
-			if (!SEXE_VALUES.contains(client.getSexe()))
-				errors.rejectValue("sexe", "value.sexe");
+		else if (!client.getClientId().matches("[0-9]{8}[a-zA-Z]{1}"))
+			errors.rejectValue("clientId", "format.nif");
+		if (!SEXE_VALUES.contains(client.getSexe()))
+			errors.rejectValue("sexe", "value.sexe");
 		LocalDate DOB = LocalDate.parse(client.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
 		if (DOB.isAfter(LocalDate.now()))
 			errors.rejectValue("dataNaixement", "value.dob");
 		if (client.getContrasenya().length() <= PASSWORD_MIN_LENGTH
 				|| client.getRecontrasenya().length() >= PASSWORD_MAX_LENGTH)
 			errors.rejectValue("contrasenya", "length.password");
-		if (client.getRecontrasenya().length() <= PASSWORD_MIN_LENGTH
+		else if (client.getRecontrasenya().length() <= PASSWORD_MIN_LENGTH
 				|| client.getRecontrasenya().length() >= PASSWORD_MAX_LENGTH)
 			errors.rejectValue("recontrasenya", "length.password");
 		else if (!client.getContrasenya().equals(client.getRecontrasenya()))

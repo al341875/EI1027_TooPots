@@ -26,22 +26,16 @@ public class UserDao {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public List<UserDetails> listAllUsers() {
-
+	public List<UserDetails> findAll() {
 		return this.jdbcTemplate.query("SELECT usuari FROM usuaris;", new UserMapper());
 	}
 
-	public void add() {
-		this.jdbcTemplate.update("insert into usuaris(usuari, contrasenya, tipus) values(?, ?, ?)", "carles",
-				encryptorFactory.getEncryptor().encryptPassword("contrasenya"), "admin");
-	}
-
-	public void addUser(UserDetails user) {
+	public void add(UserDetails user) {
 		this.jdbcTemplate.update("insert into usuaris(usuari, contrasenya, tipus) values(?, ?, ?)", user.getUsuari(),
 				user.getContrasenya(), user.getTipus());
 	}
 
-	public void deleteUser(String userDni) {
+	public void delete(String userDni) {
 		this.jdbcTemplate.update("delete from usuarios where usuari = ?", userDni);
 	}
 

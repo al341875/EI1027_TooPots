@@ -1,17 +1,17 @@
 package com.example.ei1027.validation;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
+import com.example.ei1027.model.Instructor;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.example.ei1027.model.Instructor;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class InstructorValidator implements Validator {
 	private static final int NIF_LENGTH = 9;
 	private static final String SEXE_VALUES = "H|D";
+	private static final int IBAN_LENGTH = 24;
 	private static final int PASSWORD_MIN_LENGTH = 4;
 	private static final int PASSWORD_MAX_LENGTH = 20;
 	//private static final String ESTAT_VALUES = "pendent|rebutjada|acceptada";
@@ -39,7 +39,10 @@ public class InstructorValidator implements Validator {
 
 		if (instructor.getInstructorId().length() != NIF_LENGTH)
 			errors.rejectValue("instructorId", "length.nif");
-		else if (instructor.getInstructorId().matches("^[A-Z]{8}\\d{1}"))
+		else if (!instructor.getInstructorId().matches("[0-9]{8}[a-zA-Z]{1}"))
+			errors.rejectValue("instructorId", "format.nif");
+		if (instructor.getIban().length() != IBAN_LENGTH)
+			errors.rejectValue("iban", "length.iban");
 		if (!SEXE_VALUES.contains(instructor.getSexe()))
 			errors.rejectValue("sexe", "value.sexe");
 		/*if(!ESTAT_VALUES.contains(instructor.getEstat()))
@@ -47,10 +50,10 @@ public class InstructorValidator implements Validator {
 		LocalDate DOB = LocalDate.parse(instructor.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
 		if (DOB.isAfter(LocalDate.now()))
 			errors.rejectValue("dataNaixement", "value.dob");
-		 if (instructor.getContrasenya().length() <= PASSWORD_MIN_LENGTH || instructor.getRecontrasenya().length() >= PASSWORD_MAX_LENGTH)
-	            errors.rejectValue("contrasenya", "length.password");
-	        if (instructor.getRecontrasenya().length() <= PASSWORD_MIN_LENGTH || instructor.getRecontrasenya().length() >= PASSWORD_MAX_LENGTH)
-	            errors.rejectValue("recontrasenya", "length.password");
+		if (instructor.getContrasenya().length() <= PASSWORD_MIN_LENGTH || instructor.getRecontrasenya().length() >= PASSWORD_MAX_LENGTH)
+			errors.rejectValue("contrasenya", "length.password");
+		else if (instructor.getRecontrasenya().length() <= PASSWORD_MIN_LENGTH || instructor.getRecontrasenya().length() >= PASSWORD_MAX_LENGTH)
+			errors.rejectValue("recontrasenya", "length.password");
 		else if (!instructor.getContrasenya().equals(instructor.getRecontrasenya()))
 			errors.rejectValue("recontrasenya", "noMatch.password");
 	}
