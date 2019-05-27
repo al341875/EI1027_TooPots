@@ -1,20 +1,20 @@
 package com.example.ei1027.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.example.ei1027.dao.InstructorDao;
-import com.example.ei1027.message.EmailService;
+import com.example.ei1027.email.EmailService;
+import com.example.ei1027.email.EmailTemplates;
 import com.example.ei1027.model.Estat;
 import com.example.ei1027.model.Instructor;
 import com.example.ei1027.validation.InstructorValidator;
+import com.example.ei1027.validation.excepcions.ClientException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
 
 
 @Controller
@@ -65,12 +65,18 @@ public class InstructorController {
     }
 
     @PostMapping(value = "/add")
-    public String addInstructor(@ModelAttribute("instructor") Instructor instructor, BindingResult bindingResult) {
-    	InstructorValidator instructorValidator = new InstructorValidator();
-    	instructorValidator.validate(instructor, bindingResult);
+    public String addInstructor(@ModelAttribute("instructor") Instructor instructor, BindingResult bindingResult) throws MessagingException {
+        InstructorValidator instructorValidator = new InstructorValidator();
+        instructorValidator.validate(instructor, bindingResult);
         if (bindingResult.hasErrors())
             return "instructor/add";
+        try {
+        	instructorDao.addInstructor(instructor);
+        }catch(DuplicateKeyException e) {
+        	throw new ClientException("DNI o camp unic(iban, email) duplicat","ClauPrimariaDuplicada");
+        }
         instructorDao.addInstructor(instructor);
+        emailService.sendSimpleMessage(instructorDao.getEmail(instructor.getInstructorId()), EmailTemplates.SOLICITUD_ENVIADA.subject(), EmailTemplates.SOLICITUD_ENVIADA.fileName());
         return "redirect:pendents";
     }
 
@@ -99,15 +105,16 @@ public class InstructorController {
     }
 
     @RequestMapping(value = "/accept/{instructorId}")
-    public String accept(@PathVariable String instructorId) {
+    public String accept(@PathVariable String instructorId) throws MessagingException {
         instructorDao.aceptarSolicitud(instructorId);
+        emailService.sendSimpleMessage(instructorDao.getEmail(instructorId), EmailTemplates.SOLICITUD_ACCEPTADA.subject(), EmailTemplates.SOLICITUD_ACCEPTADA.fileName());
         return "redirect:../pendents";
     }
 
     @RequestMapping(value = "/decline/{instructorId}")
-    public String decline(@PathVariable String instructorId) {
+    public String decline(@PathVariable String instructorId) throws MessagingException {
         instructorDao.rebutjarSolicitud(instructorId);
-        emailService.sendSimpleMessage(instructorDao.getEmail(instructorId),"PRUEBA", "Este es un correo de prueba diciendote que tu solicitud ha sido rechazada");
+        emailService.sendSimpleMessage(instructorDao.getEmail(instructorId), EmailTemplates.SOLICITUD_REBUTJADA.subject(), EmailTemplates.SOLICITUD_REBUTJADA.fileName());
         return "redirect:../pendents";
     }
 

@@ -2,6 +2,7 @@ package com.example.ei1027.validation;
 
 import com.example.ei1027.model.UserDetails;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 
@@ -15,13 +16,12 @@ public class UserValidator implements Validator {
 
     @Override
     public void validate(Object obj, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "usuari", "required", "Es requereix un usuari");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "contrasenya", "required", "Es requereix una contrasenya");
         UserDetails user = (UserDetails) obj;
-        if (user.getUsername().trim().equals(""))
-            errors.rejectValue("username", "Required", "A Username is required");
-        if (user.getPassword().trim().equals(""))
-            errors.rejectValue("password", "Required", "A password is required");
-        if(user.getPassword().length()<=PASSWORD_MIN_LENGTH || user.getPassword().length()<=PASSWORD_MAX_LENGTH )
-        	errors.reject("password","userLenght.password");
+        if (user.getContrasenya().length() <= PASSWORD_MIN_LENGTH || user.getContrasenya().length() <= PASSWORD_MAX_LENGTH)
+            errors.reject("password","userLenght.password");
+
 
     }
 }

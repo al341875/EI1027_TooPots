@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<a href="/logout" class="btn btn-danger">Exit</a>
-
+<h2>LOGIN</h2>
+<form action="#" th:action="@{/login}"
+      th:object="${userDetails}" method="post">
+    <p>
+        <label>Nom d'usuari:</label>
+        <input class="form_control" type="text" th:field="*{usuari}"/>
+    </p>
+    <p>
+        <label>password:</label>
+        <input class="form_control" type="password" th:field="*{contrasenya}"/>
+    </p>
+    <input type="submit" value="Accedir"/>
+</form>
 </body>
 </html>

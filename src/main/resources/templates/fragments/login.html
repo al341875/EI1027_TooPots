@@ -1,56 +1,37 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-</head>
-
-<body>
-<!-- Modal Trigger -->
-<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
-
 <!-- Modal Structure -->
-<form>
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-            <h4>Inicia Sessió</h4>
-            <div class="row">
-                <div class="input-field col s8 offset-s2">
-                    <input id="email" type="email" class="validate" th:field="*{email}">
-                    <label for="email">Email</label>
+<section th:fragment="loginModal">
+    <form th:action="@{/login}"
+          th:object="${user}" method="post">
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <h4>Inicia Sessió</h4>
+                <div class="row">
+                    <div class="input-field col s8 offset-s2">
+                        <input id="usuari" type="text" class="validate" th:field="*{usuari}">
+                        <label for="usuari">Email</label>
+                        <span th:if="${#fields.hasErrors('usuari')}" th:errors="*{usuari}" class="helper-text"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s8 offset-s2">
-                    <input id="contrasenya" type="password" class="validate" th:field="*{contrasenya}>
+                <div class="row">
+                    <div class="input-field col s8 offset-s2">
+                        <input id="contrasenya" type="password" class="validate" th:field="*{contrasenya}">
                     <label for="contrasenya">Contrasenya</label>
+                        <span th:if="${#fields.hasErrors('contrasenya')}" th:errors="*{contrasenya}"
+                              class="helper-text"></span>
+
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <button class="btn waves-effect waves-light col s8 offset-s2" type="submit" name="action">
-                    Inicia sessió
-                </button>
+                <div class="row">
+                    <button class="btn waves-effect waves-light col s8 offset-s2" type="submit" name="action">
+                        Inicia sessió
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-    <!--<a href="#!" class="modal-close waves-effect waves-green btn-flat">Login</a>-->
-    </div>
-</form>
-
-
-
-<script>
-    var elems = document.querySelector('.modal');
-    var instances = M.Modal.init(elems, {});
-</script>
+        <!--<a href="#!" class="modal-close waves-effect waves-green btn-flat">Login</a>-->
+        </div>
+    </form>
+</section>
 
 </body>
 </html>

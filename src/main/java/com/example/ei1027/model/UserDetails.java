@@ -6,20 +6,20 @@ public class UserDetails {
     String  contrasenya;
     String tipus ;
 
-    public String getUsername() {
+    public String getUsuari() {
         return usuari;
     }
 
-    public void setUsername(String username) {
-        this.usuari = username;
+    public void setUsuari(String usuari) {
+        this.usuari = usuari;
     }
 
-    public String getPassword() {
+    public String getContrasenya() {
         return contrasenya;
     }
 
-    public void setPassword(String password) {
-        this.contrasenya = password;
+    public void setContrasenya(String contrasenya) {
+        this.contrasenya = contrasenya;
     }
 
     public String getTipus() {
@@ -28,9 +28,5 @@ public class UserDetails {
 
     public void setTipus(String tipus) {
         this.tipus = tipus;
-    }
-
-    public String toString() {
-        return usuari + " " + contrasenya + " " + tipus;
     }
 }

@@ -65,6 +65,7 @@ public class Client {
 		this.recontrasenya = recontrasenya;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Client[nom=" + nom + ", id_client=" + clientId + ", email="
