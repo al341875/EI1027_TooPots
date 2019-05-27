@@ -1,7 +1,12 @@
 package com.example.ei1027.dao;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -51,11 +56,19 @@ public class ReservaDao {
 				new Object[] {idReserva}, new ReservaMapper());
 	}
 	public void addReserva(Reserva Reserva) {
+		LocalDate today = LocalDate.now();
+		 today.format( DateTimeFormatter.ofPattern("d/M/yyyy"));
+		 LocalDate DOB = LocalDate.parse(Reserva.getDataActivitat(), DateTimeFormatter.ofPattern("d/M/yyyy"));
+		 
+		 System.out.println(today);
+		Integer idReserva = (int)((Math.random() * ((2000000 - 1) + 1)) + 1);
+		String numTransaccio = Double.toString((Math.random() * ((2000000 - 1) + 1)) + 1);
+		String estat_pagament = "pendent";
 		this.jdbcTemplate.update(
 				"insert into Reserva(id_Reserva,data_activitat,data_reserva,nom_activitat,num_transaccio,id_client,num_assistents,preu_persona,preu_total,estat_pagament) values(?,?,?,?,?,?,?,?,?,?)",
-				Reserva.getIdReserva(), Reserva.getDataActivitat(), Reserva.getDataReserva(),
-				 Reserva.getNomActivitat(), Reserva.getNumTransaccio(), Reserva.getIdClient(), Reserva.getNumAssistents(),
-				 Reserva.getPreuPersona(), Reserva.getPreuTotal(), Reserva.getEstatPagament());
+				idReserva, DOB, today,
+				 Reserva.getNomActivitat(), numTransaccio, Reserva.getIdClient(), Reserva.getNumAssistents(),
+				 Reserva.getPreuPersona(),Reserva.getPreuPersona()* Reserva.getNumAssistents(), estat_pagament);
 	}
 	public void updateReserva(Reserva Reserva) {
 		this.jdbcTemplate.update("update Reserva set data_activitat =?,data_reserva =?,nom_activitat=?,num_transaccio=?,id_client=?,num_assistents=?,preu_persona=?,preu_total=?,estat_pagament=? where id_Reserva=?",
