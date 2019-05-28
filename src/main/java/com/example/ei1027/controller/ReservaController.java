@@ -31,7 +31,17 @@ public class ReservaController {
         model.addAttribute("reserva", reservaDao.getReserva(idReserva));
         return "reserva/list";
     }
-  
+
+    @GetMapping(value="/list/{idUsuari}")
+    public String getReservesUser(Model model, @PathVariable String idUsuari) {
+        model.addAttribute("reservaUser", reservaDao.getReservaByUsuari(idUsuari));
+        return "reserva/list";
+    }
+    @GetMapping(value="/list/{NomActivitat}")
+    public String getReservesByActivitats(Model model, @PathVariable String NomActivitat) {
+        model.addAttribute("reservaActivitat", reservaDao.getReservaByActivitat(NomActivitat));
+        return "reserva/list";
+    }
     @GetMapping(value = "/add/{nomActivitat}")
     public String addReserva(Model model,@PathVariable String nomActivitat) {
         Reserva reserva = new Reserva();
