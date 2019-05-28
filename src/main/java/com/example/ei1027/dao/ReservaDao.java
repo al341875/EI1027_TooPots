@@ -59,7 +59,7 @@ public class ReservaDao {
 		LocalDate today = LocalDate.now();
 		 today.format( DateTimeFormatter.ofPattern("d/M/yyyy"));
 		 LocalDate DOB = LocalDate.parse(Reserva.getDataActivitat(), DateTimeFormatter.ofPattern("d/M/yyyy"));
-		 
+
 		 System.out.println(today);
 		Integer idReserva = (int)((Math.random() * ((2000000 - 1) + 1)) + 1);
 		String numTransaccio = Double.toString((Math.random() * ((2000000 - 1) + 1)) + 1);
