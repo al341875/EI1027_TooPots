@@ -3,7 +3,13 @@ package com.example.ei1027.controller;
 import com.example.ei1027.dao.ActivitatDao;
 import com.example.ei1027.dao.TipusActivitatDao;
 import com.example.ei1027.model.Activitat;
+import com.example.ei1027.validation.ActivitatValidator;
+import com.example.ei1027.validation.ClientValidator;
+import com.example.ei1027.validation.excepcions.ActivitatException;
+import com.example.ei1027.validation.excepcions.ClientException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,11 +42,18 @@ public class ActivitatController {
     }
     @PostMapping(value = "/add")
     public String addActivitat(@ModelAttribute("activitat") Activitat activitat, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+    	 ActivitatValidator activitatValidator = new  ActivitatValidator();
+    	 activitatValidator.validate(activitat, bindingResult);
+    	if (bindingResult.hasErrors()) {
             System.out.println(bindingResult);
             return "activitat/add";
         }
-        activitatDao.addActivitat(activitat);
+    	try {
+    		activitatDao.addActivitat(activitat);
+    	}catch(DuplicateKeyException e) {
+    		throw new ActivitatException("Ja existeix una activitat amb el nom: "+activitat.getNomLlarg(),"ClauPrimariaDuplicada");
+    	}
+        
         return "redirect:list";
     }
     @GetMapping(value="/update/{nomLlarg}")
