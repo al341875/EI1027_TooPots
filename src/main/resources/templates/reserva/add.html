@@ -18,43 +18,25 @@
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/reserva/add}"
           th:object="${reserva}" method="post">
-        <div class="row">
-            <div >
-                <input id="dataReserva" type="text"   class="datepicker validate" th:field="*{dataReserva}" required>
-                <label for="dataReserva">Data Reserva</label>
 
-            </div>
-
-        </div>
         <div class="row">
             <div class="input-field col s5">
                 <input id="idClient" type="text"   th:field="*{idClient}" required>
                 <label for="idClient">idClient</label>
 
             </div>
-
+            <div class="input-field col s6">
+                <input readonly id="nomActivitat"type="text" th:field="*{nomActivitat}" class="validate"  maxlength="20" />
+                <label for="nomActivitat">nomActivitat</label>
+            </div>
 
         </div>
-        <div class="row">
-            <div class="input-field col s3">
-                <input id="preuPersona" type="number" th:field="*{preuPersona}" required>
-                <label for="preuPersona">preuPersona</label>
-            </div>
-            <div class="input-field col s3">
-                <input id="preuTotal"  placeholder="20" class="validate" type="number"  th:field="*{preuTotal}" />
-                <label for="preuTotal">preu total</label>
-            </div>
-        </div>
-
         <div class="row">
             <div class="input-field col s3">
                 <input id="numAssistents" class="validate" placeholder="2" type="number"  th:field="*{numAssistents}" />
                 <label for="numAssistents"> nombre de asistents</label>
             </div>
-            <div class="input-field col s6">
-                <input id="nomActivitat"type="text" th:field="*{nomActivitat}" class="validate"  maxlength="20" />
-                <label for="nomActivitat">nomActivitat</label>
-            </div>
+
         </div>
 
         <div class="row">

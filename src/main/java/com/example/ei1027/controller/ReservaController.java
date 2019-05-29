@@ -3,6 +3,8 @@ package com.example.ei1027.controller;
 import com.example.ei1027.dao.ReservaDao;
 import com.example.ei1027.dao.ActivitatDao;
 import com.example.ei1027.model.Activitat;
+import com.example.ei1027.model.EstatActivitat;
+import com.example.ei1027.model.EstatPagament;
 import com.example.ei1027.model.Reserva;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,27 @@ public class ReservaController {
 
         return "reserva/list";
     }
+
+    @GetMapping("/listUsuaris")
+    public String listReservesPendents(Model model, @SessionAttribute("user") String usuario) {
+        model.addAttribute("pendents", reservaDao.getReservaByStatus(EstatPagament.PENDENT.toString()));
+
+        return "reserva/list";
+    }
+
+    @GetMapping("/listInstructor/{nomActivitat}")
+    public String listReservesActivitat(Model model, @SessionAttribute("user") String usuario,@PathVariable String nomActivitat ) {
+        model.addAttribute("reserves", reservaDao.getReservaByActivitat(nomActivitat));
+
+        return "reserva/list";
+    }
+    @GetMapping("/listUsuari")
+    public String listReservesUsuari(Model model, @SessionAttribute("user") String usuario ) {
+        model.addAttribute("instructors", reservaDao.getReservaByStatus(EstatPagament.PENDENT.toString()));
+
+        return "reserva/list";
+    }
+
     @GetMapping(value="/list/{idReserva}")
     public String getReserva(Model model, @PathVariable String idReserva) {
         model.addAttribute("reserva", reservaDao.getReserva(idReserva));
@@ -47,9 +70,15 @@ public class ReservaController {
         Reserva reserva = new Reserva();
         reserva.setNomActivitat(nomActivitat);
         Activitat activitat = activitatDao.getActivitat(nomActivitat);
-        reserva.setDataActivitat(activitat.getData());
-        reserva.setPreuPersona((double)activitat.getPreu());
-        model.addAttribute("reserva",reserva);
+
+        if(activitat.getEstat() == EstatActivitat.OBERTA.toString()) {
+            reserva.setDataActivitat(activitat.getData());
+            reserva.setPreuPersona((double) activitat.getPreu());
+            reserva.setEstatPagament(EstatPagament.PENDENT.toString());
+            model.addAttribute("reserva", reserva);
+            return "reserva/add";
+        }
+
         return "reserva/add";
     }
     @PostMapping(value = "/add")
@@ -59,6 +88,7 @@ public class ReservaController {
         reservaDao.addReserva(reserva);
         return "redirect:list";
     }
+
     @GetMapping(value="/update/{idReserva}")
     public String update(Model model, @PathVariable String idReserva) {
         model.addAttribute("reserva",reservaDao.getReserva(idReserva) );
@@ -67,6 +97,21 @@ public class ReservaController {
     @PostMapping(value="/update")
     public String update(@ModelAttribute("reserva") Reserva reserva,
                          BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "reserva/update";
+        reservaDao.updateReserva(reserva);
+        return "redirect:list";
+    }
+
+    @GetMapping(value="/pagar/{idReserva}")
+    public String pagarReserva(Model model, @PathVariable String idReserva) {
+        model.addAttribute("reserva",reservaDao.getReserva(idReserva) );
+        return "reserva/update";
+    }
+    @PostMapping(value="/pagar/{idReserva}")
+    public String pagarReserva(@ModelAttribute("reserva") Reserva reserva, @PathVariable String idReserva,
+                         BindingResult bindingResult) {
+
         if (bindingResult.hasErrors())
             return "reserva/update";
         reservaDao.updateReserva(reserva);
