@@ -19,31 +19,40 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/activitat")
 public class ActivitatController {
 
-    @Autowired
-    private ActivitatDao activitatDao;
+	@Autowired
+	private ActivitatDao activitatDao;
 
-    @Autowired
-    private TipusActivitatDao tipusActivitatDao;
-    @GetMapping("/list")
-    public String listActivitats(Model model) {
-        model.addAttribute("activitats", activitatDao.getActivitats());
-        return "activitat/list";
-    }
-    @GetMapping(value="/list/{nomLlarg}")
-    public String getActivitat(Model model, @PathVariable String nomLlarg) {
-        model.addAttribute("activitat", activitatDao.getActivitat(nomLlarg));
-        return "activitat/list";
-    }
-    @GetMapping(value = "/add")
-    public String addActivitat(Model model) {
-        model.addAttribute("activitat", new Activitat());
-        model.addAttribute("tipusActivitats", tipusActivitatDao.getTipusActivitats());
-        return "activitat/add";
-    }
-    @PostMapping(value = "/add")
+	@Autowired
+	private TipusActivitatDao tipusActivitatDao;
+
+	@GetMapping("/list")
+	public String listActivitats(Model model) {
+		model.addAttribute("activitats", activitatDao.getActivitats());
+		return "activitat/list";
+	}
+
+	@GetMapping(value = "/list/{nomLlarg}")
+	public String getActivitat(Model model, @PathVariable String nomLlarg) {
+		model.addAttribute("activitat", activitatDao.getActivitat(nomLlarg));
+		return "activitat/list";
+	}
+
+	@GetMapping(value = "/add")
+	public String addActivitat(Model model) {
+		model.addAttribute("activitat", new Activitat());
+		model.addAttribute("tipusActivitats", tipusActivitatDao.getTipusActivitats());
+		return "activitat/add";
+	}
+
+	@PostMapping(value = "/add")
     public String addActivitat(@ModelAttribute("activitat") Activitat activitat, BindingResult bindingResult) {
     	 ActivitatValidator activitatValidator = new  ActivitatValidator();
     	 activitatValidator.validate(activitat, bindingResult);
+    	 
+    	 //if( !(activitatDao.existIdInstructor(activitat.getIdInstructor())) )
+    		 //No existe un instructor con este id
+    			 
+    			 
     	if (bindingResult.hasErrors()) {
             System.out.println(bindingResult);
             return "activitat/add";
@@ -53,27 +62,29 @@ public class ActivitatController {
     	}catch(DuplicateKeyException e) {
     		throw new ActivitatException("Ja existeix una activitat amb el nom: "+activitat.getNomLlarg(),"ClauPrimariaDuplicada");
     	}
-        
         return "redirect:list";
     }
-    @GetMapping(value="/update/{nomLlarg}")
-    public String update(Model model, @PathVariable String nomLlarg) {
-        model.addAttribute("activitat", activitatDao.getActivitat(nomLlarg));
-        return "activitat/update";
-    }
-    @PostMapping(value="/update")
-    public String update(@ModelAttribute("activitat") Activitat activitat,
-                         BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "activitat/update";
-        activitatDao.updateActivitat(activitat);
-        return "redirect:list";
-    }
-    @RequestMapping(value = "/delete/{nomLlarg}")
-    public String delete(@PathVariable String nomLlarg) {
-        activitatDao.deleteActivitat(nomLlarg);
-        return "redirect:../list";
-    }
+
+	@GetMapping(value = "/update/{nomLlarg}")
+	public String update(Model model, @PathVariable String nomLlarg) {
+		model.addAttribute("activitat", activitatDao.getActivitat(nomLlarg));
+		return "activitat/update";
+	}
+
+	@PostMapping(value = "/update")
+	public String update(@ModelAttribute("activitat") Activitat activitat, BindingResult bindingResult) {
+		if (activitatDao.existIdInstructor(activitat.getIdInstructor()))
+
+			if (bindingResult.hasErrors())
+				return "activitat/update";
+		activitatDao.updateActivitat(activitat);
+		return "redirect:list";
+	}
+
+	@RequestMapping(value = "/delete/{nomLlarg}")
+	public String delete(@PathVariable String nomLlarg) {
+		activitatDao.deleteActivitat(nomLlarg);
+		return "redirect:../list";
+	}
 
 }
-

@@ -50,7 +50,9 @@ public class ActivitatDao {
 	public void deleteActivitat(String nomLlarg) {
 		this.jdbcTemplate.update("delete from Activitat where nom_llarg=?", nomLlarg);
 	}
-		
+	public boolean existIdInstructor(String idInstructor) {
+		return this.jdbcTemplate.queryForObject("select count(id_instructor) from instructor where id_instructor = ?", Integer.class, idInstructor) > 0;
+	}
 
 
 
