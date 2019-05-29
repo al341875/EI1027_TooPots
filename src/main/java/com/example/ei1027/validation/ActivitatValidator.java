@@ -43,7 +43,9 @@ public class ActivitatValidator implements Validator {
 		LocalDate DOB = LocalDate.parse(activitat.getData(), DateTimeFormatter.ofPattern("d/M/yyyy"));
 		if (DOB.isBefore(LocalDate.now()))
 			errors.rejectValue("data", "value.dataActivita");
-
+		if(activitat.getMinAssistents() > activitat.getMaxAssistents())
+			errors.rejectValue("minAssistents", "length.minMax");
+			
 		
 	}
 
