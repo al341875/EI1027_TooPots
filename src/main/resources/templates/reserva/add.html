@@ -12,16 +12,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-
-
-
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/reserva/add}"
           th:object="${reserva}" method="post">
 
         <div class="row">
             <div class="input-field col s5">
-                <input id="idClient" type="text"   th:field="*{idClient}" required>
+                <input id="idClient" type="text"  th:field="*{idClient}" >
                 <label for="idClient">idClient</label>
 
             </div>
@@ -51,71 +48,6 @@
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script>
-    const Calendar = document.querySelector('.datepicker');
-    var rangeOfyears = [];
-    const today = new Date();
-    var startYear = today.getFullYear() - 90;
-    var startDate = new Date(new String(startYear));
-    M.Datepicker.init(Calendar, {
-        format: 'dd/mm/yyyy',
-        minDate: startDate,
-        maxDate: today,
-        firstDay: 1,
-        yearRange: [startYear, today.getFullYear()],
-        i18n: {
-            months: ['Gener',
-                'Febrer',
-                'Març',
-                'Abril',
-                'Maig',
-                'Juny',
-                'Juliol',
-                'Agost',
-                'Setembre',
-                'Octubre',
-                'Novembre',
-                'Decembre'],
-            monthsShort: ['Gen',
-                'Feb',
-                'Mar',
-                'Abr',
-                'Mai',
-                'Jun',
-                'Jul',
-                'Ago',
-                'Set',
-                'Oct',
-                'Nov',
-                'Dec'],
-            weekdays: ['Diumenge',
-                'Dilluns',
-                'Dimarts',
-                'Dimecres',
-                'Dijous',
-                'Divendres',
-                'Dissabte'
-            ],
-            weekdaysShort: ['Diu',
-                'Dil',
-                'Dim',
-                'Dim',
-                'Dij',
-                'Div',
-                'Dis'],
-            weekdaysAbbrev: ['Dg', 'Dl', 'Dt', 'Dc', 'Dj', 'Dv', 'Ds'],
-            cancel: 'Cancelar'
-        }
-    });
-</script>
-<script>
-    const estat = document.querySelector('select');
-    M.FormSelect.init(estat, {});
-</script>
-<script>
-function myFunction() {
-document.getElementById("horaDeTrobada").value = "22:53:05";
-}
-</script>
+
 </body>
 </html>

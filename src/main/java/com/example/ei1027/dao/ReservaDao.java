@@ -89,7 +89,7 @@ public class ReservaDao {
 		Integer idReserva = (int)((Math.random() * ((2000000 - 1) + 1)) + 1);
 		this.jdbcTemplate.update(
 				"insert into Reserva(id_Reserva,data_activitat,data_reserva,nom_activitat,num_transaccio,id_client,num_assistents,preu_persona,preu_total,estat_pagament) values(?,?,?,?,?,?,?,?,?,?)",
-				idReserva, DOB, today,
+				idReserva, Reserva.getDataActivitat(), today,
 				 Reserva.getNomActivitat(), "", Reserva.getIdClient(), Reserva.getNumAssistents(),
 				 Reserva.getPreuPersona(),Reserva.getPreuPersona()* Reserva.getNumAssistents(),  Reserva.getEstatPagament());
 	}
@@ -99,7 +99,10 @@ public class ReservaDao {
 				 Reserva.getNomActivitat(), Reserva.getNumTransaccio(), Reserva.getIdClient(), Reserva.getNumAssistents(),
 				 Reserva.getPreuPersona(), Reserva.getPreuTotal(), Reserva.getEstatPagament());
 	}
-
+	public void aceptarSolicitud(String idReserva) {
+		this.jdbcTemplate.update("update reserva set estat = ? where id_reserva = ?",
+				EstatPagament.ACCEPTADA.toString(), idReserva);
+	}
 	public void deleteReserva(String idReserva) {
 		this.jdbcTemplate.update("delete from Reserva where id_Reserva=?", idReserva);
 	}

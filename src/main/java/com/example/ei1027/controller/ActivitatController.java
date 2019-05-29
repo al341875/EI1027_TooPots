@@ -3,8 +3,6 @@ package com.example.ei1027.controller;
 import com.example.ei1027.dao.ActivitatDao;
 import com.example.ei1027.dao.TipusActivitatDao;
 import com.example.ei1027.model.Activitat;
-import com.example.ei1027.model.Estat;
-import com.example.ei1027.model.EstatActivitat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,16 +21,6 @@ public class ActivitatController {
     @GetMapping("/list")
     public String listActivitats(Model model) {
         model.addAttribute("activitats", activitatDao.getActivitats());
-        return "activitat/list";
-    }
-    @GetMapping("/listActivitatsClients")
-    public String listActivitatsClient(Model model) {
-        model.addAttribute("activitats", activitatDao.getActivitatsByStatus(EstatActivitat.OBERTA.toString()));
-        return "activitat/list";
-    }
-    @GetMapping("/listActivitats")
-    public String listActivitatsInstructor(Model model, @SessionAttribute("user") String usuario ) {
-        model.addAttribute("activitats", activitatDao.getActivitatsByInstructor(usuario));
         return "activitat/list";
     }
     @GetMapping(value="/list/{nomLlarg}")
@@ -68,7 +56,6 @@ public class ActivitatController {
         activitatDao.updateActivitat(activitat);
         return "redirect:list";
     }
-
     @RequestMapping(value = "/delete/{nomLlarg}")
     public String delete(@PathVariable String nomLlarg) {
         activitatDao.deleteActivitat(nomLlarg);
