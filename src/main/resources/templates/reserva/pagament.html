@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pagar activitat</title>
+    <meta charset="UTF-8"/>
+    <!--Import Google Icon Font-->
+    <!-- Compiled and minified CSS -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+<p>pagar</p>
+<div class="row">
+
+<form class="col s6 offset-s3" th:action="@{/reserva/pagament}"
+      th:object="${reserva}" method="post">
+    <div class="row">
+        <div class="col s12">
+            <input readonly id="preuTotal"type="number" th:field="*{preuTotal}" class="validate"  />
+        </div>
+        <div class="input-field col s6">
+            <input readonly id="nomActivitat"type="text" th:field="*{nomActivitat}" class="validate"  maxlength="20" />
+            <label for="nomActivitat">nomActivitat</label>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <button class="btn waves-effect waves-light right"  name="action"> pagar reserva
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </div>
+</form>
+</div>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</body>
+</html>

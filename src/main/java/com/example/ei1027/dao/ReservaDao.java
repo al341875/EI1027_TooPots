@@ -37,13 +37,13 @@ public class ReservaDao {
 			reserva.setDataReserva(String.format("%d/%d/%d", DOB.getDayOfMonth(), DOB.getMonthValue(), DOB.getYear()));
 			LocalDate DOB2 = rs.getObject("data_activitat", LocalDate.class);
 			reserva.setDataActivitat(String.format("%d/%d/%d", DOB2.getDayOfMonth(), DOB2.getMonthValue(), DOB2.getYear()));
-			reserva.setNumTransaccio(rs.getString("id_reserva"));
-			reserva.setIdClient(rs.getString("id_reserva"));
-			reserva.setNomActivitat(rs.getString("id_reserva"));
+			reserva.setNumTransaccio(rs.getString("num_transaccio"));
+			reserva.setIdClient(rs.getString("id_client"));
+			reserva.setNomActivitat(rs.getString("nom_activitat"));
 			reserva.setNumAssistents(rs.getInt("num_assistents"));
 			reserva.setPreuPersona(rs.getDouble("preu_persona"));
 			reserva.setPreuTotal(rs.getDouble("preu_total"));
-			reserva.setEstatPagament(rs.getString("id_reserva"));
+			reserva.setEstatPagament(rs.getString("estat_pagament"));
 			return reserva;
 	}
 		
@@ -53,10 +53,10 @@ public class ReservaDao {
 		return this.jdbcTemplate.query(
 				"select * from Reserva", new ReservaMapper());
 	}
-	public Reserva getReserva(String idReserva){
+	public Reserva getReserva(Integer idReserva){
 		return this.jdbcTemplate.queryForObject(
 				"select * from Reserva where id_Reserva=?",
-				new Object[] {idReserva}, new ReservaMapper());
+				 new ReservaMapper(), idReserva);
 	}
 
 	public Reserva getReservaByActivitat(String nomActivitat){
@@ -74,11 +74,11 @@ public class ReservaDao {
 				new Object[] {idUsuari}, new ReservaMapper());
 	}
 	//canviar estat de la reserva
-	public void aceptarPagament(String idReserva) {
+	public void aceptarPagament(Integer idReserva) {
 		String numTransaccio = Double.toString((Math.random() * ((2000000 - 1) + 1)) + 1);
 
 		this.jdbcTemplate.update("update Reserva set estat_pagament = ?,num_transaccio=?  where id_reserva = ?",
-				EstatPagament.PAGAT.toString(), idReserva, numTransaccio);
+				EstatPagament.PAGAT.toString(), numTransaccio,idReserva );
 	}
 
 
@@ -89,7 +89,7 @@ public class ReservaDao {
 		Integer idReserva = (int)((Math.random() * ((2000000 - 1) + 1)) + 1);
 		this.jdbcTemplate.update(
 				"insert into Reserva(id_Reserva,data_activitat,data_reserva,nom_activitat,num_transaccio,id_client,num_assistents,preu_persona,preu_total,estat_pagament) values(?,?,?,?,?,?,?,?,?,?)",
-				idReserva, Reserva.getDataActivitat(), today,
+				idReserva, DOB, today,
 				 Reserva.getNomActivitat(), "", Reserva.getIdClient(), Reserva.getNumAssistents(),
 				 Reserva.getPreuPersona(),Reserva.getPreuPersona()* Reserva.getNumAssistents(),  Reserva.getEstatPagament());
 	}
@@ -99,11 +99,11 @@ public class ReservaDao {
 				 Reserva.getNomActivitat(), Reserva.getNumTransaccio(), Reserva.getIdClient(), Reserva.getNumAssistents(),
 				 Reserva.getPreuPersona(), Reserva.getPreuTotal(), Reserva.getEstatPagament());
 	}
-	public void aceptarSolicitud(String idReserva) {
-		this.jdbcTemplate.update("update reserva set estat = ? where id_reserva = ?",
+	public void aceptarSolicitud(Integer idReserva) {
+		this.jdbcTemplate.update("update reserva set estat_pagament = ? where id_reserva = ?",
 				EstatPagament.ACCEPTADA.toString(), idReserva);
 	}
-	public void deleteReserva(String idReserva) {
+	public void deleteReserva(Integer idReserva) {
 		this.jdbcTemplate.update("delete from Reserva where id_Reserva=?", idReserva);
 	}
 	

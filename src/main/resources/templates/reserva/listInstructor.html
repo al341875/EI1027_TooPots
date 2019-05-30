@@ -45,20 +45,14 @@
             <span class="title" th:text="${reserva.idReserva + ' (' + reserva.nomActivitat + ')'}">idReserva(Nom )sss</span>
             <div class="secondary-content">
                 <a href="#!" class="btn blue"><i class="material-icons">info</i></a>
-                <a th:if="${reserva.estatPagament.equals('pendent')}"
-                   th:href="@{/reserva/accept/{idReserva}(idReserva=${reserva.idReserva})}" class="btn teal"><i
-                        class="material-icons">create</i></a>
-
                 <a th:if="${reserva.estatPagament.equals('confirmat')}"
-                   th:href="@{/reserva/accept/{idReserva}(instructorId=${reserva.idReserva})}"
+
                    class="btn green"><i class="material-icons">done</i></a>
-                <a th:if="${reserva.estatPagament.equals('acceptat')}"
-                   th:href="@{}" class="btn red"><i
+                <a th:if="${reserva.estatPagament.equals('acceptat')}"><i
                         class="material-icons">delete</i></a>
                 <a th:if="${reserva.estatPagament.equals('pagat')}"
-                   th:href="@{}"
-                   class="btn tooltipped amber" data-position="left" data-tooltip="Envia la solicitud a pendents"><i
-                        class="material-icons">undo</i></a>
+                   th:href="@{/reserva/accept/{idReserva}(idReserva=${reserva.idReserva})}"
+                    class="btn green"><i class="material-icons">create</i></a>
             </div>
         </li>
     </ul>

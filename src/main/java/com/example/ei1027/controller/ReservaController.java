@@ -39,7 +39,13 @@ public class ReservaController {
         model.addAttribute("tabs", true);
         return "reserva/listInstructor";
     }
-
+    @GetMapping("/pagat")
+    public String listReservesPagat(Model model) {
+        model.addAttribute("reserves", reservaDao.getReservaByStatus(EstatPagament.PAGAT.toString()));
+        model.addAttribute("boldPendent", true);
+        model.addAttribute("tabs", true);
+        return "reserva/listInstructor";
+    }
 
     @GetMapping("/acceptats")
     public String listReservesAcceptats(Model model) {
@@ -68,7 +74,7 @@ public class ReservaController {
     }
 
     @GetMapping(value="/list/{idReserva}")
-    public String getReserva(Model model, @PathVariable String idReserva) {
+    public String getReserva(Model model, @PathVariable Integer idReserva) {
         model.addAttribute("reserva", reservaDao.getReserva(idReserva));
         return "reserva/list";
     }
@@ -98,7 +104,7 @@ public class ReservaController {
 
 
         Activitat activitat = activitatDao.getActivitat(reserva.getNomActivitat());
-        if(activitat.getEstat() != "oberta"){
+        if(activitat.getEstat().equals("oberta") == false){
             bindingResult.rejectValue("estat", "obligatori", "Actividad no disponible");
             return "reserva/add";
         }
@@ -106,6 +112,7 @@ public class ReservaController {
             bindingResult.rejectValue("numAssistents", "obligatori", "No hi han places disponibles");
             return "reserva/add";
         }
+
         reserva.setDataActivitat(activitat.getData());
         reserva.setPreuPersona((double) activitat.getPreu());
         reserva.setEstatPagament("pendent");
@@ -114,7 +121,7 @@ public class ReservaController {
     }
 
     @GetMapping(value="/update/{idReserva}")
-    public String update(Model model, @PathVariable String idReserva) {
+    public String update(Model model, @PathVariable Integer idReserva) {
         model.addAttribute("reserva",reservaDao.getReserva(idReserva) );
         return "reserva/update";
     }
@@ -127,26 +134,22 @@ public class ReservaController {
         return "redirect:list";
     }
     @RequestMapping(value = "/accept/{idReserva}")
-    public String accept(@PathVariable String idReserva) {
+    public String accept(@PathVariable Integer idReserva) {
         reservaDao.aceptarSolicitud(idReserva);
         return "redirect:../pendents";
     }
-    @GetMapping(value="/pagar/{idReserva}")
-    public String pagarReserva(Model model, @PathVariable String idReserva) {
-        model.addAttribute("reserva",reservaDao.getReserva(idReserva) );
-        return "reserva/update";
-    }
-    @PostMapping(value="/pagar/{idReserva}")
-    public String pagarReserva(@ModelAttribute("reserva") Reserva reserva, @PathVariable String idReserva,
-                         BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors())
-            return "reserva/update";
-        reservaDao.updateReserva(reserva);
-        return "redirect:list";
+
+    @RequestMapping(value="/pagament/{idReserva}")
+    public String pagament(Model model, @PathVariable Integer idReserva){
+        model.addAttribute("reserva", reservaDao.getReserva(idReserva));
+
+        reservaDao.aceptarPagament(idReserva);
+
+        return "reserva/pagament";
     }
     @RequestMapping(value = "/delete/{idReserva}")
-    public String delete(@PathVariable String idReserva) {
+    public String delete(@PathVariable Integer idReserva) {
         reservaDao.deleteReserva(idReserva);
 
         return "redirect:../list";
