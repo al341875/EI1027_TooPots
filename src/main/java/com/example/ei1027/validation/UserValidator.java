@@ -19,7 +19,7 @@ public class UserValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "usuari", "required", "Es requereix un usuari");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "contrasenya", "required", "Es requereix una contrasenya");
         UserDetails user = (UserDetails) obj;
-        if (user.getContrasenya().length() <= PASSWORD_MIN_LENGTH || user.getContrasenya().length() <= PASSWORD_MAX_LENGTH)
+        if (user.getContrasenya().length() <= PASSWORD_MIN_LENGTH || user.getContrasenya().length() >= PASSWORD_MAX_LENGTH)
             errors.reject("password","userLenght.password");
 
 

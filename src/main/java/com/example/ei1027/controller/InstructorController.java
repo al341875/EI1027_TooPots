@@ -1,5 +1,6 @@
 package com.example.ei1027.controller;
 
+import com.example.ei1027.config.EncryptorFactory;
 import com.example.ei1027.dao.InstructorDao;
 import com.example.ei1027.email.EmailService;
 import com.example.ei1027.email.EmailTemplates;
@@ -26,6 +27,9 @@ public class InstructorController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private EncryptorFactory encryptorFactory;
 
     @GetMapping("/pendents")
     public String listInstructorsPendents(Model model) {
@@ -76,12 +80,14 @@ public class InstructorController {
 //            //Accion si ya existe el iban en un instructor
         if (bindingResult.hasErrors())
             return "instructor/add";
+        //String randomPassword = encryptorFactory.generateRandomPassword();
         try {
-        	instructorDao.addInstructor(instructor);
+            //instructor.setContrasenya(randomPassword);
+            instructorDao.addInstructor(instructor);
         }catch(DuplicateKeyException e) {
         	throw new ClientException("DNI o camp unic(iban, email) duplicat","ClauPrimariaDuplicada");
         }
-        emailService.sendSimpleMessage(instructorDao.getEmail(instructor.getInstructorId()), EmailTemplates.SOLICITUD_ENVIADA.subject(), EmailTemplates.SOLICITUD_ENVIADA.fileName());
+        emailService.sendSimpleMessage(instructor.getEmail(), EmailTemplates.SOLICITUD_ENVIADA.subject(), EmailTemplates.SOLICITUD_ENVIADA.fileName());
         return "redirect:pendents";
     }
 

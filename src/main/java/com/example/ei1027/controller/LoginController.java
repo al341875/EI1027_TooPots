@@ -19,7 +19,7 @@ public class LoginController {
 	private UserDao userDao;
 
 	@RequestMapping("/home")
-	public String login(Model model, HttpSession session) {
+	public String login(Model model) {
 		model.addAttribute("user", new UserDetails());
 		return "home/main";
 	}
@@ -54,8 +54,8 @@ public class LoginController {
 
 	@RequestMapping("/logout") 
 	public String logout(HttpSession session) {
-		session.invalidate(); 
-		return "redirect:/";
+		session.invalidate();
+		return "redirect:home?logout=true";
 	}
 //	@RequestMapping("/home")
 //	public String home(HttpSession session) {

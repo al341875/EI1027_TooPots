@@ -14,7 +14,7 @@
 <body>
 
 <header th:replace="fragments/navBar :: navBar"></header>
-<section th:replace="fragments/login.html :: loginModal"></section>
+<section th:replace="fragments/login.html :: loginModal" th:unless="${session.user}"></section>
 
 <h3>ESTO ES UNA PRUEBA DE LA PAGINA PPAL</h3>
 
@@ -22,6 +22,12 @@
 <script>
     var elems = document.querySelector('.modal');
     var instances = M.Modal.init(elems, {});
+</script>
+<script>
+    const params = new URLSearchParams(location.search);
+    const logout = params.get('logout');
+    if (logout)
+        M.toast({html: 'Sessió tancada correctament'});
 </script>
 </body>
 </html>

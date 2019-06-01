@@ -1,5 +1,6 @@
 package com.example.ei1027.config;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,9 @@ public class EncryptorFactory {
         if (this.encryptor == null)
             this.encryptor = new BasicPasswordEncryptor();
         return this.encryptor;
+    }
+
+    public String generateRandomPassword() {
+        return RandomStringUtils.randomAlphanumeric(7);
     }
 }

@@ -5,18 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<h2>LOGIN</h2>
-<form action="#" th:action="@{/login}"
-      th:object="${userDetails}" method="post">
-    <p>
-        <label>Nom d'usuari:</label>
-        <input class="form_control" type="text" th:field="*{usuari}"/>
-    </p>
-    <p>
-        <label>password:</label>
-        <input class="form_control" type="password" th:field="*{contrasenya}"/>
-    </p>
-    <input type="submit" value="Accedir"/>
-</form>
+<h2>USUARIO LOGGEADO</h2>
+<h3 th:text="${session.user.usuari}" th:unless="${session == null}"></h3>
 </body>
 </html>
