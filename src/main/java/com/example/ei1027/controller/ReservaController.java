@@ -27,43 +27,31 @@ public class ReservaController {
         model.addAttribute("reserves", reservaDao.getReservas());
         return "reserva/list";
     }
-    @GetMapping("/listInstructor")
-    public String listReserva2(Model model) {
-        model.addAttribute("reserves", reservaDao.getReservas());
-        return "reserva/listInstructor";
-    }
-    @GetMapping("/list2")
-    public String listReservaClient(Model model,@SessionAttribute("user") String idClient) {
-        model.addAttribute("reserves", reservaDao.getReservaByUsuari(idClient, EstatPagament.PENDENT.toString()));
-        return "reserva/list";
-    }
+
+
     @GetMapping("/pendents")
     public String listReservesPendents(Model model,@SessionAttribute("username") String user) {
-        model.addAttribute("reserves", reservaDao.getReservaByStatus(EstatPagament.PENDENT.toString(),user));
+        model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.PENDENT.toString(),user));
         model.addAttribute("boldPendent", true);
         model.addAttribute("tabs", true);
-        return "reserva/listInstructor";
+        return "reserva/listClient";
     }
     @GetMapping("/pagat")
     public String listReservesPagat(Model model,@SessionAttribute("username") String user) {
-        model.addAttribute("reserves", reservaDao.getReservaByStatus(EstatPagament.PAGAT.toString(),user));
+        model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.PAGAT.toString(),user));
         model.addAttribute("boldPendent", true);
         model.addAttribute("tabs", true);
-        return "reserva/listInstructor";
+        return "reserva/listClient";
     }
 
     @GetMapping("/acceptats")
     public String listReservesAcceptats(Model model,@SessionAttribute("username") String user) {
-        model.addAttribute("reserves", reservaDao.getReservaByStatus(EstatPagament.ACCEPTADA.toString(),user));
+        model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.ACCEPTADA.toString(),user));
         model.addAttribute("boldAcceptat", true);
         model.addAttribute("tabs", true);
-        return "reserva/listInstructor";
+        return "reserva/listClient";
     }
-    @GetMapping("/listclient2")
-    public String listReservesPendents(Model model) {
-        model.addAttribute("reserves", reservaDao.getReservaByStatusClient(EstatPagament.PENDENT.toString()));
-        return "reserva/list";
-    }
+
 
     @GetMapping("/listInstructor/{nomActivitat}")
     public String listReservesActivitat(Model model, @SessionAttribute("username") String user,@PathVariable String nomActivitat ) {
@@ -75,9 +63,9 @@ public class ReservaController {
 
     @GetMapping("/listClient")
     public String listReservesUsuari(Model model ,@SessionAttribute("username") String user) {
-        model.addAttribute("reserves", reservaDao.getReservaByUsuari(user,EstatPagament.PENDENT.toString()));
+        model.addAttribute("reserves", reservaDao.getReservaByUsuari(user));
 
-        return "reserva/list";
+        return "reserva/listClient";
     }
 
     @GetMapping(value="/list/{idReserva}")
@@ -92,6 +80,11 @@ public class ReservaController {
         model.addAttribute("reservaActivitat", reservaDao.getReservaByActivitat(NomActivitat));
         return "reserva/list";
     }
+    @GetMapping("/listInstructor")
+    public String getReservesByInstructor(Model model,@SessionAttribute("username") String user) {
+        model.addAttribute("reserves", reservaDao.getReservaByInstructor(user));
+        return "reserva/listInstructor";
+    }
     @GetMapping(value = "/add/{nomActivitat}")
     public String addReserva(Model model,@PathVariable String nomActivitat) {
         Reserva reserva = new Reserva();
@@ -101,7 +94,7 @@ public class ReservaController {
         return "reserva/add";
     }
     @PostMapping(value = "/add")
-    public String addReserva(@ModelAttribute("reserva") Reserva reserva , BindingResult bindingResult) {
+    public String addReserva(@ModelAttribute("reserva") Reserva reserva,@SessionAttribute("username") String user , BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "reserva/add";
 
@@ -117,6 +110,7 @@ public class ReservaController {
         }
 
         reserva.setDataActivitat(activitat.getData());
+        reserva.setIdClient(user);
         reserva.setPreuPersona((double) activitat.getPreu());
         reserva.setEstatPagament("pendent");
         reservaDao.addReserva(reserva);

@@ -64,22 +64,24 @@ public class ReservaDao {
 				"select * from Reserva where nom_activitat=?",
 				new Object[] {nomActivitat}, new ReservaMapper());
 	}
-	public List<Reserva> getReservaByStatus(String status, String id_instructor){
+	public List<Reserva> getReservaByStatusInstructor(String status, String id_instructor){
 		return this.jdbcTemplate.query(
 				"select * from reserva where estat_pagament = ? and id_instructor = ?", new ReservaMapper(), status,id_instructor);
 	}
-	public List<Reserva> getReservaByStatusClient(String status){
-		return this.jdbcTemplate.query(
-				"select * from reserva where estat_pagament = ? ", new ReservaMapper(), status);
-	}
+
 	public List<Reserva> getReservaByInstructor(String id_instructor){
 		return this.jdbcTemplate.query(
 				"select * from reserva where id_instructor = ? ", new ReservaMapper(), id_instructor);
 	}
-	public Reserva getReservaByUsuari(String idUsuari, String status){
-		return this.jdbcTemplate.queryForObject(
+	public List<Reserva> getReservaByUsuariStatus(String idUsuari, String status){
+		return this.jdbcTemplate.query(
 				"select * from Reserva where id_client=? and  estat_pagament = ? ",
 			 new ReservaMapper(),idUsuari,status);
+	}
+	public List<Reserva> getReservaByUsuari(String idUsuari){
+		return this.jdbcTemplate.query(
+				"select * from Reserva where id_client=? ",
+				new ReservaMapper(),idUsuari);
 	}
 	//canviar estat de la reserva
 	public void aceptarPagament(Integer idReserva) {

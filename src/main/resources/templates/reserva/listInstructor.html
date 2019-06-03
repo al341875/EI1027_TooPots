@@ -45,6 +45,9 @@
             <span class="title" th:text="${reserva.idReserva + ' (' + reserva.nomActivitat + ')'}">idReserva(Nom )sss</span>
             <div class="secondary-content">
                 <a href="#!" class="btn blue"><i class="material-icons">info</i></a>
+                <a th:if="${reserva.estatPagament.equals('pendent')}"
+
+                   class="btn green"><i class="material-icons">done</i></a>
                 <a th:if="${reserva.estatPagament.equals('confirmat')}"
 
                    class="btn green"><i class="material-icons">done</i></a>
