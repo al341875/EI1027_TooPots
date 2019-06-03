@@ -2,7 +2,9 @@ package com.example.ei1027.controller;
 
 
 import com.example.ei1027.dao.ClientDao;
+import com.example.ei1027.dao.UserDao;
 import com.example.ei1027.model.Client;
+import com.example.ei1027.model.UserDetails;
 import com.example.ei1027.validation.ClientValidator;
 import com.example.ei1027.validation.excepcions.ClientException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,8 @@ public class ClientController {
 
 	@Autowired
 	private ClientDao clientDao;
-
+	@Autowired
+	private UserDao userDao;
 	@GetMapping("/list")
 	public String listClient(Model model) {
 		model.addAttribute("clients", clientDao.getClients());
@@ -42,9 +45,16 @@ public class ClientController {
         //El id ya existe!
         //if (clientDao.existMail(client.getEmail()))
         //El email ya existe!
+		//afegir client en tabla usuari
+		UserDetails user = new UserDetails();
+		user.setUsuari(client.getClientId());
+		user.setTipus("client");
+		user.setContrasenya(client.getContrasenya());
+		userDao.add(user);
         if (bindingResult.hasErrors())
 			return "client/add";
         try {
+
         	clientDao.addClient(client);
         }catch(DuplicateKeyException e) {
         	throw new ClientException("Ja existeix un client en el NIF: "+client.getClientId(),"ClauPrimariaDuplicada");

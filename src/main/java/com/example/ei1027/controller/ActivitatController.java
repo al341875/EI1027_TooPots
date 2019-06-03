@@ -27,7 +27,11 @@ public class ActivitatController {
 		model.addAttribute("activitats", activitatDao.getActivitats());
 		return "activitat/list";
 	}
-
+	@GetMapping("/listInstructor")
+	public String listActivitatsInstructor(Model model,@SessionAttribute("username") String user) {
+		model.addAttribute("activitats", activitatDao.getActivitatsByInstructor(user));
+		return "activitat/list";
+	}
 	@GetMapping(value = "/list/{nomLlarg}")
 	public String getActivitat(Model model, @PathVariable String nomLlarg) {
 		model.addAttribute("activitat", activitatDao.getActivitat(nomLlarg));
@@ -46,7 +50,7 @@ public class ActivitatController {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult);
             return "activitat/add";
-        }
+        }	//
         activitatDao.addActivitat(activitat);
         return "redirect:list";
     }

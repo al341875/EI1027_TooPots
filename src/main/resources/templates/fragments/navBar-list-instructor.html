@@ -1,7 +1,8 @@
 <ul th:fragment="navBar-list-instructor" id="nav-instructor" class="right hide-on-med-and-down col s5">
     <div class="right">
-        <li><a href="sass.html">Les meues activitats</a></li>
+        <li><a href="/reserva/pendents">Llista reserves</a></li>
+        <li><a href="/activitat/listInstructor">Les meues activitats</a></li>
         <li><a href="collapsible.html" th:text="${session.user.usuari}"></a></li>
-        <li><a href="#">Eixir</a></li>
+        <li><a href="/logout">Eixir</a></li>
     </div>
 </ul>

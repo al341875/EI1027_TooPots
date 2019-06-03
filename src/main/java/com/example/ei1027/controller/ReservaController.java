@@ -32,43 +32,50 @@ public class ReservaController {
         model.addAttribute("reserves", reservaDao.getReservas());
         return "reserva/listInstructor";
     }
+    @GetMapping("/list2")
+    public String listReservaClient(Model model,@SessionAttribute("user") String idClient) {
+        model.addAttribute("reserves", reservaDao.getReservaByUsuari(idClient, EstatPagament.PENDENT.toString()));
+        return "reserva/list";
+    }
     @GetMapping("/pendents")
-    public String listReservesPendents(Model model) {
-        model.addAttribute("reserves", reservaDao.getReservaByStatus(EstatPagament.PENDENT.toString()));
+    public String listReservesPendents(Model model,@SessionAttribute("username") String user) {
+        model.addAttribute("reserves", reservaDao.getReservaByStatus(EstatPagament.PENDENT.toString(),user));
         model.addAttribute("boldPendent", true);
         model.addAttribute("tabs", true);
         return "reserva/listInstructor";
     }
     @GetMapping("/pagat")
-    public String listReservesPagat(Model model) {
-        model.addAttribute("reserves", reservaDao.getReservaByStatus(EstatPagament.PAGAT.toString()));
+    public String listReservesPagat(Model model,@SessionAttribute("username") String user) {
+        model.addAttribute("reserves", reservaDao.getReservaByStatus(EstatPagament.PAGAT.toString(),user));
         model.addAttribute("boldPendent", true);
         model.addAttribute("tabs", true);
         return "reserva/listInstructor";
     }
 
     @GetMapping("/acceptats")
-    public String listReservesAcceptats(Model model) {
-        model.addAttribute("reserves", reservaDao.getReservaByStatus(EstatPagament.ACCEPTADA.toString()));
+    public String listReservesAcceptats(Model model,@SessionAttribute("username") String user) {
+        model.addAttribute("reserves", reservaDao.getReservaByStatus(EstatPagament.ACCEPTADA.toString(),user));
         model.addAttribute("boldAcceptat", true);
         model.addAttribute("tabs", true);
         return "reserva/listInstructor";
     }
-    @GetMapping("/listUsuaris")
-    public String listReservesPendents(Model model, @SessionAttribute("user") String usuario) {
-        model.addAttribute("pendents", reservaDao.getReservaByStatus(EstatPagament.PENDENT.toString()));
+    @GetMapping("/listclient2")
+    public String listReservesPendents(Model model) {
+        model.addAttribute("reserves", reservaDao.getReservaByStatusClient(EstatPagament.PENDENT.toString()));
         return "reserva/list";
     }
 
     @GetMapping("/listInstructor/{nomActivitat}")
-    public String listReservesActivitat(Model model, @SessionAttribute("user") String usuario,@PathVariable String nomActivitat ) {
+    public String listReservesActivitat(Model model, @SessionAttribute("username") String user,@PathVariable String nomActivitat ) {
         model.addAttribute("reserves", reservaDao.getReservaByActivitat(nomActivitat));
 
         return "reserva/list";
     }
-    @GetMapping("/listUsuari")
-    public String listReservesUsuari(Model model, @SessionAttribute("user") String usuario ) {
-        model.addAttribute("instructors", reservaDao.getReservaByStatus(EstatPagament.PENDENT.toString()));
+
+
+    @GetMapping("/listClient")
+    public String listReservesUsuari(Model model ,@SessionAttribute("username") String user) {
+        model.addAttribute("reserves", reservaDao.getReservaByUsuari(user,EstatPagament.PENDENT.toString()));
 
         return "reserva/list";
     }
@@ -79,11 +86,7 @@ public class ReservaController {
         return "reserva/list";
     }
 
-    @GetMapping(value="/list/{idUsuari}")
-    public String getReservesUser(Model model, @PathVariable String idUsuari) {
-        model.addAttribute("reservaUser", reservaDao.getReservaByUsuari(idUsuari));
-        return "reserva/list";
-    }
+
     @GetMapping(value="/list/{NomActivitat}")
     public String getReservesByActivitats(Model model, @PathVariable String NomActivitat) {
         model.addAttribute("reservaActivitat", reservaDao.getReservaByActivitat(NomActivitat));

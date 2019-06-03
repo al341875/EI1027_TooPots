@@ -31,14 +31,14 @@ public class UserDao {
 	}
 
 	public void add(UserDetails user) {
+		String passwordEnc = encryptorFactory.getEncryptor().encryptPassword(user.getContrasenya());
 		this.jdbcTemplate.update("insert into usuaris(usuari, contrasenya, tipus) values(?, ?, ?)", user.getUsuari(),
-				user.getContrasenya(), user.getTipus());
+				passwordEnc, user.getTipus());
 	}
 
 	public void delete(String userDni) {
 		this.jdbcTemplate.update("delete from usuarios where usuari = ?", userDni);
 	}
-
 	public UserDetails find(UserDetails userDetails) {
 		if (exists(userDetails))
 			return this.jdbcTemplate.queryForObject("select * from usuaris where usuari = ?", new UserMapper(), userDetails.getUsuari());
