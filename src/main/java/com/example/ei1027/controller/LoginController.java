@@ -1,5 +1,6 @@
 package com.example.ei1027.controller;
 
+import com.example.ei1027.dao.ActivitatDao;
 import com.example.ei1027.dao.UserDao;
 import com.example.ei1027.model.UserDetails;
 import com.example.ei1027.validation.UserValidator;
@@ -18,10 +19,14 @@ public class LoginController {
 	@Autowired
 	private UserDao userDao;
 
+    @Autowired
+    private ActivitatDao activitatDao;
+
 	@RequestMapping("/home")
 	public String login(Model model) {
 		model.addAttribute("user", new UserDetails());
-		return "home/main";
+        model.addAttribute("activitats", activitatDao.getActivitats());
+        return "home/main";
 	}
 
 	@RequestMapping(value="/login", method=RequestMethod.POST)

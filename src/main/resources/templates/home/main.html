@@ -10,13 +10,41 @@
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <style>
+
+        .vertical-align {
+            padding-right: 3% !important;
+            vertical-align: middle;
+        }
+
+        .dificultad {
+            color: rgba(0, 0, 0, 0.75);
+            font-weight: bold;
+            font-size: 1.1em;
+            padding-right: 3% !important;
+        }
+
+        .blue-btn {
+            background-color: transparent !important;
+            border: 1px solid black;
+            color: black;
+            font-weight: bold;
+            border-radius: 50%;
+            text-transform: lowercase !important;
+        }
+    </style>
 </head>
 <body>
 
 <header th:replace="fragments/navBar :: navBar"></header>
 <section th:replace="fragments/login.html :: loginModal" th:unless="${session.user}"></section>
 
-<h3>ESTO ES UNA PRUEBA DE LA PAGINA PPAL</h3>
+<div class="row">
+    <div class="col s3" th:each="activitat : ${activitats}">
+        <div th:replace="fragments/card-activitat.html :: card-activitat"></div>
+    </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
