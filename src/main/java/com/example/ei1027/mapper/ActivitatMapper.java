@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Created by CIT on 19/05/2019.
@@ -17,8 +18,9 @@ public class ActivitatMapper implements RowMapper<Activitat> {
         Activitat.setEstat(rs.getString("estat"));
         Activitat.setDescripcio(rs.getString("descripcio"));
         Activitat.setDurada(rs.getFloat("durada"));
-        LocalDate DOB = rs.getObject("data", LocalDate.class);
-        Activitat.setData(String.format("%d/%d/%d", DOB.getDayOfMonth(), DOB.getMonthValue(), DOB.getYear()));
+        LocalDate date = rs.getDate("data").toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+        Activitat.setData(date.format(formatter));
         Activitat.setPreu(rs.getFloat("preu"));
         Activitat.setMinAssistents(rs.getInt("min_assistents"));
         Activitat.setMaxAssistents(rs.getInt("max_assistents"));

@@ -1,5 +1,6 @@
 package com.example.ei1027.controller;
 
+import com.example.ei1027.config.EncryptorFactory;
 import com.example.ei1027.dao.InstructorDao;
 import com.example.ei1027.dao.UserDao;
 import com.example.ei1027.email.EmailService;
@@ -28,6 +29,10 @@ public class InstructorController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private EncryptorFactory encryptorFactory;
+
     @Autowired
     private UserDao userDao;
     @GetMapping("/pendents")
@@ -89,7 +94,7 @@ public class InstructorController {
         }catch(DuplicateKeyException e) {
         	throw new ClientException("DNI o camp unic(iban, email) duplicat","ClauPrimariaDuplicada");
         }
-        //emailService.sendSimpleMessage(instructor.getEmail(), EmailTemplates.SOLICITUD_ENVIADA.subject(), EmailTemplates.SOLICITUD_ENVIADA.fileName());
+        emailService.sendSimpleMessage(instructor.getEmail(), EmailTemplates.SOLICITUD_ENVIADA.subject(), EmailTemplates.SOLICITUD_ENVIADA.fileName());
         return "redirect:pendents";
     }
 

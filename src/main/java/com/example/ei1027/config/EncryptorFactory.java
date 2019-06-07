@@ -17,6 +17,7 @@ public class EncryptorFactory {
             this.encryptor = new BasicPasswordEncryptor();
         return this.encryptor;
     }
+
     public String generateRandomPassword() {
         return RandomStringUtils.randomAlphanumeric(7);
     }
