@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>CReservar activitat</title>
+    <title>Reservar activitat</title>
     <meta charset="UTF-8"/>
     <!--Import Google Icon Font-->
     <!-- Compiled and minified CSS -->
@@ -12,49 +12,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-
-
-
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/reserva/add}"
           th:object="${reserva}" method="post">
-        <div class="row">
-            <div >
-                <input id="dataReserva" type="text"   class="datepicker validate" th:field="*{dataReserva}" required>
-                <label for="dataReserva">Data Reserva</label>
 
-            </div>
-
-        </div>
         <div class="row">
             <div class="input-field col s5">
-                <input id="idClient" type="text"   th:field="*{idClient}" required>
+                <input id="idClient" type="text"  th:field="*{idClient}" >
                 <label for="idClient">idClient</label>
 
             </div>
-
+            <div class="input-field col s6">
+                <input readonly id="nomActivitat"type="text" th:field="*{nomActivitat}" class="validate"  maxlength="20" />
+                <label for="nomActivitat">nomActivitat</label>
+            </div>
 
         </div>
-        <div class="row">
-            <div class="input-field col s3">
-                <input id="preuPersona" type="number" th:field="*{preuPersona}" required>
-                <label for="preuPersona">preuPersona</label>
-            </div>
-            <div class="input-field col s3">
-                <input id="preuTotal"  placeholder="20" class="validate" type="number"  th:field="*{preuTotal}" />
-                <label for="preuTotal">preu total</label>
-            </div>
-        </div>
-
         <div class="row">
             <div class="input-field col s3">
                 <input id="numAssistents" class="validate" placeholder="2" type="number"  th:field="*{numAssistents}" />
                 <label for="numAssistents"> nombre de asistents</label>
             </div>
-            <div class="input-field col s6">
-                <input id="nomActivitat"type="text" th:field="*{nomActivitat}" class="validate"  maxlength="20" />
-                <label for="nomActivitat">nomActivitat</label>
-            </div>
+
         </div>
 
         <div class="row">
@@ -69,71 +48,6 @@
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script>
-    const Calendar = document.querySelector('.datepicker');
-    var rangeOfyears = [];
-    const today = new Date();
-    var startYear = today.getFullYear() - 90;
-    var startDate = new Date(new String(startYear));
-    M.Datepicker.init(Calendar, {
-        format: 'dd/mm/yyyy',
-        minDate: startDate,
-        maxDate: today,
-        firstDay: 1,
-        yearRange: [startYear, today.getFullYear()],
-        i18n: {
-            months: ['Gener',
-                'Febrer',
-                'Març',
-                'Abril',
-                'Maig',
-                'Juny',
-                'Juliol',
-                'Agost',
-                'Setembre',
-                'Octubre',
-                'Novembre',
-                'Decembre'],
-            monthsShort: ['Gen',
-                'Feb',
-                'Mar',
-                'Abr',
-                'Mai',
-                'Jun',
-                'Jul',
-                'Ago',
-                'Set',
-                'Oct',
-                'Nov',
-                'Dec'],
-            weekdays: ['Diumenge',
-                'Dilluns',
-                'Dimarts',
-                'Dimecres',
-                'Dijous',
-                'Divendres',
-                'Dissabte'
-            ],
-            weekdaysShort: ['Diu',
-                'Dil',
-                'Dim',
-                'Dim',
-                'Dij',
-                'Div',
-                'Dis'],
-            weekdaysAbbrev: ['Dg', 'Dl', 'Dt', 'Dc', 'Dj', 'Dv', 'Ds'],
-            cancel: 'Cancelar'
-        }
-    });
-</script>
-<script>
-    const estat = document.querySelector('select');
-    M.FormSelect.init(estat, {});
-</script>
-<script>
-function myFunction() {
-document.getElementById("horaDeTrobada").value = "22:53:05";
-}
-</script>
+
 </body>
 </html>

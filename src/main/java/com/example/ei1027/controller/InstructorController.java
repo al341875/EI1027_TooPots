@@ -2,10 +2,12 @@ package com.example.ei1027.controller;
 
 import com.example.ei1027.config.EncryptorFactory;
 import com.example.ei1027.dao.InstructorDao;
+import com.example.ei1027.dao.UserDao;
 import com.example.ei1027.email.EmailService;
 import com.example.ei1027.email.EmailTemplates;
 import com.example.ei1027.model.Estat;
 import com.example.ei1027.model.Instructor;
+import com.example.ei1027.model.UserDetails;
 import com.example.ei1027.validation.InstructorValidator;
 import com.example.ei1027.validation.excepcions.ClientException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ public class InstructorController {
     @Autowired
     private EncryptorFactory encryptorFactory;
 
+    @Autowired
+    private UserDao userDao;
     @GetMapping("/pendents")
     public String listInstructorsPendents(Model model) {
         model.addAttribute("instructors", instructorDao.getInstructorsByStatus(Estat.PENDENT.toString()));
@@ -78,12 +82,15 @@ public class InstructorController {
 //            //Accion si ya existe el email en un instructor
 //        if (instructorDao.existIban(instructor.getIban()))
 //            //Accion si ya existe el iban en un instructor
+        UserDetails user = new UserDetails();
+        user.setUsuari(instructor.getInstructorId());
+        user.setTipus("instructor");
+        user.setContrasenya(instructor.getContrasenya());
+        userDao.add(user);
         if (bindingResult.hasErrors())
             return "instructor/add";
-        //String randomPassword = encryptorFactory.generateRandomPassword();
         try {
-            //instructor.setContrasenya(randomPassword);
-            instructorDao.addInstructor(instructor);
+        	instructorDao.addInstructor(instructor);
         }catch(DuplicateKeyException e) {
         	throw new ClientException("DNI o camp unic(iban, email) duplicat","ClauPrimariaDuplicada");
         }

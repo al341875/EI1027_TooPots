@@ -32,8 +32,4 @@ public class ActivitatMapper implements RowMapper<Activitat> {
         Activitat.setNomTipusActivitat(rs.getString("nom_tipus_activitat"));
         return Activitat;
     }
-
-    private String reverse(String original) {
-        return new StringBuilder(original).reverse().toString();
-    }
 }

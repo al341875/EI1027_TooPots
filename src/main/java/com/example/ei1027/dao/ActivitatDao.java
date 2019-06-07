@@ -23,6 +23,14 @@ public class ActivitatDao {
 		return this.jdbcTemplate.query(
 				"select * from Activitat", new ActivitatMapper());
 	}
+	public List<Activitat> getActivitatsByStatus(String status){
+		return this.jdbcTemplate.query(
+				"select * from Activitat where estat = ?", new ActivitatMapper(),status);
+	}
+	public List<Activitat> getActivitatsByInstructor(String idInstructor){
+		return this.jdbcTemplate.query(
+				"select * from Activitat where id_instructor = ?", new ActivitatMapper(),idInstructor);
+	}
 	public Activitat getActivitat(String nomLlarg){
 		return this.jdbcTemplate.queryForObject(
 				"select * from Activitat where nom_llarg=?",
@@ -38,6 +46,7 @@ public class ActivitatDao {
 				Activitat.getPreu(), Activitat.getMinAssistents(), Activitat.getMaxAssistents(), Activitat.getLloc(),
 				Activitat.getPuntDeTrobada(), Activitat.getHoraDeTrobada(),Activitat.getTextPerClient(), Activitat.getIdInstructor(), Activitat.getNomTipusActivitat());
 	}
+
 	public void updateActivitat(Activitat Activitat) {
 		LocalDate DOB = LocalDate.parse(Activitat.getData(), DateTimeFormatter.ofPattern("d/M/yyyy"));
 
@@ -47,10 +56,13 @@ public class ActivitatDao {
 				Activitat.getPreu(), Activitat.getMinAssistents(), Activitat.getMaxAssistents(), Activitat.getLloc(),
 				Activitat.getPuntDeTrobada(), Activitat.getHoraDeTrobada(),Activitat.getTextPerClient(), Activitat.getIdInstructor(), Activitat.getNomTipusActivitat(), Activitat.getNomLlarg());
 	}
+
 	public void deleteActivitat(String nomLlarg) {
 		this.jdbcTemplate.update("delete from Activitat where nom_llarg=?", nomLlarg);
 	}
-		
+	public boolean existIdInstructor(String idInstructor) {
+		return this.jdbcTemplate.queryForObject("select count(id_instructor) from instructor where id_instructor = ?", Integer.class, idInstructor) > 0;
+	}
 
 
 

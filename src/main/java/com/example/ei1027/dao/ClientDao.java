@@ -30,7 +30,6 @@ public class ClientDao{
 		this.jdbcTemplate.update(
 				"insert into Client(id_client,nom,email,data_naixement,sexe,contrasenya) values(?,?,?,?,?,?)",
 				client.getClientId(), client.getNom(), client.getEmail(), DOB, client.getSexe(), contrasenyaEnc);
-
 	}
 
 	public Client getClient(String idClient) {

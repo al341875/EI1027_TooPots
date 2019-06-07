@@ -4,13 +4,22 @@
     <title>Crear nova activitat</title>
     <meta charset="UTF-8"/>
     <!--Import Google Icon Font-->
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+         <style>
+        .helper-text {
+            color: red !important;
+        }
+
+        .inputError {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <div class="row">
@@ -19,7 +28,7 @@
         <div class="row">
             <div class="input-field col s5">
                 <input id="idInstructor" type="text"    class="validate" th:field="*{idInstructor}" required>
-                <label for="idInstructor">id instructor</label>
+                <label for="idInstructor">NIF Instructor</label>
             </div>
             <div class="input-field col s5">
                 <input id="nomLlarg" type="text" class="validate" th:field="*{nomLlarg}" required>
@@ -42,7 +51,7 @@
                     <option value="cancelada">cancelada</option>
 
                 </select>
-                <label>estat</label>
+                <label>Estat</label>
             </div>
 
         </div>
@@ -53,13 +62,13 @@
             </div>
             <div class="input-field col s3">
                 <input id="preu"  placeholder="20" class="validate" type="number"  th:field="*{preu}" />
-                <label for="preu">preu</label>
+                <label for="preu">Preu</label>
             </div>
         </div>
             <div class="row">
             <div class="input-field col s3">
                 <input id="durada" placeholder="20"  type="number" class="validate" th:field="*{durada}" required>
-                <label for="durada">durada</label>
+                <label for="durada">Durada</label>
 
             </div>
                 <div class="input-field col s6">
@@ -69,12 +78,12 @@
         </div>
         <div class="row">
             <div class="input-field col s3">
-                <input id="minAssistents" class="validate" placeholder="15" type="number"  th:field="*{minAssistents}" />
-                <label for="minAssistents">Minim nombre de asistents</label>
+                <input id="minAssistents" class="validate" placeholder="1" type="number"  th:field="*{minAssistents}" />
+                <label for="minAssistents">Nombre mínim d'assistents</label>
             </div>
             <div class="input-field col s3">
                 <input id="maxAssistents" class="validate" placeholder="15" type="number"  th:field="*{maxAssistents}" />
-                <label for="maxAssistents">Maxim nombre de asistents</label>
+                <label for="maxAssistents">Nombre màxim d'assistents</label>
             </div>
 
         </div>
@@ -85,23 +94,21 @@
         </div>
         <div class="input-field col s6">
             <input   id="puntDeTrobada"type="text" class="validate" th:field="*{puntDeTrobada}"   maxlength="20" />
-            <label for="puntDeTrobada">puntDeTrobada</label>
+            <label for="puntDeTrobada">Punt de trobada</label>
         </div>
         </div>
         <div class="row">
-
-        <div class="input-field col s3" >
-                <input   id="horaDeTrobada"  class="validate" type="text" th:field="*{horaDeTrobada}"   />
-                <label for="horaDeTrobada">horaDeTrobada</label>
+        	<div class="input-field col s6">
+                <input   placeholder="hh:mm:ss" data-format="hh:mm:ss" id="horaDeTrobada"  class="form-control" type="text" th:field="*{horaDeTrobada}"   />
+                <label for="horaDeTrobada">Hora de trobada</label>
             </div>
         <div class="input-field col s3">
-           ss
-            <input id="nomTipusActivitat" type="text" placeholder="nomTipusActivitat "   th:field="*{nomTipusActivitat}"  />
-            <label for="nomTipusActivitat">nomTipusActivitat</label>
+            <input id="nomTipusActivitat" type="text"   th:field="*{nomTipusActivitat}"  />
+            <label for="nomTipusActivitat">Tipus d'Activitat</label>
         </div>
             <div class="input-field col s8">
                 <textarea id="textPerClient" type="text"  class="validate" placeholder="Descripció per als clients "  th:field="*{textPerClient}"  />
-                <label for="textPerClient">textPerClient</label>
+                <label for="textPerClient">Afegix text per als clients</label>
             </div>
         </div>
 
@@ -116,20 +123,19 @@
     </form>
 </div>
 
+
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
     const Calendar = document.querySelector('.datepicker');
     var rangeOfyears = [];
     const today = new Date();
-    var startYear = today.getFullYear() - 90;
-    var startDate = new Date(new String(startYear));
-    M.Datepicker.init(Calendar, {
+    var startDate = today;
+    var instances = M.Datepicker.init(Calendar, {
         format: 'dd/mm/yyyy',
         minDate: startDate,
-        maxDate: today,
         firstDay: 1,
-        yearRange: [startYear, today.getFullYear()],
+        
         i18n: {
             months: ['Gener',
                 'Febrer',
@@ -184,5 +190,6 @@ function myFunction() {
 document.getElementById("horaDeTrobada").value = "22:53:05";
 }
 </script>
-</body>
+
+</div>
 </html>

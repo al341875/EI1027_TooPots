@@ -22,12 +22,13 @@ public class UserController {
 
     @RequestMapping("/login")
     public String login(Model model) {
-        //model.addAttribute("user", new UserDetails());
+        model.addAttribute("user", new UserDetails());
+
         //Logger.getAnonymousLogger().log(Level.INFO, "He llegado hasta aqui");
         return "home/login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login7", method = RequestMethod.POST)
     public String checkLogin(@ModelAttribute("user") UserDetails user,
                              BindingResult bindingResult, HttpSession session) {
         UserValidator userValidator = new UserValidator();
@@ -38,6 +39,7 @@ public class UserController {
         // Autenticats correctament.
         // Guardem les dades de l'usuari autenticat a la sessió
         session.setAttribute("user", user);
+        session.setAttribute("username", user.getUsuari());
 
         // Torna a la pàgina principal
         return "redirect:/";

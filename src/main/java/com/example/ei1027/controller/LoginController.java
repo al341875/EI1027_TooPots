@@ -4,6 +4,7 @@ import com.example.ei1027.dao.ActivitatDao;
 import com.example.ei1027.dao.UserDao;
 import com.example.ei1027.model.UserDetails;
 import com.example.ei1027.validation.UserValidator;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
-
 @Controller
 public class LoginController {
 	@Autowired
@@ -28,13 +28,18 @@ public class LoginController {
         model.addAttribute("activitats", activitatDao.getActivitats());
         return "home/main";
 	}
-
+	@RequestMapping("/login")
+	public String login2(Model model) {
+		model.addAttribute("user", new UserDetails());
+		return "home/login";
+	}
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String checkLogin(@ModelAttribute("user") UserDetails userData,
 							 BindingResult bindingResult, HttpSession session) {
 		UserValidator userValidator = new UserValidator();
 		userValidator.validate(userData, bindingResult);
 		UserDetails user = userDao.find(userData);
+
 		if (bindingResult.hasErrors() || user == null) {
 			return "home/main";
 		}
@@ -42,7 +47,11 @@ public class LoginController {
 	       // Comprova que el login siga correcte
 		// intentant carregar les dades de l'usuari 
 		session.setAttribute("user", user);
-
+		session.setAttribute("username",user.getUsuari());
+		if (user.getTipus().equals("client"))
+			return "home/client";
+		else if(user.getTipus().equals("admin"))
+			return "home/main";
 		return "redirect:home";
 
 //			if(user.getTipus().equals("client")) {session.setAttribute("home", "home/client");

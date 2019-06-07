@@ -21,11 +21,18 @@
             <td th:text="${reserva.nomActivitat}">nomActivitat</td>
             <td th:text="${reserva.estatPagament}">estatPagament</td>
 
-            <td><a th:href="@{/activitat/list/{idReserva}(idReserva=${reserva.idReserva})}">Visualitza</a>
-            <td><a th:href="@{/activitat/update/{idReserva}(idReserva=${reserva.idReserva})}">Edita</a>
-            <td><a th:href="@{/activitat/delete/{idReserva} (idReserva=${reserva.idReserva})}">Borra</a></td>
+            <td><a th:href="@{/reserva/list/{idReserva}(idReserva=${reserva.idReserva})}">Visualitza</a>
+            <td><a th:href="@{/reserva/update/{idReserva}(idReserva=${reserva.idReserva})}">Edita</a>
+            <td><a th:href="@{/reserva/delete/{idReserva} (idReserva=${reserva.idReserva})}">Borra</a></td>
+            <td><a th:href="@{/reserva/pagament/{idReserva} (idReserva=${reserva.idReserva})}">Pagar</a></td>
+
         </tr>
     </table>
-    <td><a th:href="@{/reserva/add/}">Afegeix</a>
+    <td><a th:href="@{/reserva/pendents/}">pendents</a>
+    <td><a th:href="@{/reserva/acceptats/}">acceptat</a>
+    <td><a th:href="@{/reserva/pagat/}">pagat</a>
+
+
+
 </body>
 </html>
