@@ -59,19 +59,11 @@ public class ReservaDao {
 				 new ReservaMapper(), idReserva);
 	}
 
-	public Reserva getReservaByActivitat(String nomActivitat){
-		return this.jdbcTemplate.queryForObject(
-				"select * from Reserva where nom_activitat=?",
-				new Object[] {nomActivitat}, new ReservaMapper());
-	}
-	public List<Reserva> getReservaByStatusInstructor(String status, String id_instructor){
-		return this.jdbcTemplate.query(
-				"select * from reserva where estat_pagament = ? and id_instructor = ?", new ReservaMapper(), status,id_instructor);
-	}
 
-	public List<Reserva> getReservaByInstructor(String id_instructor){
+
+	public List<Reserva> getReservaByActivitat(String nomActivitat){
 		return this.jdbcTemplate.query(
-				"select * from reserva where id_instructor = ? ", new ReservaMapper(), id_instructor);
+				"select * from reserva where nom_activitat =? ", new ReservaMapper(), nomActivitat);
 	}
 	public List<Reserva> getReservaByUsuariStatus(String idUsuari, String status){
 		return this.jdbcTemplate.query(

@@ -56,10 +56,11 @@
         </tr>
     </table>
     <td><a th:href="@{/activitat/add/}">Afegeix</a></td>
-        <div class="row" th:each="activitat : ${activitats}">
-        <div class="col s4" >
-            <div th:replace="fragments/card-instructor-activitat.html :: card-instructor-activitat"> </div>
+
+    <div class="row">
+        <div class="col s3" th:each="activitat : ${activitats}">
+            <div th:replace="fragments/card-activitat.html :: card-activitat"></div>
         </div>
-        </div>
+    </div>
 </body>
 </html>

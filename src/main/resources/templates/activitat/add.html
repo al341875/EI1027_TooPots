@@ -27,18 +27,14 @@
           th:object="${activitat}" method="post">
         <div class="row">
             <div class="input-field col s5">
-                <input id="idInstructor" type="text"    class="validate" th:field="*{idInstructor}" required>
-                <label for="idInstructor">NIF Instructor</label>
-            </div>
-            <div class="input-field col s5">
                 <input id="nomLlarg" type="text" class="validate" th:field="*{nomLlarg}" required>
-                <label for="nomLlarg">nomLlarg</label>
+                <label for="nomLlarg">Nom de la activitat</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s3" >
                 <input id="data" type="text"   class="datepicker validate" th:field="*{data}" required>
-                <label for="data">Data</label>
+                <label for="data">Data de la activitat</label>
 
             </div>
             <div class="input-field col s5">
@@ -58,7 +54,7 @@
         <div class="row">
             <div class="input-field col s6">
                 <textarea id="descripcio" type="text" class="autocomplete" th:field="*{descripcio}" required/>
-                <label for="descripcio">Descripcio</label>
+                <label for="descripcio">Descripció</label>
             </div>
             <div class="input-field col s3">
                 <input id="preu"  placeholder="20" class="validate" type="number"  th:field="*{preu}" />
@@ -98,12 +94,17 @@
         </div>
         </div>
         <div class="row">
-        	<div class="input-field col s6">
+        	<div class="input-field col s3">
                 <input   placeholder="hh:mm:ss" data-format="hh:mm:ss" id="horaDeTrobada"  class="form-control" type="text" th:field="*{horaDeTrobada}"   />
                 <label for="horaDeTrobada">Hora de trobada</label>
             </div>
-        <div class="input-field col s3">
-            <input id="nomTipusActivitat" type="text"   th:field="*{nomTipusActivitat}"  />
+        </div>
+        <div class="row">
+        <div class="input-field col s8">
+            <select  id="nomTipusActivitat" name="nomTipusActivitat">
+                <option th:each="Activitat: ${tipusActivitats}"  th:text="${Activitat.nomTipusActivitat}">	</option>
+            </select>
+
             <label for="nomTipusActivitat">Tipus d'Activitat</label>
         </div>
             <div class="input-field col s8">

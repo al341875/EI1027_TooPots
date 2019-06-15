@@ -3,8 +3,12 @@
 <head>
     <title>Welcome</title>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
 </head>
 <body>
+<header th:replace="fragments/navBar :: navBar"></header>
+
     <table>
         <tr>
             <th>ID</th>
@@ -12,6 +16,8 @@
             <th>idClient</th>
             <th>nomActivitat</th>
             <th>estatPagament</th>
+            <th>numAssistents</th>
+
 
         </tr>
         <tr th:each="reserva : ${reserves}">
@@ -20,6 +26,7 @@
             <td th:text="${reserva.idClient}">idClient</td>
             <td th:text="${reserva.nomActivitat}">nomActivitat</td>
             <td th:text="${reserva.estatPagament}">estatPagament</td>
+            <td th:text="${reserva.numAssistents}">numAssistents</td>
 
             <td><a th:href="@{/reserva/list/{idReserva}(idReserva=${reserva.idReserva})}">Visualitza</a>
             <td><a th:href="@{/reserva/update/{idReserva}(idReserva=${reserva.idReserva})}">Edita</a>

@@ -26,6 +26,7 @@ public class LoginController {
 	public String login(Model model) {
 		model.addAttribute("user", new UserDetails());
         model.addAttribute("activitats", activitatDao.getActivitats());
+
         return "home/main";
 	}
 	@RequestMapping("/login")

@@ -28,7 +28,7 @@ public class UserController {
         return "home/login";
     }
 
-    @RequestMapping(value = "/login7", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String checkLogin(@ModelAttribute("user") UserDetails user,
                              BindingResult bindingResult, HttpSession session) {
         UserValidator userValidator = new UserValidator();

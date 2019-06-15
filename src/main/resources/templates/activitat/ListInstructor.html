@@ -35,6 +35,8 @@
 
 </head>
 <body>
+<header th:replace="fragments/navBar :: navBar"></header>
+
 <table>
     <tr>
         <th>ID</th>
@@ -51,14 +53,14 @@
         <td><a th:href="@{/activitat/list/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}">Visualitza</a>
         <td><a th:href="@{/activitat/update/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}">Edita</a>
         <td><a th:href="@{/activitat/delete/{nomLlarg} (nomLlarg=${activitat.nomLlarg})}">Borra</a></td>
-        <td><a th:href="@{/reserva/add/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}">Reserva</a></td>
+        <td><a th:href="@{/reserva/listInstructor/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}">Reserves</a></td>
 
     </tr>
 </table>
 <td><a th:href="@{/activitat/add/}">Afegeix</a></td>
-<div class="row" th:each="activitat : ${activitats}">
-    <div class="col s4" >
-        <div th:replace="fragments/card-instructor-activitat.html :: card-instructor-activitat"> </div>
+<div class="row">
+    <div class="col s3" th:each="activitat : ${activitats}">
+        <div th:replace="fragments/card-activitat.html :: card-activitat"></div>
     </div>
 </div>
 </body>

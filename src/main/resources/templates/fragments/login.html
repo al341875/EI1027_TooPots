@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="input-field col s8 offset-s2">
                         <input id="usuari" type="text" class="validate" th:field="*{usuari}">
-                        <label for="usuari">Email</label>
+                        <label for="usuari">Nom d'usuari:</label>
                         <span th:if="${#fields.hasErrors('usuari')}" th:errors="*{usuari}" class="helper-text"></span>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <button class="btn waves-effect waves-light col s8 offset-s2" type="submit" name="action">
+                    <button class="btn waves-effect waves-light col s8 offset-s2"  type="submit" name="action">
                         Inicia sessió
                     </button>
                 </div>

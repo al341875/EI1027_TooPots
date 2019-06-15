@@ -21,6 +21,8 @@
     </style>
 </head>
 <body>
+<header th:replace="fragments/navBar :: navBar"></header>
+
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/instructor/update}"
           th:object="${instructor}" method="post">

@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/reserva")
 public class ReservaController {
@@ -53,12 +55,7 @@ public class ReservaController {
     }
 
 
-    @GetMapping("/listInstructor/{nomActivitat}")
-    public String listReservesActivitat(Model model, @SessionAttribute("username") String user,@PathVariable String nomActivitat ) {
-        model.addAttribute("reserves", reservaDao.getReservaByActivitat(nomActivitat));
 
-        return "reserva/list";
-    }
 
 
     @GetMapping("/listClient")
@@ -68,9 +65,9 @@ public class ReservaController {
         return "reserva/listClient";
     }
 
-    @GetMapping(value="/list/{idReserva}")
+    @GetMapping(value="/list2/{idReserva}")
     public String getReserva(Model model, @PathVariable Integer idReserva) {
-        model.addAttribute("reserva", reservaDao.getReserva(idReserva));
+        model.addAttribute("reserves", reservaDao.getReserva(idReserva));
         return "reserva/list";
     }
 
@@ -80,9 +77,9 @@ public class ReservaController {
         model.addAttribute("reservaActivitat", reservaDao.getReservaByActivitat(NomActivitat));
         return "reserva/list";
     }
-    @GetMapping("/listInstructor")
-    public String getReservesByInstructor(Model model,@SessionAttribute("username") String user) {
-        model.addAttribute("reserves", reservaDao.getReservaByInstructor(user));
+    @GetMapping("/listInstructor/{nomActivitat}")
+    public String getReservesByInstructor(Model model,@PathVariable String nomActivitat) {
+        model.addAttribute("reserves", reservaDao.getReservaByActivitat(nomActivitat));
         return "reserva/listInstructor";
     }
     @GetMapping(value = "/add/{nomActivitat}")
@@ -133,7 +130,7 @@ public class ReservaController {
     @RequestMapping(value = "/accept/{idReserva}")
     public String accept(@PathVariable Integer idReserva) {
         reservaDao.aceptarSolicitud(idReserva);
-        return "redirect:../pendents";
+        return "redirect:../listInstructor";
     }
 
 
@@ -143,7 +140,7 @@ public class ReservaController {
 
         reservaDao.aceptarPagament(idReserva);
 
-        return "reserva/pagament";
+        return "redirect:../list";
     }
     @RequestMapping(value = "/delete/{idReserva}")
     public String delete(@PathVariable Integer idReserva) {
