@@ -1,0 +1,9 @@
+<ul th:fragment="navBar-list-instructor" id="nav-instructor" class="right hide-on-med-and-down col s5">
+    <div class="right">
+        <li><a href="/activitat/listInstructor">Les meues activitats</a></li>
+        <li><a  th:href="@{/instructor/update/{instructorId}(instructorId=${session.user.usuari})}" th:text="${session.user.usuari}"></a></li>
+        <li><a href="/home"> home</a></li>
+
+        <li><a href="/logout">Eixir</a></li>
+    </div>
+</ul>

@@ -1,0 +1,11 @@
+<ul th:fragment="navBar-list-client" id="nav-client" class="right hide-on-med-and-down col s5">
+    <div class="right">
+        <li><a href="/activitat/list">Activitats</a></li>
+        <li><a href="/reserva/listClient">reserves</a></li>
+        <li><a href="/instructor/add">Convertir-se en instructor</a></li>
+        <li><a href="collapsible.html" th:text="${session.user.usuari}"></a></li>
+        <li><a href="/home">Home</a></li>
+
+        <li><a href="/logout">Eixir</a></li>
+    </div>
+</ul>

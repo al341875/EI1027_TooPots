@@ -7,12 +7,21 @@ import com.example.ei1027.model.Client;
 import com.example.ei1027.model.UserDetails;
 import com.example.ei1027.validation.ClientValidator;
 import com.example.ei1027.validation.excepcions.ClientException;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/client")
@@ -22,6 +31,8 @@ public class ClientController {
 	private ClientDao clientDao;
 	@Autowired
 	private UserDao userDao;
+	@Value("${upload.file.directory}")
+    private String uploadDirectory;
 	@GetMapping("/list")
 	public String listClient(Model model) {
 		model.addAttribute("clients", clientDao.getClients());
@@ -38,7 +49,9 @@ public class ClientController {
 		return "client/add";
 	}
 	@PostMapping(value = "/add")
-	public String addClient(@ModelAttribute("client") Client client, BindingResult bindingResult) {
+	public String addClient(@ModelAttribute("client") Client client, BindingResult bindingResult,
+			@RequestParam("file") MultipartFile file,
+            RedirectAttributes redirectAttributes) {
         ClientValidator clientValidator = new ClientValidator();
         clientValidator.validate(client, bindingResult);
         //if (clientDao.existId(client.getClientId()))
@@ -53,8 +66,26 @@ public class ClientController {
 		userDao.add(user);
         if (bindingResult.hasErrors())
 			return "client/add";
-        try {
+        if (file.isEmpty()) {
+            // Enviar mensaje de error porque no hay fichero seleccionado
+            redirectAttributes.addFlashAttribute("message",
+                    "Please select a file to upload");
+            return "redirect:/uploadStatus";
+        }
 
+        try {
+            // Obtener el fichero y guardarlo
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(uploadDirectory + "imatges/"
+                    + file.getOriginalFilename());
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        client.setImatge(file.getOriginalFilename());
+
+        try {
+            
         	clientDao.addClient(client);
         }catch(DuplicateKeyException e) {
         	throw new ClientException("Ja existeix un client en el NIF: "+client.getClientId(),"ClauPrimariaDuplicada");
@@ -86,4 +117,37 @@ public class ClientController {
 		clientDao.deleteClient(clientId);
 		return "redirect:../list";
 	}
+	
+	@RequestMapping(value = "/upload/{clientId}")
+    public String addImatgeClient(@ModelAttribute("client") Client client, BindingResult bindingResult, @SessionAttribute("username") String user,
+                                 @RequestParam("file") MultipartFile file,
+                                 RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult);
+            return "upload/{clientId}";
+        }
+        if (file.isEmpty()) {
+            // Enviar mensaje de error porque no hay fichero seleccionado
+            redirectAttributes.addFlashAttribute("message",
+                    "Please select a file to upload");
+            return "redirect:/uploadStatus";
+        }
+
+        try {
+            // Obtener el fichero y guardarlo
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(uploadDirectory + "imatges/"
+                    + file.getOriginalFilename());
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        client.setImatge(file.getName());
+        return "redirect:list";
+    }
+    @RequestMapping(value = "/imatges/{id}")
+    public String mostrarImatge(Model model,@PathVariable String id) {
+        model.addAttribute("client", clientDao.getImatge(id));
+        return "client/list";
+    }
 }

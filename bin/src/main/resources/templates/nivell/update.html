@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edita nivell</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2>Nou Nivell</h2>
+<form th:action="@{/nivell/update/{nivellId}(nivellId=${nivell.nivellId})}"
+      th:object="${nivell}" method="post">
+    <table>
+        <tr>
+            <td><label>Descripció</label></td>
+            <!--FALTA POSAR LA LONGITUD MAXIMA I MINIMA DE LA DESCRIPCIO-->
+            <td><input type="text" th:field="*{descripcio}" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Guardar canvis" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

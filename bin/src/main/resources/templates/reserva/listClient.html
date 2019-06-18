@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script type = "text/javascript"
+            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
+
+    <style>
+        .searchBox{
+            position: fixed!important;
+            bottom: 23px!important;
+            right: 23px!important;
+            background-color: white!important;
+        }
+        .label-icon > i {
+            color: black!important;
+        }
+        .character-counter{
+            display: none!important;
+        }
+        .indicator {
+            display: none;
+        }
+    </style>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+</head>
+<body>
+
+<header th:replace="fragments/navBar.html :: navBar"></header>
+
+<section>
+    <ul class="collection">
+        <li class="collection-item avatar valign-wrapper" th:each="reserva : ${reserves}">
+            <img src="https://img.icons8.com/color/420/person-male.png" alt="" class="circle">
+            <span class="title" th:text="${reserva.idReserva + ' (' + reserva.nomActivitat + ')'}">idReserva(NomActivitat )</span>
+            <div class="secondary-content">
+                <a   th:href="@{/reserva/list2/{idReserva} (idReserva=${reserva.idReserva})}" class="btn blue"><i class="material-icons">info</i></a>
+                <a th:if="${reserva.estatPagament.equals('confirmat')}"
+                   class="btn teal"></a>
+                <a th:if="${reserva.estatPagament.equals('pendent')}"
+                th:href="@{/reserva/pagament/{idReserva} (idReserva=${reserva.idReserva})}"
+                   class="btn green"><i class="material-icons">payment</i></a>
+                <a th:if="${reserva.estatPagament.equals('acceptat')}"
+                   class="btn red"><i
+                        class="material-icons">delete</i></a>
+                <a th:if="${reserva.estatPagament.equals('pagat')}"
+
+                   class="btn tooltipped amber" data-position="left" data-tooltip="Envia la solicitud a pendents"><i
+                        class="material-icons">undo</i></a>
+            </div>
+        </li>
+    </ul>
+</section>
+
+<div th:replace="fragments/searchBar-floating.html :: searchBar-floating"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<script>
+    var elems = document.querySelector('.tooltipped');
+    var instances = M.Tooltip.init(elems, {});
+</script>
+<script>
+    var elems = document.querySelector('.tabs');
+    var instances = M.Sidenav.init(elems, {});
+</script>
+<script>
+    var elems = document.querySelector('.fixed-action-btn');
+    var instances = M.FloatingActionButton.init(elems, {
+        direction: 'left'
+    });
+</script>
+</body>

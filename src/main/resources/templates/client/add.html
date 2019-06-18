@@ -23,7 +23,7 @@
 <body>
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/client/add}"
-          th:object="${client}" method="post">
+          th:object="${client}" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="input-field col s7">
                 <input id="nom" type="text" class="validate" th:field="*{nom}" required>
@@ -58,6 +58,11 @@
                 <input id="email" type="email" class="validate" th:field="*{email}" required>
                 <label for="email">Email</label>
                 <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="helper-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input type="file" class="form-control-file" name="file" id="file"/>
             </div>
         </div>
         <div class="row">

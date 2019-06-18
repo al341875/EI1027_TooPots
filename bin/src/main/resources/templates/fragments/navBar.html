@@ -1,0 +1,56 @@
+<header th:fragment="navBar">
+
+    <!--NAVBAR ADMINISTRADOR-->
+
+    <nav class="nav-extended" th:if="${session.user != null && session.user.tipus == 'admin'}">
+        <div class="nav-wrapper row">
+
+            <div class="col s2"><a href="#" class="brand-logo">TooPots</a></div>
+
+            <ul th:replace="fragments/navBar-list-admin.html :: navBar-list-admin"></ul>
+
+        </div>
+        <div th:if="${tabs}" th:replace="fragments/tabs-navBar-instructor.html :: tabs-navBar-instructor"></div>
+    </nav>
+
+
+    <!--NAVBAR GENERAL-->
+
+    <nav th:if="${session.user == null}">
+        <div class="nav-wrapper row">
+
+            <div class="col s2"><a href="#" class="brand-logo">TooPots</a></div>
+            <form th:replace="fragments/searchBar.html :: searchBar"></form>
+
+            <ul th:replace="fragments/navBar-list-general.html :: navBar-list-general"></ul>
+
+        </div>
+    </nav>
+
+
+    <!--NAVBAR CLIENT-->
+
+    <nav th:if="${session.user != null && session.user.tipus == 'client'}">
+        <div class="nav-wrapper row">
+
+            <div class="col s2"><a href="#" class="brand-logo">TooPots</a></div>
+
+            <form th:replace="fragments/searchBar.html :: searchBar"></form>
+
+            <ul th:replace="fragments/navBar-list-client.html :: navBar-list-client"></ul>
+
+        </div>
+    </nav>
+
+    <!--NAVBAR INSTRUCTOR-->
+
+    <nav class="nav-extended" th:if="${session.user != null && session.user.tipus == 'instructor'}">
+        <div class="nav-wrapper row">
+
+            <div class="col s2"><a href="#" class="brand-logo">TooPots</a></div>
+
+            <ul th:replace="fragments/navBar-list-instructor.html :: navBar-list-instructor"></ul>
+
+        </div>
+    </nav>
+</header>
