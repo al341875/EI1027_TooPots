@@ -3,6 +3,7 @@ package com.example.ei1027.dao;
 import com.example.ei1027.config.EncryptorFactory;
 import com.example.ei1027.mapper.ActivitatMapper;
 import com.example.ei1027.model.Activitat;
+import com.example.ei1027.model.Client;
 import com.example.ei1027.model.Estat;
 import com.example.ei1027.model.Instructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +44,9 @@ public class InstructorDao {
 		String contrasenyaEnc = encryptorFactory.getEncryptor().encryptPassword(instructor.getContrasenya());
 
 		this.jdbcTemplate.update(
-				"insert into Instructor(id_instructor,nom,email,iban,estat,domicili,data_naixement,sexe,contrasenya) values(?,?,?,?,?,?,?,?,?)",
+				"insert into Instructor(id_instructor,nom,email,iban,estat,domicili,data_naixement,sexe,contrasenya,imatge) values(?,?,?,?,?,?,?,?,?,?)",
 				instructor.getInstructorId(), instructor.getNom(), instructor.getEmail(),
-				instructor.getIban(), Estat.PENDENT.toString(), instructor.getDomicili(), DOB, instructor.getSexe(), contrasenyaEnc);
+				instructor.getIban(), Estat.PENDENT.toString(), instructor.getDomicili(), DOB, instructor.getSexe(), contrasenyaEnc, instructor.getImatge());
 	}
 
 	public void updateInstructor(Instructor instructor) {
@@ -53,9 +54,9 @@ public class InstructorDao {
 		String contrasenyaEnc = encryptorFactory.getEncryptor().encryptPassword(instructor.getContrasenya());
 
 
-		this.jdbcTemplate.update("update Instructor set nom=?,email=?,iban=?,estat=?,domicili=?,data_naixement=?,sexe=?,contrasenya=? where id_instructor=?",
+		this.jdbcTemplate.update("update Instructor set nom=?,email=?,iban=?,estat=?,domicili=?,data_naixement=?,sexe=?,contrasenya=?,imatge=? where id_instructor=?",
 				instructor.getNom(), instructor.getEmail(), instructor.getIban(),
-				Estat.ACCEPTADA.toString(), instructor.getDomicili(), DOB, instructor.getSexe(), contrasenyaEnc, instructor.getInstructorId());
+				Estat.ACCEPTADA.toString(), instructor.getDomicili(), DOB, instructor.getSexe(), contrasenyaEnc,instructor.getImatge(), instructor.getInstructorId());
 	}
 
 	public void deleteInstructor(String idInstructor) {
@@ -96,6 +97,11 @@ public class InstructorDao {
 	public boolean existIban(String iban) {
 		return this.jdbcTemplate.queryForObject("select count(iban) from instructor where iban = ?", Integer.class, iban) > 0;
 	}
+	public Instructor getImatge(String url){
+		return this.jdbcTemplate.queryForObject(
+				"select * from instructor where imatge=?  ",
+				new Object[] {url}, new InstructorMapper());
+	}
 
 	private static final class InstructorMapper implements RowMapper<Instructor> {
 		public Instructor mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -110,6 +116,7 @@ public class InstructorDao {
 			instructor.setDataNaixement(String.format("%d/%d/%d", DOB.getDayOfMonth(), DOB.getMonthValue(), DOB.getYear()));
 			instructor.setSexe(rs.getString("sexe"));
 			instructor.setContrasenya(rs.getString("contrasenya"));
+			instructor.setImatge(rs.getString("imatge"));
 
 			return instructor;
 		}

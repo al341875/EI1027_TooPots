@@ -46,9 +46,9 @@ public class ClientDao{
         LocalDate DOB = LocalDate.parse(client.getDataNaixement(), DateTimeFormatter.ofPattern("d/M/yyyy"));
 
 		String contrasenyaEnc = this.encryptorFactory.getEncryptor().encryptPassword(client.getContrasenya());
-		this.jdbcTemplate.update("update Client set nom=?,email=?,sexe=?,data_naixement=?, contrasenya=? "
+		this.jdbcTemplate.update("update Client set nom=?,email=?,sexe=?,data_naixement=?, contrasenya=?, imatge=? "
 				+ "where id_client=?",
-				client.getNom(), client.getEmail(), client.getSexe(), DOB, contrasenyaEnc, client.getClientId());
+				client.getNom(), client.getEmail(), client.getSexe(), DOB, contrasenyaEnc,client.getImatge(), client.getClientId());
 	}
 
 	public List<Client> getClients() {

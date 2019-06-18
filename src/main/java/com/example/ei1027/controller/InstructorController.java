@@ -17,6 +17,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.mail.MessagingException;
 
@@ -33,6 +40,9 @@ public class InstructorController {
 
     @Autowired
     private EncryptorFactory encryptorFactory;
+    
+	@Value("${upload.file.directory}")
+    private String uploadDirectory;
 
 
     @Autowired
@@ -76,7 +86,8 @@ public class InstructorController {
     }
 
     @PostMapping(value = "/add")
-    public String addInstructor(@ModelAttribute("instructor") Instructor instructor, BindingResult bindingResult) throws MessagingException {
+    public String addInstructor(@ModelAttribute("instructor") Instructor instructor, BindingResult bindingResult,@RequestParam("file") MultipartFile file,
+            RedirectAttributes redirectAttributes) throws MessagingException {
         InstructorValidator instructorValidator = new InstructorValidator();
         instructorValidator.validate(instructor, bindingResult);
 //        if (instructorDao.existId(instructor.getInstructorId()))
@@ -89,9 +100,28 @@ public class InstructorController {
         user.setUsuari(instructor.getInstructorId());
         user.setTipus("instructor");
         user.setContrasenya(instructor.getContrasenya());
-        userDao.add(user);
+        userDao.add(user);  
         if (bindingResult.hasErrors())
             return "instructor/add";
+        
+        
+        if (file.isEmpty()) {
+            // Enviar mensaje de error porque no hay fichero seleccionado
+            redirectAttributes.addFlashAttribute("message",
+                    "Please select a file to upload");
+            return "redirect:/uploadStatus";
+        }
+
+        try {
+            // Obtener el fichero y guardarlo
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(uploadDirectory + "imatges/"
+                    + file.getOriginalFilename());
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        instructor.setImatge(file.getOriginalFilename());
         try {
         	instructorDao.addInstructor(instructor);
         }catch(DuplicateKeyException e) {
@@ -109,7 +139,8 @@ public class InstructorController {
 
     @PostMapping(value = "/update")
     public String update(@ModelAttribute("instructor") Instructor instructor,
-                         BindingResult bindingResult) {
+                         BindingResult bindingResult,@RequestParam("file") MultipartFile file,
+				            RedirectAttributes redirectAttributes) {
     	InstructorValidator instructorValidator = new InstructorValidator();
     	instructorValidator.validate(instructor, bindingResult);
 //        if (instructorDao.existId(instructor.getInstructorId()))
@@ -120,6 +151,23 @@ public class InstructorController {
 //            //Accion si ya existe el iban en un instructor
         if (bindingResult.hasErrors())
             return "instructor/update";
+        if (file.isEmpty()) {
+            // Enviar mensaje de error porque no hay fichero seleccionado
+            redirectAttributes.addFlashAttribute("message",
+                    "Please select a file to upload");
+            return "redirect:/uploadStatus";
+        }
+
+        try {
+            // Obtener el fichero y guardarlo
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(uploadDirectory + "imatges/"
+                    + file.getOriginalFilename());
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        instructor.setImatge(file.getOriginalFilename());
         instructorDao.updateInstructor(instructor);
         return "redirect:acceptats";
     }
@@ -155,6 +203,12 @@ public class InstructorController {
     public String getActivitatsInstructor(Model model, @PathVariable String instructorId){
         model.addAttribute("activitats", instructorDao.findActivitiesByInstructorId(instructorId));
         return "instructor/activitats";
+    }
+    
+    @RequestMapping(value = "/imatges/{id}")
+    public String mostrarImatge(Model model,@PathVariable String id) {
+        model.addAttribute("instructor", instructorDao.getImatge(id));
+        return "instructor/list";
     }
 
 }

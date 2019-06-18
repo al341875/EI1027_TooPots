@@ -5,12 +5,20 @@ import com.example.ei1027.dao.TipusActivitatDao;
 import com.example.ei1027.model.Activitat;
 import com.example.ei1027.validation.ActivitatValidator;
 import com.example.ei1027.validation.excepcions.ActivitatException;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/activitat")
@@ -34,7 +42,7 @@ public class ActivitatController {
 	}
 	@GetMapping(value = "/list/{nomLlarg}")
 	public String getActivitat(Model model, @PathVariable String nomLlarg) {
-		model.addAttribute("activitat", activitatDao.getActivitat(nomLlarg));
+		model.addAttribute("activitats", activitatDao.getActivitat(nomLlarg));
 		return "activitat/list";
 	}
 
@@ -52,6 +60,7 @@ public class ActivitatController {
             return "activitat/add";
         }	//
 		activitat.setIdInstructor(user);
+
         activitatDao.addActivitat(activitat);
         return "redirect:list";
     }

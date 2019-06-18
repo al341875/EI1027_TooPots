@@ -100,7 +100,8 @@ public class ClientController {
 	}
 	@PostMapping(value="/update")
 	public String update(@ModelAttribute("client") Client client,
-						 BindingResult bindingResult) {
+						 BindingResult bindingResult,@RequestParam("file") MultipartFile file,
+				            RedirectAttributes redirectAttributes) {
         ClientValidator clientValidator = new ClientValidator();
         clientValidator.validate(client, bindingResult);
         //if (clientDao.existId(client.getClientId()))
@@ -109,23 +110,6 @@ public class ClientController {
         //El email ya existe!
         if (bindingResult.hasErrors())
 			return "client/update";
-		clientDao.updateClient(client);
-		return "redirect:list";
-	  }
-	@RequestMapping(value = "/delete/{clientId}")
-	public String delete(@PathVariable String clientId) {
-		clientDao.deleteClient(clientId);
-		return "redirect:../list";
-	}
-	
-	@RequestMapping(value = "/upload/{clientId}")
-    public String addImatgeClient(@ModelAttribute("client") Client client, BindingResult bindingResult, @SessionAttribute("username") String user,
-                                 @RequestParam("file") MultipartFile file,
-                                 RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult);
-            return "upload/{clientId}";
-        }
         if (file.isEmpty()) {
             // Enviar mensaje de error porque no hay fichero seleccionado
             redirectAttributes.addFlashAttribute("message",
@@ -142,9 +126,15 @@ public class ClientController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        client.setImatge(file.getName());
-        return "redirect:list";
-    }
+        client.setImatge(file.getOriginalFilename());
+		clientDao.updateClient(client);
+		return "redirect:list";
+	  }
+	@RequestMapping(value = "/delete/{clientId}")
+	public String delete(@PathVariable String clientId) {
+		clientDao.deleteClient(clientId);
+		return "redirect:../list";
+	}
     @RequestMapping(value = "/imatges/{id}")
     public String mostrarImatge(Model model,@PathVariable String id) {
         model.addAttribute("client", clientDao.getImatge(id));

@@ -25,7 +25,7 @@
 
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/instructor/update}"
-          th:object="${instructor}" method="post">
+          th:object="${instructor}" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="input-field col s6 offset-s3">
                 <img class="responsive-img circle"
@@ -75,6 +75,11 @@
                 <input id="email" type="email" class="validate" th:field="*{email}" required>
                 <label for="email">Email</label>
                 <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="helper-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input type="file" class="form-control-file" name="file" id="file"/>
             </div>
         </div>
         <div class="row">

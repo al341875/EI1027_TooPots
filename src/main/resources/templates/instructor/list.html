@@ -41,7 +41,7 @@
 <section>
     <ul class="collection">
         <li class="collection-item avatar valign-wrapper" th:each="instructor : ${instructors}">
-            <img src="https://img.icons8.com/color/420/person-male.png" alt="" class="circle">
+            <img src="../static/imatges/${instructor.imatge}" th:src="@{/imatges/{id}(id=${instructor.imatge})}" alt="" class="circle">
             <span class="title" th:text="${instructor.nom + ' (' + instructor.instructorId + ')'}">Nombre (DNI)</span>
             <div class="secondary-content">
                 <a href="#!" class="btn blue"><i class="material-icons">info</i></a>
