@@ -60,7 +60,7 @@ public class AcreditacioController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        acreditacio.setCertificatUrl(file.getName());
+        acreditacio.setCertificatUrl(file.getOriginalFilename());
         acreditacio.setIdInstructor(user);
         acreditacio.setEstat("pendent");
         acreditacioDao.addAcreditacio(acreditacio);
@@ -70,6 +70,16 @@ public class AcreditacioController {
     public String mostrarAcreditacio(Model model,@PathVariable String id) {
         model.addAttribute("acreditacio", acreditacioDao.getAcreditacio(id));
         return "acreditacio/list";
+    }
+    @RequestMapping(value = "/list/{id}")
+    public String mostrarAcreditacions(Model model,@PathVariable String id) {
+        model.addAttribute("acreditacions", acreditacioDao.getAcreditacio2(id));
+        return "acreditacio/list";
+    }
+    @RequestMapping(value = "/pdfs/{id}")
+    public String mostrarImatge(Model model,@PathVariable String id) {
+        model.addAttribute("client", acreditacioDao.getPdf(id));
+        return "client/list";
     }
 
 }

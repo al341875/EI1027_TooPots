@@ -51,9 +51,11 @@ public class LoginController {
 		session.setAttribute("username",user.getUsuari());
 		if (user.getTipus().equals("client"))
 			return "home/client";
-		else if(user.getTipus().equals("admin"))
-			return "home/main";
-		return "redirect:home";
+		else if(user.getTipus().equals("instructor"))
+			return "home/monitor";
+
+		return "home/main";
+		//return "redirect:home";
 
 //			if(user.getTipus().equals("client")) {session.setAttribute("home", "home/client");
 //			return "redirect:/home/client";

@@ -23,6 +23,7 @@ public class AcreditacioDao {
 		        acreditacio.setIdInstructor(rs.getString("id_instructor"));
 		        acreditacio.setCertificatUrl(rs.getString("certificat_url"));
 		        acreditacio.setEstat(rs.getString("estat"));
+		        acreditacio.setNomTipusActivitat(rs.getString("tipus_activitat"));
 		        return acreditacio;
 		    }
 	}
@@ -36,10 +37,10 @@ public class AcreditacioDao {
 				"select * from acreditacio where certificat_url=?  ",
 				new Object[] {url}, new AcreditacioMapper());
 	}
-	public Acreditacio getAcreditacio2(String idInstructor){
-		return this.jdbcTemplate.queryForObject(
+	public List<Acreditacio> getAcreditacio2(String idInstructor){
+		return this.jdbcTemplate.query(
 				"select * from acreditacio where id_instructor=?  ",
-				new Object[] {idInstructor}, new AcreditacioMapper());
+				 new AcreditacioMapper(),idInstructor);
 	}
 	public void addAcreditacio(Acreditacio acreditacio) {
 		this.jdbcTemplate.update(
@@ -55,6 +56,11 @@ public class AcreditacioDao {
 	}
 	public void deleteAcreditacio(String idInstructor) {
 		this.jdbcTemplate.update("delete from acreditacio where id_instructor=?", idInstructor);
+	}
+	public Acreditacio getPdf(String url){
+		return this.jdbcTemplate.queryForObject(
+				"select * from acreditacio where certificat_url=?  ",
+				new Object[] {url}, new AcreditacioMapper());
 	}
 	
 }

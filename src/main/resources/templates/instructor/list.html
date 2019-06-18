@@ -38,6 +38,12 @@
 
 <header th:replace="fragments/navBar.html :: navBar"></header>
 
+<div>
+    <a  class="waves-effect waves-light btn-small" th:href="@{/instructor/pendents/}">Pendents</a>
+    <a  class="waves-effect waves-light btn-small" th:href="@{/instructor/acceptats/}">acceptats</a>
+    <a  class="waves-effect waves-light btn-small" th:href="@{/instructor/rebutjats/}">rebutjats</a>
+
+</div>
 <section>
     <ul class="collection">
         <li class="collection-item avatar valign-wrapper" th:each="instructor : ${instructors}">
@@ -48,6 +54,9 @@
                 <a th:if="${instructor.estat.equals('acceptada')}"
                    th:href="@{/instructor/update/{instructorId}(instructorId=${instructor.instructorId})}" class="btn teal"><i
                         class="material-icons">create</i></a>
+                <a th:if="${instructor.estat.equals('acceptada')}"
+                   th:href="@{/instructor/decline/{instructorId}(instructorId=${instructor.instructorId})}" class="btn red"><i
+                        class="material-icons">delete</i></a>
                 <a th:if="${instructor.estat.equals('pendent')}"
                    th:href="@{/instructor/accept/{instructorId}(instructorId=${instructor.instructorId})}"
                    class="btn green"><i class="material-icons">done</i></a>
