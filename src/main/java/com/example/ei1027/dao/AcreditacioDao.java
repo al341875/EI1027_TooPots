@@ -31,15 +31,19 @@ public class AcreditacioDao {
 		return this.jdbcTemplate.query(
 				"select * from acreditacio", new AcreditacioMapper());
 	}
-	public Acreditacio getAcreditacio(String idInstructor){
+	public Acreditacio getAcreditacio(String url){
+		return this.jdbcTemplate.queryForObject(
+				"select * from acreditacio where certificat_url=?  ",
+				new Object[] {url}, new AcreditacioMapper());
+	}
+	public Acreditacio getAcreditacio2(String idInstructor){
 		return this.jdbcTemplate.queryForObject(
 				"select * from acreditacio where id_instructor=?  ",
 				new Object[] {idInstructor}, new AcreditacioMapper());
 	}
-	
 	public void addAcreditacio(Acreditacio acreditacio) {
 		this.jdbcTemplate.update(
-				"insert into Acreditacio(id_instructor,certificat_url,estat) values(?,?,?,?)",
+				"insert into Acreditacio(id_instructor,certificat_url,estat) values(?,?,?)",
 				acreditacio.getIdInstructor(), 
 				acreditacio.getCertificatUrl(),acreditacio.getEstat() );
 	}

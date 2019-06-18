@@ -11,6 +11,7 @@ import com.example.ei1027.model.UserDetails;
 import com.example.ei1027.validation.InstructorValidator;
 import com.example.ei1027.validation.excepcions.ClientException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,8 +34,10 @@ public class InstructorController {
     @Autowired
     private EncryptorFactory encryptorFactory;
 
+
     @Autowired
     private UserDao userDao;
+
     @GetMapping("/pendents")
     public String listInstructorsPendents(Model model) {
         model.addAttribute("instructors", instructorDao.getInstructorsByStatus(Estat.PENDENT.toString()));

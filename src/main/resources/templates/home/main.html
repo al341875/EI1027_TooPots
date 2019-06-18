@@ -40,7 +40,7 @@
 <header th:replace="fragments/navBar :: navBar"></header>
 <section th:replace="fragments/login.html :: loginModal" th:unless="${username}"></section>
 <h3  th:text="${username}" >  </h3>
-
+<div th:replace="fragments/photo-carousel :: photo-carousel" > </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
     var elems = document.querySelector('.modal');
