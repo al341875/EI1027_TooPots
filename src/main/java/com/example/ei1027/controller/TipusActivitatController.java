@@ -22,6 +22,7 @@ public class TipusActivitatController {
     public String listTipusActitat(Model model) {
         model.addAttribute("tipusActivitats", tipusActivitatDao.getTipusActivitats());
 
+
         return "tipusActivitat/list";
     }
     @GetMapping(value="/list/{nomTipusActivtat}")
@@ -46,6 +47,8 @@ public class TipusActivitatController {
     @GetMapping(value="/update/{nomTipusActivitat}")
     public String update(Model model, @PathVariable String nomTipusActivitat) {
         model.addAttribute("tipusActivitat", tipusActivitatDao.getTipusActivitat(nomTipusActivitat));
+        model.addAttribute("nivells",nivellDao.findAll() );
+
         return "tipusActivitat/update";
     }
     @PostMapping(value="/update/{nomTipusActivitat}")
