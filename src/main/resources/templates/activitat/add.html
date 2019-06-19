@@ -3,15 +3,13 @@
 <head>
     <title>Crear nova activitat</title>
     <meta charset="UTF-8"/>
-    <!--Import Google Icon Font-->
-     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-         <style>
+    <style>
         .helper-text {
             color: red !important;
         }
@@ -20,6 +18,8 @@
             color: red;
         }
     </style>
+
+
 </head>
 <body>
 <div class="row">
@@ -37,18 +37,7 @@
                 <label for="data">Data de la activitat</label>
 
             </div>
-            <div class="input-field col s5">
-
-                <select th:field="*{estat}" required>
-                    <option value="" disabled selected >Tria una opció</option>
-                    <option value="oberta" >oberta</option>
-                    <option value="tancada">tancada</option>
-                    <option value="completa">completa</option>
-                    <option value="cancelada">cancelada</option>
-
-                </select>
-                <label>Estat</label>
-            </div>
+           
 
         </div>
         <div class="row">
@@ -98,15 +87,21 @@
                 <input   placeholder="hh:mm:ss" data-format="hh:mm:ss" id="horaDeTrobada"  class="form-control" type="text" th:field="*{horaDeTrobada}"   />
                 <label for="horaDeTrobada">Hora de trobada</label>
             </div>
+            <div class="input-field col s8">
+                <select id="nomTipusActivitat" th:field="*{nomTipusActivitat}" required>
+
+                    <option th:each="tActivitat : ${tipusActivitats}"
+                            th:value="${tActivitat.nomTipusActivitat}"
+                            th:utext="${tActivitat.nomTipusActivitat}"/>
+                </select>
+
+
+                <label for="nomTipusActivitat">Tipus d'Activitat</label>
+            </div>
+
         </div>
         <div class="row">
-        <div class="input-field col s8">
-            <select  id="nomTipusActivitat" name="nomTipusActivitat">
-                <option th:each="Activitat: ${tipusActivitats}"  th:text="${Activitat.nomTipusActivitat}">	</option>
-            </select>
 
-            <label for="nomTipusActivitat">Tipus d'Activitat</label>
-        </div>
             <div class="input-field col s8">
                 <textarea id="textPerClient" type="text"  class="validate" placeholder="Descripció per als clients "  th:field="*{textPerClient}"  />
                 <label for="textPerClient">Afegix text per als clients</label>
@@ -185,6 +180,8 @@
 <script>
     const estat = document.querySelector('select');
     M.FormSelect.init(estat, {});
+    const nomTipusActivitat = document.querySelector('select');
+    M.FormSelect.init(nomTipusActivitat, {});
 </script>
 <script>
 function myFunction() {

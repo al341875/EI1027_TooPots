@@ -60,7 +60,7 @@ public class ActivitatController {
             return "activitat/add";
         }	//
 		activitat.setIdInstructor(user);
-
+		activitat.setEstat("oberta");
         activitatDao.addActivitat(activitat);
         return "redirect:list";
     }

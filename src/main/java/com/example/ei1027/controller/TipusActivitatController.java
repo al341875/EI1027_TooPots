@@ -1,5 +1,6 @@
 package com.example.ei1027.controller;
 
+import com.example.ei1027.dao.NivellDao;
 import com.example.ei1027.dao.TipusActivitatDao;
 import com.example.ei1027.model.TipusActivitat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,13 @@ public class TipusActivitatController {
 
     @Autowired
     private TipusActivitatDao tipusActivitatDao;
+    @Autowired
+    private NivellDao nivellDao;
 
     @GetMapping("/list")
     public String listTipusActitat(Model model) {
         model.addAttribute("tipusActivitats", tipusActivitatDao.getTipusActivitats());
+
         return "tipusActivitat/list";
     }
     @GetMapping(value="/list/{nomTipusActivtat}")
@@ -28,6 +32,8 @@ public class TipusActivitatController {
     @GetMapping(value = "/add")
     public String addNivell(Model model) {
         model.addAttribute("tipusActivitat", new TipusActivitat());
+        model.addAttribute("nivells",nivellDao.findAll() );
+
         return "tipusActivitat/add";
     }
     @PostMapping(value = "/add")

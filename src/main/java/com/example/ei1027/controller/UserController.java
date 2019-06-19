@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -49,6 +47,19 @@ public class UserController {
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
+    }
+    @GetMapping(value = "/add")
+    public String addAdmin(Model model) {
+        model.addAttribute("admin", new UserDetails());
+        return "admin/add";
+    }
+    @PostMapping(value = "/add")
+    public String addAdmin(@ModelAttribute("admin") UserDetails userDetails, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "admin/add";
+        userDetails.setTipus("admin");
+        userDao.add(userDetails);
+        return "admin/main";
     }
 
 }

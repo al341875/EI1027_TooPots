@@ -3,23 +3,37 @@
 <head>
     <title>Crear nou nivell</title>
     <meta charset="UTF-8" />
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
+<header th:replace="fragments/navBar :: navBar"></header>
+
 <h2>Nou Nivell</h2>
-<form th:action="@{/nivell/add}"
-      th:object="${nivell}" method="post">
-    <table>
-        <tr>
-            <td><label>Descripció</label></td>
-            <!--FALTA POSAR LA LONGITUD MAXIMA I MINIMA DE LA DESCRIPCIO-->
-            <td><input type="text" th:field="*{descripcio}" /></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="Afegeix nivell" /></td>
-        </tr>
-    </table>
-</form>
+
+<div class="row">
+    <form class="col s6 offset-s3" th:action="@{/nivell/add}"
+          th:object="${nivell}" method="post">
+        <div class="row">
+            <div class="input-field col s5">
+                <input id="descripcio" type="text"    class="validate" th:field="*{descripcio}" required>
+                <label for="descripcio">Descripcio</label>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <button type="submit" value="Afegeix nivell"  name="action">Crear Compte
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+
+    </form>
+</div>
 </body>
 </html>
