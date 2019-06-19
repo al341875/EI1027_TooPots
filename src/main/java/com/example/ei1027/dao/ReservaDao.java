@@ -65,7 +65,7 @@ public class ReservaDao {
 		return this.jdbcTemplate.query(
 				"select * from reserva where nom_activitat =? ", new ReservaMapper(), nomActivitat);
 	}
-	public List<Reserva> getReservaByUsuariStatus(String idUsuari, String status){
+	public List<Reserva> getReservaByUsuariStatus( String status,String idUsuari){
 		return this.jdbcTemplate.query(
 				"select * from Reserva where id_client=? and  estat_pagament = ? ",
 			 new ReservaMapper(),idUsuari,status);
@@ -108,5 +108,14 @@ public class ReservaDao {
 	public void deleteReserva(Integer idReserva) {
 		this.jdbcTemplate.update("delete from Reserva where id_Reserva=?", idReserva);
 	}
-	
+	public void confirmaReserva(Integer idReserva) {
+		this.jdbcTemplate.update("update reserva set estat_pagament = ? where id_reserva = ?",
+				EstatPagament.CONFIRMAT.toString(), idReserva);
+	}
+	public List<Reserva> reservesCancelables(){
+		return this.jdbcTemplate.query(
+				"select * from Reserva where DATEDIFF(day, data_activitat, data_reserva) > 10  ",
+				new ReservaMapper());
+	}
+
 }

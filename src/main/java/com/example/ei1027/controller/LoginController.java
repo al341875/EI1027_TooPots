@@ -23,10 +23,16 @@ public class LoginController {
     private ActivitatDao activitatDao;
 
 	@RequestMapping("/home")
-	public String login(Model model) {
+	public String login(Model model,HttpSession session) {
 		model.addAttribute("user", new UserDetails());
-        model.addAttribute("activitats", activitatDao.getActivitats());
 
+
+		if (session.getAttribute("usertype").equals("client"))
+			return "home/client";
+		else if(session.getAttribute("usertype").equals("instructor"))
+			return "home/monitor";
+		else if(session.getAttribute("usertype").equals("admin"))
+			return "home/admin";
         return "home/main";
 	}
 	@RequestMapping("/login")
@@ -49,11 +55,13 @@ public class LoginController {
 		// intentant carregar les dades de l'usuari 
 		session.setAttribute("user", user);
 		session.setAttribute("username",user.getUsuari());
+		session.setAttribute("usertype",user.getTipus());
 		if (user.getTipus().equals("client"))
 			return "home/client";
 		else if(user.getTipus().equals("instructor"))
 			return "home/monitor";
-
+		else if(user.getTipus().equals("admin"))
+			return "home/admin";
 		return "home/main";
 		//return "redirect:home";
 
@@ -72,7 +80,7 @@ public class LoginController {
 	@RequestMapping("/logout") 
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:home?logout=true";
+		return "redirect:login";
 	}
 //	@RequestMapping("/home")
 //	public String home(HttpSession session) {

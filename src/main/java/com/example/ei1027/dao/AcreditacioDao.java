@@ -23,7 +23,6 @@ public class AcreditacioDao {
 		        acreditacio.setIdInstructor(rs.getString("id_instructor"));
 		        acreditacio.setCertificatUrl(rs.getString("certificat_url"));
 		        acreditacio.setEstat(rs.getString("estat"));
-		        acreditacio.setNomTipusActivitat(rs.getString("tipus_activitat"));
 		        return acreditacio;
 		    }
 	}

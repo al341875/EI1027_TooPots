@@ -23,6 +23,7 @@
 
     <section>
         <ul class="collection">
+
             <li class="collection-item avatar valign-wrapper" th:each="tipusActivitat : ${tipusActivitats}">
                 <span class="title" th:text="${tipusActivitat.nomTipusActivitat + ' (' + tipusActivitat.nivell + ')'}">tipusActivitat (nivell)</span>
                 <div class="secondary-content">
@@ -40,7 +41,7 @@
     </section>
 
         <a class="btn-floating btn-large waves-effect waves-light " th:href="@{/tipusActivitat/add/}"><i class="material-icons">add</i></a>
-    <a class="btn-floating btn-large waves-effect waves-light red " href="/home"><i class="material-icons">keyboard_backspace</i></a>
+    <a class="btn-floating btn-large waves-effect waves-light red " th:href="@{/home}" ><i class="material-icons">keyboard_backspace</i></a>
 <div>
 </body>
 </html>

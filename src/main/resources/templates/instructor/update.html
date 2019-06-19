@@ -29,7 +29,7 @@
         <div class="row">
             <div class="input-field col s6 offset-s3">
                 <img class="responsive-img circle"
-                     src="http://www.jdevoto.cl/web/wp-content/uploads/2018/04/default-user-img.jpg">
+                     src="../static/imatges/${imatge}" th:src="@{/imatges/{id}(id=${imatge})}" >
             </div>
         </div>
         <div class="row">
@@ -95,11 +95,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s12">
+
                 <button class="btn waves-effect waves-light right" type="submit" name="action">Actualitzar compte
                     <i class="material-icons right">send</i>
                 </button>
-            </div>
+                <a class="btn-floating btn-large waves-effect waves-light red " href="/home"><i class="material-icons">keyboard_backspace</i></a>
+
         </div>
     </form>
 </div>

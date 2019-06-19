@@ -7,15 +7,15 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type = "text/javascript"
+            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 </head>
 <body>
 <header th:replace="fragments/navBar :: navBar"></header>
-
+<div class="row" style="text-align: center">
 <h2>Nou Nivell</h2>
-
+</div>
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/nivell/add}"
           th:object="${nivell}" method="post">
@@ -24,13 +24,14 @@
                 <input id="descripcio" type="text"    class="validate" th:field="*{descripcio}" required>
                 <label for="descripcio">Descripcio</label>
             </div>
-
+        </div>
             <div class="row">
-                <div class="col s12">
-                    <button type="submit" value="Afegeix nivell"  name="action">Crear Compte
+
+                    <button class="btn waves-effect waves-light right" type="submit" value="Afegeix nivell"  name="action">Crear nivell
                         <i class="material-icons right">send</i>
                     </button>
-                </div>
+                <a class="btn  waves-effect waves-light red right" href="/nivell/list"><i class="material-icons">keyboard_backspace</i></a>
+
             </div>
 
     </form>

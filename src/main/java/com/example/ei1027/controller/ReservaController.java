@@ -38,7 +38,7 @@ public class ReservaController {
         model.addAttribute("tabs", true);
         return "reserva/listClient";
     }
-    @GetMapping("/pagat")
+    @GetMapping("/pagades")
     public String listReservesPagat(Model model,@SessionAttribute("username") String user) {
         model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.PAGAT.toString(),user));
         model.addAttribute("boldPendent", true);
@@ -46,14 +46,20 @@ public class ReservaController {
         return "reserva/listClient";
     }
 
-    @GetMapping("/acceptats")
+    @GetMapping("/acceptades")
     public String listReservesAcceptats(Model model,@SessionAttribute("username") String user) {
         model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.ACCEPTADA.toString(),user));
         model.addAttribute("boldAcceptat", true);
         model.addAttribute("tabs", true);
         return "reserva/listClient";
     }
-
+    @GetMapping("/confirmades")
+    public String listReservesConfirmades(Model model,@SessionAttribute("username") String user) {
+        model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.CONFIRMAT.toString(),user));
+        model.addAttribute("boldPendent", true);
+        model.addAttribute("tabs", true);
+        return "reserva/listClient";
+    }
 
 
 
@@ -74,13 +80,13 @@ public class ReservaController {
 
     @GetMapping(value="/list/{NomActivitat}")
     public String getReservesByActivitats(Model model, @PathVariable String NomActivitat) {
-        model.addAttribute("reservaActivitat", reservaDao.getReservaByActivitat(NomActivitat));
+        model.addAttribute("reserves", reservaDao.getReservaByActivitat(NomActivitat));
         return "reserva/list";
     }
     @GetMapping("/listInstructor/{nomActivitat}")
     public String getReservesByInstructor(Model model,@PathVariable String nomActivitat) {
         model.addAttribute("reserves", reservaDao.getReservaByActivitat(nomActivitat));
-        return "reserva/listInstructor";
+        return "reserva/list";
     }
     @GetMapping(value = "/add/{nomActivitat}")
     public String addReserva(Model model,@PathVariable String nomActivitat) {
@@ -111,7 +117,7 @@ public class ReservaController {
         reserva.setPreuPersona((double) activitat.getPreu());
         reserva.setEstatPagament("pendent");
         reservaDao.addReserva(reserva);
-        return "redirect:list";
+        return "redirect:pendents";
     }
 
     @GetMapping(value="/update/{idReserva}")
@@ -130,7 +136,7 @@ public class ReservaController {
     @RequestMapping(value = "/accept/{idReserva}")
     public String accept(@PathVariable Integer idReserva) {
         reservaDao.aceptarSolicitud(idReserva);
-        return "redirect:../listInstructor";
+        return "redirect:../list";
     }
 
 
@@ -140,13 +146,20 @@ public class ReservaController {
 
         reservaDao.aceptarPagament(idReserva);
 
-        return "redirect:../list";
+        return "redirect:../pagades";
+
+    }
+    @RequestMapping(value="/confirma/{idReserva}")
+    public String confirma(Model model, @PathVariable Integer idReserva) {
+        reservaDao.confirmaReserva(idReserva);
+
+        return "redirect:../confirmades";
     }
     @RequestMapping(value = "/delete/{idReserva}")
     public String delete(@PathVariable Integer idReserva) {
         reservaDao.deleteReserva(idReserva);
 
-        return "redirect:../list";
+        return "redirect:../pendents";
     }
 
 }

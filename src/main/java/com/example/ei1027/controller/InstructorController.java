@@ -171,7 +171,11 @@ public class InstructorController {
         instructorDao.updateInstructor(instructor);
         return "redirect:acceptats";
     }
-
+    @GetMapping(value = "/show/{instructorId}")
+    public String showClient(Model model,@PathVariable String instructorId) {
+        model.addAttribute("instructor", instructorDao.getInstructor(instructorId));
+        return "client/show";
+    }
     @RequestMapping(value = "/delete/{instructorId}")
     public String delete(@PathVariable String instructorId) {
         instructorDao.deleteInstructor(instructorId);

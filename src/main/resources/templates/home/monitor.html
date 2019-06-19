@@ -14,16 +14,13 @@
 <body>
 <header th:replace="fragments/navBar :: navBar"></header>
 
-<h3 th:text="${session.user.usuari}" th:if="${session}"></h3>
-
     <div class="row">
         <div class="col s3 ">
             <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
-                    <span class="card-title">Llista Activitats</span>
-                    <p>Llistat de les activitats disponibles</p>
+                    <span class="card-title">Administrar Activitats</span>
                     <div class="card-action">
-                        <a href="/activitat/listInstructor" >Llistar</a>
+                        <a class="btn-floating btn-large waves-effect waves-light " href="/activitat/listInstructor"><i class="material-icons">settings</i></a>
                     </div>
                 </div>
             </div>
@@ -32,24 +29,14 @@
         <div class="card blue-grey darken-1">
             <div class="card-content white-text">
                 <span class="card-title">Les meues acreditacions</span>
-                <p>Mostrar les acreditacions per a realitzar activitats </p>
                 <div class="card-action">
-                    <a th:href="@{/acreditacio/list/{id}(id=${session.user.usuari})}" >Llistar</a>
+                    <a class="btn-floating btn-large waves-effect waves-light " th:href="@{/acreditacio/list/{id}(id=${session.user.usuari})}" ><i class="material-icons">insert_drive_file</i></a>
+
                 </div>
             </div>
         </div>
     </div>
-        <div class="col s3 ">
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">Llista Instructors</span>
-                    <p>Llistar els instructors </p>
-                    <div class="card-action">
-                        <a href="/instructor/acceptats" >Llistar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a> reserves pendents</a>
 
 </div>
 </body>

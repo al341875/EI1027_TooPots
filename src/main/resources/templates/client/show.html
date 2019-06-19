@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Editar  client</title>
+    <title>show  client</title>
     <meta charset="UTF-8" />
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -22,8 +22,8 @@
 </head>
 <body>
 <div class="row">
-    <form class="col s6 offset-s3" th:action="@{/client/update}"
-          th:object="${client}" method="post" enctype="multipart/form-data">
+    <form class="col s6 offset-s3" th:action="@{/client/show}"
+          th:object="${client}" method="get" enctype="multipart/form-data">
         <div class="row">
             <div class="input-field col s6 offset-s3">
                 <img class="responsive-img circle"
@@ -32,65 +32,41 @@
         </div>
         <div class="row">
             <div class="input-field col s7">
-                <input id="nom" type="text" class="validate" th:field="*{nom}" required>
+                <input readonly id="nom" type="text" class="validate" th:field="*{nom}" required>
                 <label for="nom">Nom</label>
-                <span class="helper-text" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+
             </div>
             <div class="input-field col s5">
                 <input  readonly id="nif" type="text" class="validate" th:field="*{clientId}" required>
                 <label for="nif">NIF</label>
-                <span th:if="${#fields.hasErrors('clientId')}" th:errors="*{clientId}" class="helper-text"></span>
+
             </div>
         </div>
         <div class="row">
             <div class="input-field col s8">
-                <input id="naixement" type="text" class="datepicker validate" th:field="*{dataNaixement}" required>
+                <input readonly id="naixement" type="text"  th:field="*{dataNaixement}" required>
                 <label for="naixement">Data de naixement</label>
-                <span th:if="${#fields.hasErrors('dataNaixement')}" th:errors="*{dataNaixement}"
-                      class="helper-text"></span>
+
             </div>
             <div class="input-field col s4">
-                <select th:field="*{sexe}" required>
-                    <option value="" disabled selected>Tria una opció</option>
-                    <option value="H">Home</option>
-                    <option value="D">Dona</option>
-                </select>
-                <label>Sexe</label>
-                <span th:if="${#fields.hasErrors('sexe')}" th:errors="*{sexe}" class="helper-text"></span>
+                <input id="sexe" readonly   type="text"  th:field="*{sexe}" required>
+
+
+                <label for="sexe">Sexe</label>
+
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="email" type="email" class="validate" th:field="*{email}" required>
+                <input readonly id="email" type="email" th:field="*{email}" required>
                 <label for="email">Email</label>
-                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="helper-text"></span>
+
             </div>
         </div>
-        <div class="row">
-            <div class="input-field col s6">
-                <input type="file" class="form-control-file" name="file" id="file"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <input id="password" type="password" class="validate" th:field="*{contrasenya}" required>
-                <label for="password">Contrasenya</label>
-                <span th:if="${#fields.hasErrors('contrasenya')}" th:errors="*{contrasenya}" class="helper-text"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <input id="re-password" type="password" class="validate" th:field="*{recontrasenya}" required>
-                <label for="re-password">Repeteix la contrasenya</label>
-                <span th:if="${#fields.hasErrors('recontrasenya')}" th:errors="*{recontrasenya}"
-                      class="helper-text"></span>
-            </div>
-        </div>
+
         <div class="row">
 
-                <button class="btn waves-effect waves-light right" type="submit" name="action">Actualitzar compte
-                    <i class="material-icons right">send</i>
-                </button>
+
             <a class="btn-floating btn-large waves-effect waves-light red " href="/home"><i class="material-icons">keyboard_backspace</i></a>
 
         </div>

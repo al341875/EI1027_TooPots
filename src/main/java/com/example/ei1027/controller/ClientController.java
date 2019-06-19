@@ -48,6 +48,11 @@ public class ClientController {
 		model.addAttribute("client", new Client());
 		return "client/add";
 	}
+	@GetMapping(value = "/show/{clientId}")
+	public String showClient(Model model,@PathVariable String clientId) {
+		model.addAttribute("client", clientDao.getClient(clientId));
+		return "client/show";
+	}
 	@PostMapping(value = "/add")
 	public String addClient(@ModelAttribute("client") Client client, BindingResult bindingResult,
 			@RequestParam("file") MultipartFile file,

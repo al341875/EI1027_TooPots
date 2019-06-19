@@ -42,7 +42,7 @@ public class ActivitatController {
 	@GetMapping("/listInstructor")
 	public String listActivitatsInstructor(Model model,@SessionAttribute("username") String user) {
 		model.addAttribute("activitats", activitatDao.getActivitatsByInstructor(user));
-		return "activitat/listInstructor";
+		return "activitat/list";
 	}
 	@GetMapping(value = "/list/{nomLlarg}")
 	public String getActivitat(Model model, @PathVariable String nomLlarg) {
@@ -92,7 +92,6 @@ public class ActivitatController {
         }catch(DuplicateKeyException e) {
         	throw new ActivitatException("Ja existeix un activitat de nom: "+activitat.getNomLlarg(),"ClauPrimariaDuplicada");
         }
-        activitatDao.addActivitat(activitat);
         return "redirect:list";
     }
     @GetMapping(value="/update/{nomLlarg}")
