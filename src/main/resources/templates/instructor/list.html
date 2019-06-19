@@ -52,7 +52,7 @@
             <img src="../static/imatges/${instructor.imatge}" th:src="@{/imatges/{id}(id=${instructor.imatge})}" alt="" class="circle">
             <span class="title" th:text="${instructor.nom + ' (' + instructor.instructorId + ')'}">Nombre (DNI)</span>
             <div class="secondary-content">
-                <a href="#!" class="btn blue"><i class="material-icons">info</i></a>
+                <a th:href="@{/instructor/show/{instructorId}(instructorId=${instructor.instructorId})}"    class="btn blue"><i class="material-icons">info</i></a>
                 <a  th:if="${instructor.estat.equals('acceptada')}" th:href="@{/acreditacio/list/{id}(id=${instructor.instructorId})}"
                     class="btn blue"><i class="material-icons">insert_drive_file</i></a>
                 <a th:if="${instructor.estat.equals('acceptada')}"

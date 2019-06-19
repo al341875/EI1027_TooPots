@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear nova activitat</title>
+    <meta charset="UTF-8"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        .helper-text {
+            color: red !important;
+        }
+
+        .inputError {
+            color: red;
+        }
+    </style>
+
+
+</head>
+<body>
+<div class="row">
+    <form class="col s6 offset-s3" th:action="@{/activitat/show}"
+          th:object="${activitat}" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="input-field col s5">
+                <input readonly id="nomLlarg" type="text"  th:field="*{nomLlarg}" required>
+                <label for="nomLlarg">Nom de la activitat</label>
+                <span class="helper-text" th:if="${#fields.hasErrors('nomLlarg')}" th:errors="*{nomLlarg}"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s3" >
+                <input readonly id="data" type="text"    th:field="*{data}" required>
+                <label for="data">Data de la activitat</label>
+
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <textarea readonly id="descripcio" type="text"  th:field="*{descripcio}" required/>
+                <label for="descripcio">Descripció</label>
+            </div>
+            <div class="input-field col s3">
+                <input readonly id="preu"   type="number"  th:field="*{preu}" />
+                <label for="preu">Preu</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s3">
+                <input readonly id="durada"   type="number"  th:field="*{durada}" required>
+                <label for="durada">Durada</label>
+            </div>
+            <div class="row">
+                <div class="input-field col s3">
+                    <input readonly id="minAssistents"  type="number"  th:field="*{minAssistents}" />
+                    <label for="minAssistents">Nombre mínim d'assistents</label>
+                </div>
+                <div class="input-field col s3">
+                    <input readonly id="maxAssistents"   type="number"  th:field="*{maxAssistents}" />
+                    <label for="maxAssistents">Nombre màxim d'assistents</label>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input readonly id="Lloc"type="text" th:field="*{lloc}"  minlength="8" maxlength="20" />
+                    <label for="Lloc">Lloc</label>
+                </div>
+                <div class="input-field col s6">
+                    <input  readonly id="puntDeTrobada"type="text"  th:field="*{puntDeTrobada}"   maxlength="20" />
+                    <label for="puntDeTrobada">Punt de trobada</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s3">
+                    <input readonly   placeholder="hh:mm:ss" data-format="hh:mm:ss" id="horaDeTrobada"   type="text" th:field="*{horaDeTrobada}"   />
+                    <label for="horaDeTrobada">Hora de trobada</label>
+                </div>
+                <div class="input-field col s8">
+                    <input  readonly id="nomTipusActivitat" type="text" th:field="*{nomTipusActivitat}" required>
+                    <label for="nomTipusActivitat">Tipus d'Activitat</label>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="input-field col s8">
+                    <textarea readonly id="textPerClient" type="text"  placeholder="Descripció per als clients "  th:field="*{textPerClient}"  />
+                    <label for="textPerClient">Afegix text per als clients</label>
+                </div>
+            </div>
+
+            <div class="row">
+
+                    <button class="btn waves-effect waves-light right" type="submit" name="action">Afegeix activitat
+                        <i class="material-icons right">send</i>
+                    </button>
+                <a class="btn-floating btn-large waves-effect waves-light red " href="/home"><i class="material-icons">keyboard_backspace</i></a>
+
+            </div>
+
+    </form>
+</div>
+
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    const Calendar = document.querySelector('.datepicker');
+    var rangeOfyears = [];
+    const today = new Date();
+    var startDate = today;
+    var instances = M.Datepicker.init(Calendar, {
+        format: 'dd/mm/yyyy',
+        minDate: startDate,
+        firstDay: 1,
+
+        i18n: {
+            months: ['Gener',
+                'Febrer',
+                'Març',
+                'Abril',
+                'Maig',
+                'Juny',
+                'Juliol',
+                'Agost',
+                'Setembre',
+                'Octubre',
+                'Novembre',
+                'Decembre'],
+            monthsShort: ['Gen',
+                'Feb',
+                'Mar',
+                'Abr',
+                'Mai',
+                'Jun',
+                'Jul',
+                'Ago',
+                'Set',
+                'Oct',
+                'Nov',
+                'Dec'],
+            weekdays: ['Diumenge',
+                'Dilluns',
+                'Dimarts',
+                'Dimecres',
+                'Dijous',
+                'Divendres',
+                'Dissabte'
+            ],
+            weekdaysShort: ['Diu',
+                'Dil',
+                'Dim',
+                'Dim',
+                'Dij',
+                'Div',
+                'Dis'],
+            weekdaysAbbrev: ['Dg', 'Dl', 'Dt', 'Dc', 'Dj', 'Dv', 'Ds'],
+            cancel: 'Cancelar'
+        }
+    });
+</script>
+
+<script>
+    function myFunction() {
+        document.getElementById("horaDeTrobada").value = "22:53:05";
+    }
+</script>
+
+</div>
+</html>

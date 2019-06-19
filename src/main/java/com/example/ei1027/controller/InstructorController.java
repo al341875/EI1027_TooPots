@@ -174,7 +174,7 @@ public class InstructorController {
     @GetMapping(value = "/show/{instructorId}")
     public String showClient(Model model,@PathVariable String instructorId) {
         model.addAttribute("instructor", instructorDao.getInstructor(instructorId));
-        return "client/show";
+        return "instructor/show";
     }
     @RequestMapping(value = "/delete/{instructorId}")
     public String delete(@PathVariable String instructorId) {

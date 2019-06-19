@@ -33,7 +33,7 @@
 <div th:fragment="card-instructor-activitat" class="card sticky-action">
     <div class="card-image">
         <img src="https://materializecss.com/images/sample-1.jpg">
-        <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">create</i></a>
+        <a class="btn-floating btn-large halfway-fab waves-effect waves-light red" th:href="@{/activitat/update/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" ><i class="material-icons">create</i></a>
     </div>
 
     <div class="card-content">
@@ -49,7 +49,7 @@
         <div class="center-align">
             <span style="padding-right: 2%!important;">
                 <i class="material-icons vertical-align">event</i>
-                    <span class="vertical-align">23 Abril</span>
+                    <span class="vertical-align"  th:text="${activitat.data}"></span>
             </span>
             <span class="vertical-align dificultad">Dificultad:</span><span class="vertical-align">fácil</span>
         </div>
@@ -59,8 +59,16 @@
     <div class="card-reveal">
         <span class="card-title grey-text text-darken-4"  th:text="${activitat.nomTipusActivitat}" ><i class="material-icons right">close</i></span>
         <p th:text="${activitat.textPerClient}"></p>
-
+        <span  class="card-title grey-text text-darken-4"></span>
         <span class="card-title grey-text text-darken-4" th:href="@{/reserva/add/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}"></span>
+
+        <span  class="card-title grey-text text-darken-4"></span>
+
+        <div class="row">
+            <a th:href="@{/activitat/delete/{nomLlarg} (nomLlarg=${activitat.nomLlarg})}" class="btn red"><i
+                    class="material-icons">delete</i></a>
+            <a th:href="@{/reserva/list/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}" class="btn ">reserves</a>
+        </div>
     </div>
 </div>
 

@@ -48,7 +48,7 @@
             <td th:text="${activitat.nomTipusActivitat}">nomTipusActivitat</td>
             <td th:text="${activitat.lloc}">LLOC</td>
 
-            <td><a th:href="@{/activitat/list/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}">Visualitza</a>
+            <td><a th:href="@{/activitat/show/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}">Visualitza</a>
             <td><a th:href="@{/activitat/update/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}">Edita</a>
             <td><a th:href="@{/activitat/delete/{nomLlarg} (nomLlarg=${activitat.nomLlarg})}">Borra</a></td>
             <td><a th:href="@{/reserva/add/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}">Reserva</a></td>
@@ -60,6 +60,11 @@
     <div class="row">
         <div class="col s3" th:each="activitat : ${activitats}">
             <div th:replace="fragments/card-activitat.html :: card-activitat"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s3" th:each="activitat : ${activitats}">
+            <div th:replace="fragments/card-instructor-activitat.html :: card-instructor-activitat"></div>
         </div>
     </div>
 </body>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>show  client</title>
-    <meta charset="UTF-8" />
+    <title>show instructor</title>
+    <meta charset="UTF-8"/>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
@@ -21,9 +21,11 @@
     </style>
 </head>
 <body>
+<header th:replace="fragments/navBar :: navBar"></header>
+
 <div class="row">
-    <form class="col s6 offset-s3" th:action="@{/client/show}"
-          th:object="${client}" method="get" enctype="multipart/form-data">
+    <form class="col s6 offset-s3" th:action="@{/instructor/show}"
+          th:object="${instructor}" method="get" enctype="multipart/form-data">
         <div class="row">
             <div class="input-field col s6 offset-s3">
                 <img class="responsive-img circle"
@@ -34,43 +36,41 @@
             <div class="input-field col s7">
                 <input readonly id="nom" type="text"  th:field="*{nom}" required>
                 <label for="nom">Nom</label>
-
             </div>
             <div class="input-field col s5">
-                <input  readonly id="nif" type="text"  th:field="*{clientId}" required>
+                <input readonly id="nif" type="text" W th:field="*{instructorId}" required>
                 <label for="nif">NIF</label>
-
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s8">
+            <div class="input-field col s3">
                 <input readonly id="naixement" type="text"  th:field="*{dataNaixement}" required>
                 <label for="naixement">Data de naixement</label>
-
             </div>
-            <div class="input-field col s4">
-                <input id="sexe" readonly   type="text"  th:field="*{sexe}" required>
-
-
-                <label for="sexe">Sexe</label>
-
+            <div class="input-field col s3">
+                <input readonly type="text" th:field="*{sexe}" required>
+                <label>Sexe</label>
+            </div>
+            <div class="input-field col s6">
+                <input readonly id="domicili" type="text" th:field="*{domicili}" required>
+                <label for="domicili">Adreça</label>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s12">
-                <input readonly id="email" type="email" th:field="*{email}" required>
+            <div class="input-field col s6">
+                <input readonly id="iban" type="text" th:field="*{iban}" required>
+                <label for="iban">IBAN</label>
+
+            </div>
+            <div class="input-field col s6">
+                <input readonly  id="email" type="email"  th:field="*{email}" required>
                 <label for="email">Email</label>
-
             </div>
         </div>
-
         <div class="row">
-
-
             <a class="btn-floating btn-large waves-effect waves-light red " href="/home"><i class="material-icons">keyboard_backspace</i></a>
 
         </div>
-
     </form>
 </div>
 <!-- Compiled and minified JavaScript -->
@@ -81,7 +81,7 @@
     const today = new Date();
     var startYear = today.getFullYear() - 90;
     var startDate = new Date(new String(startYear));
-    M.Datepicker.init(Calendar, {
+    var instances = M.Datepicker.init(Calendar, {
         format: 'dd/mm/yyyy',
         minDate: startDate,
         maxDate: today,
@@ -134,7 +134,26 @@
 </script>
 <script>
     const Sexo = document.querySelector('select');
-    M.FormSelect.init(Sexo, {});
+    var instances = M.FormSelect.init(Sexo, {});
+</script>
+<script>
+    var elems = document.querySelectorAll('.autocomplete');
+    var options = {
+        data: {
+            'Carrer': null,
+            'Avinguda': null,
+            'Plaça': null,
+            'Diagonal': null,
+            'Via': null,
+            'Carretera': null,
+            'Camí': null,
+            'Calçada': null,
+            'Carreró': null,
+            'Boulevar': null
+        }
+    };
+
+    var instances = M.Autocomplete.init(elems, options);
 </script>
 </body>
 </html>

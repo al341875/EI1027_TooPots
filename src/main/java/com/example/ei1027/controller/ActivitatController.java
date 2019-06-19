@@ -142,7 +142,11 @@ public class ActivitatController {
         return "redirect:list";
     }
 
-
+    @GetMapping(value = "/show/{nomLlarg}")
+    public String showClient(Model model,@PathVariable String nomLlarg) {
+        model.addAttribute("activitat", activitatDao.getActivitat(nomLlarg));
+        return "activitat/show";
+    }
 	@RequestMapping(value = "/delete/{nomLlarg}")
 	public String delete(@PathVariable String nomLlarg) {
 		activitatDao.deleteActivitat(nomLlarg);
