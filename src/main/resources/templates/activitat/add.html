@@ -24,11 +24,12 @@
 <body>
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/activitat/add}"
-          th:object="${activitat}" method="post">
+          th:object="${activitat}" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="input-field col s5">
                 <input id="nomLlarg" type="text" class="validate" th:field="*{nomLlarg}" required>
                 <label for="nomLlarg">Nom de la activitat</label>
+                <span class="helper-text" th:if="${#fields.hasErrors('nomLlarg')}" th:errors="*{nomLlarg}"></span>
             </div>
         </div>
         <div class="row">
@@ -54,12 +55,6 @@
             <div class="input-field col s3">
                 <input id="durada" placeholder="20"  type="number" class="validate" th:field="*{durada}" required>
                 <label for="durada">Durada</label>
-
-            </div>
-                <div class="input-field col s6">
-                <input type="file" class="form-control-file" id="exampleFormControlFile1"/>
-                </div>
-
         </div>
         <div class="row">
             <div class="input-field col s3">
@@ -99,6 +94,11 @@
                 <label for="nomTipusActivitat">Tipus d'Activitat</label>
             </div>
 
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input type="file" class="form-control-file" name="file" id="file"/>
+         </div>
         </div>
         <div class="row">
 

@@ -38,9 +38,66 @@
 <body>
 
 <header th:replace="fragments/navBar :: navBar"></header>
-<section th:replace="fragments/login.html :: loginModal" th:unless="${username}"></section>
-<h3  th:text="${username}" >  </h3>
-<div th:replace="fragments/photo-carousel :: photo-carousel" > </div>
+
+
+<div class="row">
+    <div class="col s3 ">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Llista els tipus de Activitats</span>
+                <p>Llistat de els tipus de  activitats que existeixen</p>
+                <div class="card-action">
+                    <a href="/tipusActivitat/list" >Llistar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s3 ">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Llista nivells </span>
+                <p>Llistar els nivells existents </p>
+                <div class="card-action">
+                    <a href="/nivell/list" >Llistar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s3 ">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Llista Instructors</span>
+                <p>Llistar els instructors </p>
+                <div class="card-action">
+                    <a href="/instructor/acceptats" >Llistar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s3 ">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Llista clients</span>
+                <p>Llistar els clients </p>
+                <div class="card-action">
+                    <a href="/clients/list" >Llistar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s3 ">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">afegir nou administrador </span>
+                <p>afegir nou administrador</p>
+                <div class="card-action">
+                    <a href="/user/add" >Afegir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
     var elems = document.querySelector('.modal');

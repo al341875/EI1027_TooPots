@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Nivells</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
+<header th:replace="fragments/navBar :: navBar"></header>
+
     <table>
         <tr>
             <th>ID</th>
@@ -13,10 +22,11 @@
         <tr th:each="nivell: ${nivells}">
             <td th:text="${nivell.nivellId}"></td>
             <td th:text="${nivell.descripcio}"></td>
-            <td><a th:href="@{/nivell/update/{nivellId}(nivellId=${nivell.nivellId})}">Edita</a>
-            <td><a th:href="@{/nivell/delete/{nivellId}(nivellId=${nivell.nivellId})}">Borra</a></td>
+            <td>
+            <a th:href="@{/nivell/update/{nivellId}(nivellId=${nivell.nivellId})}"><i class="material-icons left">edit</i> </a>
+           <a th:href="@{/nivell/delete/{nivellId}(nivellId=${nivell.nivellId})}"><i class="material-icons left">delete</i></a></td>
         </tr>
     </table>
-    <td><a th:href="@{/nivell/add/}">Afegeix</a>
+    <td><a th:href="@{/nivell/add/}"><i class="material-icons left">add_circle</i></a>
 </body>
 </html>

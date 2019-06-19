@@ -19,11 +19,17 @@
             <td th:text="${client.email}">EMAIL</td>
             <td th:text="${client.sexe}">SEXE</td>
             <td th:text="${client.dataNaixement}">DATA NAIXEMENT</td>
+            
+          <!-- <td><img src="../static/imatges/c1.png" th:src="@{/imatges/c1.png}" /> </td> -->
+           <td> <img src="../static/imatges/${client.imatge}" th:src="@{/imatges/{id}(id=${client.imatge})}" /></td>
+            
+
+            
             <td><a th:href="@{/client/list/{clientId}(clientId=${client.clientId})}">Visualitza</a>
             <td><a th:href="@{/client/update/{clientId}(clientId=${client.clientId})}">Edita</a>
             <td><a th:href="@{/client/delete/{clientId} (clientId=${client.clientId})}">Borra</a></td>
         </tr>
     </table>
-    <td><a th:href="@{/client/add/}">Afegeix</a>
+    <td><a th:href="@{/client/add/}">Afegeix</a></td>
 </body>
 </html>

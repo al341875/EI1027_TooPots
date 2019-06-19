@@ -3,20 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>tipus Activitat</title>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script type = "text/javascript"
+            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
 </head>
 <body>
+<header th:replace="fragments/navBar :: navBar"></header>
+
     <table>
-        <tr>
+        <tr class="grey lighten-3" style=" margin-top: 3%;">
             <th>Nom </th>
             <th>Nivell</th>
+            <th></th>
+            <th></th>
+
         </tr>
         <tr th:each="tipusActivitat: ${tipusActivitats}">
             <td th:text="${tipusActivitat.nomTipusActivitat}"></td>
             <td th:text="${tipusActivitat.nivell}"></td>
-            <td><a th:href="@{/tipusActivitat/update/{nomTipusActivitat}(nivellId=${tipusActivitat.nomTipusActivitat})}">Edita</a>
-            <td><a th:href="@{/tipusActivitat/delete/{nomTipusActivitat}(nivellId=${tipusActivitat.nomTipusActivitat})}">Borra</a></td>
+            <td><a th:href="@{/tipusActivitat/update/{nomTipusActivitat}(nomTipusActivitat=${tipusActivitat.nomTipusActivitat})}"><i class="material-icons right">edit</i></a>
+            <td><a th:href="@{/tipusActivitat/delete/{nomTipusActivitat}(nomTipusActivitat=${tipusActivitat.nomTipusActivitat})}"><i class="material-icons right">delete</i></a></td>
         </tr>
     </table>
-    <td><a th:href="@{/tipusActivitat/add/}">Afegeix</a>
+    <td><a th:href="@{/tipusActivitat/add/}"><i class="material-icons right">add_circle</i></a>
 </body>
 </html>

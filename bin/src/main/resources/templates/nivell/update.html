@@ -7,6 +7,8 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
+<header th:replace="fragments/navBar :: navBar"></header>
+
 <h2>Nou Nivell</h2>
 <form th:action="@{/nivell/update/{nivellId}(nivellId=${nivell.nivellId})}"
       th:object="${nivell}" method="post">

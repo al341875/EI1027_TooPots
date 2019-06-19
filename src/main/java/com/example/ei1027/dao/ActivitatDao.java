@@ -6,8 +6,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+
 import com.example.ei1027.mapper.ActivitatMapper;
 import com.example.ei1027.model.Activitat;
+import com.example.ei1027.model.Client;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -41,20 +44,20 @@ public class ActivitatDao {
 
 		this.jdbcTemplate.update(
 				"insert into Activitat(nom_llarg,estat,descripcio,durada,data,preu,min_assistents,max_assistents,lloc,punt_de_trobada,hora_de_trobada,"
-				+ "text_per_clients,id_instructor,nom_tipus_activitat) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+				+ "text_per_clients,id_instructor,nom_tipus_activitat, imatge) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
 				Activitat.getNomLlarg(), Activitat.getEstat(), Activitat.getDescripcio(),Activitat.getDurada(),DOB,
 				Activitat.getPreu(), Activitat.getMinAssistents(), Activitat.getMaxAssistents(), Activitat.getLloc(),
-				Activitat.getPuntDeTrobada(), Activitat.getHoraDeTrobada(),Activitat.getTextPerClient(), Activitat.getIdInstructor(), Activitat.getNomTipusActivitat());
+				Activitat.getPuntDeTrobada(), Activitat.getHoraDeTrobada(),Activitat.getTextPerClient(), Activitat.getIdInstructor(), Activitat.getNomTipusActivitat(),Activitat.getImatge());
 	}
 
 	public void updateActivitat(Activitat Activitat) {
 		LocalDate DOB = LocalDate.parse(Activitat.getData(), DateTimeFormatter.ofPattern("d/M/yyyy"));
 
 		this.jdbcTemplate.update("update Activitat set estat=?,descripcio=?,durada=?,data=?,preu=?,min_assistents=?,max_assistents=?,lloc=?,punt_de_trobada=?,hora_de_trobada=?,"
-				+ " text_per_clients=?,id_instructor=?,nom_tipus_activitat=? where nom_llarg=?",
+				+ " text_per_clients=?,id_instructor=?,nom_tipus_activitat=?, imatge=? where nom_llarg=?",
 				Activitat.getEstat(), Activitat.getDescripcio(),Activitat.getDurada(),DOB,
 				Activitat.getPreu(), Activitat.getMinAssistents(), Activitat.getMaxAssistents(), Activitat.getLloc(),
-				Activitat.getPuntDeTrobada(), Activitat.getHoraDeTrobada(),Activitat.getTextPerClient(), Activitat.getIdInstructor(), Activitat.getNomTipusActivitat(), Activitat.getNomLlarg());
+				Activitat.getPuntDeTrobada(), Activitat.getHoraDeTrobada(),Activitat.getTextPerClient(), Activitat.getIdInstructor(), Activitat.getNomTipusActivitat(),Activitat.getImatge(), Activitat.getNomLlarg());
 	}
 
 	public void deleteActivitat(String nomLlarg) {
@@ -63,6 +66,12 @@ public class ActivitatDao {
 	public boolean existIdInstructor(String idInstructor) {
 		return this.jdbcTemplate.queryForObject("select count(id_instructor) from instructor where id_instructor = ?", Integer.class, idInstructor) > 0;
 	}
+	public Activitat getImatge(String url){
+		return this.jdbcTemplate.queryForObject(
+				"select * from activitat where imatge=?  ",
+				new Object[] {url}, new ActivitatMapper());
+}
+
 
 
 

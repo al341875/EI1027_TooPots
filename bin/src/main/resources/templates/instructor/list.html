@@ -38,16 +38,25 @@
 
 <header th:replace="fragments/navBar.html :: navBar"></header>
 
+<div>
+    <a  class="waves-effect waves-light btn-small" th:href="@{/instructor/pendents/}">Pendents</a>
+    <a  class="waves-effect waves-light btn-small" th:href="@{/instructor/acceptats/}">acceptats</a>
+    <a  class="waves-effect waves-light btn-small" th:href="@{/instructor/rebutjats/}">rebutjats</a>
+
+</div>
 <section>
     <ul class="collection">
         <li class="collection-item avatar valign-wrapper" th:each="instructor : ${instructors}">
-            <img src="https://img.icons8.com/color/420/person-male.png" alt="" class="circle">
+            <img src="../static/imatges/${instructor.imatge}" th:src="@{/imatges/{id}(id=${instructor.imatge})}" alt="" class="circle">
             <span class="title" th:text="${instructor.nom + ' (' + instructor.instructorId + ')'}">Nombre (DNI)</span>
             <div class="secondary-content">
                 <a href="#!" class="btn blue"><i class="material-icons">info</i></a>
                 <a th:if="${instructor.estat.equals('acceptada')}"
                    th:href="@{/instructor/update/{instructorId}(instructorId=${instructor.instructorId})}" class="btn teal"><i
                         class="material-icons">create</i></a>
+                <a th:if="${instructor.estat.equals('acceptada')}"
+                   th:href="@{/instructor/decline/{instructorId}(instructorId=${instructor.instructorId})}" class="btn red"><i
+                        class="material-icons">delete</i></a>
                 <a th:if="${instructor.estat.equals('pendent')}"
                    th:href="@{/instructor/accept/{instructorId}(instructorId=${instructor.instructorId})}"
                    class="btn green"><i class="material-icons">done</i></a>

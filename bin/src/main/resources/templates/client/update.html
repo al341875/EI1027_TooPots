@@ -23,7 +23,7 @@
 <body>
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/client/update}"
-          th:object="${client}" method="post">
+          th:object="${client}" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="input-field col s7">
                 <input id="nom" type="text" class="validate" th:field="*{nom}" required>
@@ -61,6 +61,11 @@
             </div>
         </div>
         <div class="row">
+            <div class="input-field col s6">
+                <input type="file" class="form-control-file" name="file" id="file"/>
+            </div>
+        </div>
+        <div class="row">
             <div class="input-field col s12">
                 <input id="password" type="password" class="validate" th:field="*{contrasenya}" required>
                 <label for="password">Contrasenya</label>
@@ -77,7 +82,7 @@
         </div>
         <div class="row">
             <div class="col s12">
-                <button class="btn waves-effect waves-light right" type="submit" name="action">Crear Compte
+                <button class="btn waves-effect waves-light right" type="submit" name="action">Actualitzar compte
                     <i class="material-icons right">send</i>
                 </button>
             </div>

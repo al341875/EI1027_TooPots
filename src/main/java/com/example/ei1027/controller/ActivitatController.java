@@ -5,6 +5,7 @@ import com.example.ei1027.dao.TipusActivitatDao;
 import com.example.ei1027.model.Activitat;
 import com.example.ei1027.validation.ActivitatValidator;
 import com.example.ei1027.validation.excepcions.ActivitatException;
+import com.example.ei1027.validation.excepcions.ClientException;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,8 @@ public class ActivitatController {
 
 	@Autowired
 	private TipusActivitatDao tipusActivitatDao;
+	@Value("${upload.file.directory}")
+    private String uploadDirectory;
 
 	@GetMapping("/list")
 	public String listActivitats(Model model) {
@@ -54,13 +58,40 @@ public class ActivitatController {
 	}
 
 	@PostMapping(value = "/add")
-    public String addActivitat(@ModelAttribute("activitat") Activitat activitat, BindingResult bindingResult,@SessionAttribute("username") String user) {
+    public String addActivitat(@ModelAttribute("activitat") Activitat activitat, BindingResult bindingResult,@SessionAttribute("username") String user,
+    		@RequestParam("file") MultipartFile file,
+            RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult);
             return "activitat/add";
         }	//
 		activitat.setIdInstructor(user);
 		activitat.setEstat("oberta");
+		if (file.isEmpty()) {
+            // Enviar mensaje de error porque no hay fichero seleccionado
+            redirectAttributes.addFlashAttribute("message",
+                    "Please select a file to upload");
+            return "redirect:/uploadStatus";
+        }
+
+        try {
+            // Obtener el fichero y guardarlo
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(uploadDirectory + "imatges/"
+                    + file.getOriginalFilename());
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        activitat.setImatge(file.getOriginalFilename());
+        
+        
+        try {
+            
+        	activitatDao.addActivitat(activitat);;
+        }catch(DuplicateKeyException e) {
+        	throw new ActivitatException("Ja existeix un activitat de nom: "+activitat.getNomLlarg(),"ClauPrimariaDuplicada");
+        }
         activitatDao.addActivitat(activitat);
         return "redirect:list";
     }
@@ -71,7 +102,8 @@ public class ActivitatController {
     }
     @PostMapping(value="/update")
     public String update(@ModelAttribute("activitat") Activitat activitat,
-                         BindingResult bindingResult) {
+                         BindingResult bindingResult,@RequestParam("file") MultipartFile file,
+                         RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors())
             return "activitat/update";
         activitatDao.updateActivitat(activitat);
@@ -86,6 +118,23 @@ public class ActivitatController {
             System.out.println(bindingResult);
             return "activitat/add";
         }
+    	if (file.isEmpty()) {
+            // Enviar mensaje de error porque no hay fichero seleccionado
+            redirectAttributes.addFlashAttribute("message",
+                    "Please select a file to upload");
+            return "redirect:/uploadStatus";
+        }
+
+        try {
+            // Obtener el fichero y guardarlo
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(uploadDirectory + "imatges/"
+                    + file.getOriginalFilename());
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        activitat.setImatge(file.getOriginalFilename());
     	try {
     		activitatDao.addActivitat(activitat);
     	}catch(DuplicateKeyException e) {

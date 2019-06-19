@@ -10,17 +10,21 @@
 <header th:replace="fragments/navBar :: navBar"></header>
 
     <table>
-        <tr>
+        <tr class="card-panel  pink lighten-4" >
             <th>ID</th>
             <th>dataReserva</th>
             <th>idClient</th>
             <th>nomActivitat</th>
             <th>estatPagament</th>
             <th>numAssistents</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
 
 
         </tr>
-        <tr th:each="reserva : ${reserves}">
+        <tr  class="card-panel   deep-orange lighten-5"  th:each="reserva : ${reserves}">
             <td th:text="${reserva.idReserva}">ID</td>
             <td th:text="${reserva.dataReserva}">dataReserva</td>
             <td th:text="${reserva.idClient}">idClient</td>
@@ -36,8 +40,8 @@
         </tr>
     </table>
     <td><a th:href="@{/reserva/pendents/}">pendents</a>
-    <td><a th:href="@{/reserva/acceptats/}">acceptat</a>
-    <td><a th:href="@{/reserva/pagat/}">pagat</a>
+<td><a th:href="@{/reserva/acceptats/}">acceptat</a>
+<td><a th:href="@{/reserva/pagat/}">pagat</a>
 
 
 

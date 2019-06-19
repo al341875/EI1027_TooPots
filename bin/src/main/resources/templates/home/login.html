@@ -46,9 +46,10 @@
 
 		<h5 class="indigo-text">Benvingut a TooPots</h5>
 		<div class="section"></div>
+		<div class="row d-flex justify-content-center" style="margin-left: 15%" >
 
 		<div class="container">
-			<div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+			<div class="z-depth-1 grey lighten-4 col" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
 
 
 				<form action="#" th:action="@{/login}"
@@ -74,9 +75,19 @@
 				</form>
 			</div>
 		</div>
+		<div class="container" >
+			<div class="z-depth-1 grey lighten-4 col" style="margin-left: 2%;display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+				<div class="row">
+					<p> Registrarse com a...</p>
+					<a class="btn blue darken-2 col s12 " th:href="@{/instructor/add/}">Instructor</a>
+				</div>
+				<div class="row">
+					<a class="btn blue darken-2 col s12 " th:href="@{/client/add/}"> Client</a>
+				</div>
 
-		<a th:href="@{/client/add/}">Registrarse com a client</a>
-		<a th:href="@{/instructor/add/}">Registrarse com a instructor</a>
+			</div>
+		</div>
+		</div>
 
 	</center>
 
