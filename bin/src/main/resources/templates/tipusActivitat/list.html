@@ -13,24 +13,35 @@
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
     </script>
 </head>
-<body>
+<body >
 <header th:replace="fragments/navBar :: navBar"></header>
+<div class="row" style="text-align: center">
+    <h2>Llistat dels tipus d'Activitat disponibles</h2>
 
-    <table>
-        <tr class="grey lighten-3" style=" margin-top: 3%;">
-            <th>Nom </th>
-            <th>Nivell</th>
-            <th></th>
-            <th></th>
+</div>
+<div>
 
-        </tr>
-        <tr th:each="tipusActivitat: ${tipusActivitats}">
-            <td th:text="${tipusActivitat.nomTipusActivitat}"></td>
-            <td th:text="${tipusActivitat.nivell}"></td>
-            <td><a th:href="@{/tipusActivitat/update/{nomTipusActivitat}(nomTipusActivitat=${tipusActivitat.nomTipusActivitat})}"><i class="material-icons right">edit</i></a>
-            <td><a th:href="@{/tipusActivitat/delete/{nomTipusActivitat}(nomTipusActivitat=${tipusActivitat.nomTipusActivitat})}"><i class="material-icons right">delete</i></a></td>
-        </tr>
-    </table>
-    <td><a th:href="@{/tipusActivitat/add/}"><i class="material-icons right">add_circle</i></a>
+    <section>
+        <ul class="collection">
+
+            <li class="collection-item avatar valign-wrapper" th:each="tipusActivitat : ${tipusActivitats}">
+                <span class="title" th:text="${tipusActivitat.nomTipusActivitat + ' (' + tipusActivitat.nivell + ')'}">tipusActivitat (nivell)</span>
+                <div class="secondary-content">
+                    <a th:href="@{/tipusActivitat/update/{nomTipusActivitat}(nomTipusActivitat=${tipusActivitat.nomTipusActivitat})}" class="btn teal"><i
+                            class="material-icons">create</i></a>
+                    <a th:href="@{/tipusActivitat/delete/{nomTipusActivitat}(nomTipusActivitat=${tipusActivitat.nomTipusActivitat})}" class="btn red"><i
+                            class="material-icons">delete</i></a>
+
+
+
+
+                </div>
+            </li>
+        </ul>
+    </section>
+
+        <a class="btn-floating btn-large waves-effect waves-light " th:href="@{/tipusActivitat/add/}"><i class="material-icons">add</i></a>
+    <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()" ><i class="material-icons">keyboard_backspace</i></a>
+<div>
 </body>
 </html>

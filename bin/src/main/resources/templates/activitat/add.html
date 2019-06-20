@@ -22,13 +22,16 @@
 
 </head>
 <body>
+<header th:replace="fragments/navBar.html :: navBar"></header>
+
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/activitat/add}"
-          th:object="${activitat}" method="post">
+          th:object="${activitat}" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="input-field col s5">
                 <input id="nomLlarg" type="text" class="validate" th:field="*{nomLlarg}" required>
                 <label for="nomLlarg">Nom de la activitat</label>
+                <span class="helper-text" th:if="${#fields.hasErrors('nomLlarg')}" th:errors="*{nomLlarg}"></span>
             </div>
         </div>
         <div class="row">
@@ -54,12 +57,6 @@
             <div class="input-field col s3">
                 <input id="durada" placeholder="20"  type="number" class="validate" th:field="*{durada}" required>
                 <label for="durada">Durada</label>
-
-            </div>
-                <div class="input-field col s6">
-                <input type="file" class="form-control-file" id="exampleFormControlFile1"/>
-                </div>
-
         </div>
         <div class="row">
             <div class="input-field col s3">
@@ -101,6 +98,11 @@
 
         </div>
         <div class="row">
+            <div class="input-field col s6">
+                <input type="file" class="form-control-file" name="file" id="file"/>
+         </div>
+        </div>
+        <div class="row">
 
             <div class="input-field col s8">
                 <textarea id="textPerClient" type="text"  class="validate" placeholder="Descripció per als clients "  th:field="*{textPerClient}"  />
@@ -109,16 +111,17 @@
         </div>
 
         <div class="row">
-            <div class="col s12">
+
                 <button class="btn waves-effect waves-light right" type="submit" name="action">Afegeix activitat
                     <i class="material-icons right">send</i>
                 </button>
-            </div>
+            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()" ><i class="material-icons">keyboard_backspace</i></a>
+
         </div>
 
     </form>
 </div>
-
+</body>
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

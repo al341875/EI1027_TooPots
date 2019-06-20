@@ -62,16 +62,21 @@ public class ActivitatController {
 	public String addActivitat(Model model) {
 		model.addAttribute("activitat", new Activitat());
 		model.addAttribute("tipusActivitats", tipusActivitatDao.getTipusActivitats());
+		
 		return "activitat/add";
 	}
 
 	@PostMapping(value = "/add")
     public String addActivitat(@ModelAttribute("activitat") Activitat activitat, BindingResult bindingResult,@SessionAttribute("username") String user,
-    		@RequestParam("file") MultipartFile file,
+    		@RequestParam("file") MultipartFile file, Model model,
             RedirectAttributes redirectAttributes) {
+		ActivitatValidator activitatValidator=new ActivitatValidator();
+		  activitatValidator.validate(activitat, bindingResult);
+		  model.addAttribute("tipusActivitats", tipusActivitatDao.getTipusActivitats()); 
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult);
             return "activitat/add";
+            
         }	//
 		activitat.setIdInstructor(user);
 		activitat.setEstat("oberta");
@@ -95,12 +100,11 @@ public class ActivitatController {
         
         
         try {
-            
-        	activitatDao.addActivitat(activitat);;
+        	activitatDao.addActivitat(activitat);
         }catch(DuplicateKeyException e) {
         	throw new ActivitatException("Ja existeix un activitat de nom: "+activitat.getNomLlarg(),"ClauPrimariaDuplicada");
         }
-        return "redirect:list";
+        return "redirect:listInstructor";
     }
     @GetMapping(value="/update/{nomLlarg}")
     public String update(Model model, @PathVariable String nomLlarg) {

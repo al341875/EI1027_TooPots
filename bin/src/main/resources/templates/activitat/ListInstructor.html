@@ -35,34 +35,21 @@
 
 </head>
 <body>
-<header th:replace="fragments/navBar :: navBar"></header>
+<header th:replace="fragments/navBar.html :: navBar"></header>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>NOMlARG</th>
-        <th>NOMTIPUSACTIVITAT</th>
-        <th>LLOC</th>
-    </tr>
-    <tr th:each="activitat : ${activitats}">
-        <td th:text="${activitat.idInstructor}">idInstructor</td>
-        <td th:text="${activitat.nomLlarg}">nomLlarg</td>
-        <td th:text="${activitat.nomTipusActivitat}">nomTipusActivitat</td>
-        <td th:text="${activitat.lloc}">LLOC</td>
+<div class="row" style="text-align: center">
+    <h2>Llistat de activitats  </h2>
 
-        <td><a th:href="@{/activitat/list/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}">Visualitza</a>
-        <td><a th:href="@{/activitat/update/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}">Edita</a>
-        <td><a th:href="@{/activitat/delete/{nomLlarg} (nomLlarg=${activitat.nomLlarg})}">Borra</a></td>
-        <td><a th:href="@{/reserva/listInstructor/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}">Reserves</a></td>
-
-    </tr>
-</table>
-<td><a th:href="@{/activitat/add/}">Afegeix</a></td>
+</div>
 <div class="row">
     <div class="col s3" th:each="activitat : ${activitats}">
         <div th:replace="fragments/card-instructor-activitat.html :: card-instructor-activitat"></div>
-
     </div>
 </div>
+    <div class="row">
+        <a th:href="@{/activitat/add/}" class="btn-floating btn-large waves-effect waves-light "><i class="material-icons">add</i></a>
+
+        <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()" ><i class="material-icons">keyboard_backspace</i></a>
+    </div>
 </body>
 </html>

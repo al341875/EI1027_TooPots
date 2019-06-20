@@ -3,45 +3,47 @@
 <head>
     <title>Welcome</title>
     <meta charset="utf-8" />
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script type = "text/javascript"
+            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 </head>
 <body>
 <header th:replace="fragments/navBar :: navBar"></header>
 
-    <table>
-        <tr class="card-panel  pink lighten-4" >
-            <th>ID</th>
-            <th>dataReserva</th>
-            <th>idClient</th>
-            <th>nomActivitat</th>
-            <th>estatPagament</th>
-            <th>numAssistents</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+
+<div class="row" style="text-align: center">
+    <h2>Llistat de reserves</h2>
+
+</div>
+<section>
+    <ul class="collection">
+        <li class="collection-item avatar valign-wrapper" th:each="reserva : ${reserves}">
+            <img src="https://img.icons8.com/color/420/person-male.png" alt="" class="circle">
+            <span class="title" th:text="${reserva.idClient + ' (' + reserva.dataActivitat + ')'}">idClient(dataActivitat)</span>
+            <div class="secondary-content">
+                <a   th:href="@{/reserva/list2/{idReserva} (idReserva=${reserva.idReserva})}" class="btn blue"><i class="material-icons">info</i></a>
+
+                <a th:if="${reserva.estatPagament.equals('pendent')}"
+                   th:href="@{/reserva/accept/{idReserva} (idReserva=${reserva.idReserva})}"
+                   class="btn green"><i class="material-icons">done</i></a>
 
 
-        </tr>
-        <tr  class="card-panel   deep-orange lighten-5"  th:each="reserva : ${reserves}">
-            <td th:text="${reserva.idReserva}">ID</td>
-            <td th:text="${reserva.dataReserva}">dataReserva</td>
-            <td th:text="${reserva.idClient}">idClient</td>
-            <td th:text="${reserva.nomActivitat}">nomActivitat</td>
-            <td th:text="${reserva.estatPagament}">estatPagament</td>
-            <td th:text="${reserva.numAssistents}">numAssistents</td>
 
-            <td><a th:href="@{/reserva/list/{idReserva}(idReserva=${reserva.idReserva})}">Visualitza</a>
-            <td><a th:href="@{/reserva/update/{idReserva}(idReserva=${reserva.idReserva})}">Edita</a>
-            <td><a th:href="@{/reserva/delete/{idReserva} (idReserva=${reserva.idReserva})}">Borra</a></td>
-            <td><a th:href="@{/reserva/pagament/{idReserva} (idReserva=${reserva.idReserva})}">Pagar</a></td>
+            </div>
+        </li>
+    </ul>
+</section>
+<a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
 
-        </tr>
-    </table>
-    <td><a th:href="@{/reserva/pendents/}">pendents</a>
-<td><a th:href="@{/reserva/acceptats/}">acceptat</a>
-<td><a th:href="@{/reserva/pagat/}">pagat</a>
+
 
 
 

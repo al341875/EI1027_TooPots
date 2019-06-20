@@ -37,7 +37,9 @@
 <body>
 
 <header th:replace="fragments/navBar.html :: navBar"></header>
-
+<div class="row" style="text-align: center">
+    <h2>Llistat de instructors</h2>
+</div>
 <div>
     <a  class="waves-effect waves-light btn-small" th:href="@{/instructor/pendents/}">Pendents</a>
     <a  class="waves-effect waves-light btn-small" th:href="@{/instructor/acceptats/}">acceptats</a>
@@ -50,7 +52,9 @@
             <img src="../static/imatges/${instructor.imatge}" th:src="@{/imatges/{id}(id=${instructor.imatge})}" alt="" class="circle">
             <span class="title" th:text="${instructor.nom + ' (' + instructor.instructorId + ')'}">Nombre (DNI)</span>
             <div class="secondary-content">
-                <a href="#!" class="btn blue"><i class="material-icons">info</i></a>
+                <a th:href="@{/instructor/show/{instructorId}(instructorId=${instructor.instructorId})}"    class="btn blue"><i class="material-icons">info</i></a>
+                <a  th:if="${instructor.estat.equals('acceptada')}" th:href="@{/acreditacio/list/{id}(id=${instructor.instructorId})}"
+                    class="btn blue"><i class="material-icons">insert_drive_file</i></a>
                 <a th:if="${instructor.estat.equals('acceptada')}"
                    th:href="@{/instructor/update/{instructorId}(instructorId=${instructor.instructorId})}" class="btn teal"><i
                         class="material-icons">create</i></a>
@@ -71,6 +75,7 @@
         </li>
     </ul>
 </section>
+<a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
 
 <div th:replace="fragments/searchBar-floating.html :: searchBar-floating"></div>
 

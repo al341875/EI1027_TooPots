@@ -90,12 +90,12 @@ public class InstructorController {
             RedirectAttributes redirectAttributes) throws MessagingException {
         InstructorValidator instructorValidator = new InstructorValidator();
         instructorValidator.validate(instructor, bindingResult);
-//        if (instructorDao.existId(instructor.getInstructorId()))
-//            //Accion si ya existe un instructor con dicho id
-//        if (instructorDao.existEmail(instructor.getEmail()))
-//            //Accion si ya existe el email en un instructor
-//        if (instructorDao.existIban(instructor.getIban()))
-//            //Accion si ya existe el iban en un instructor
+        if (instructorDao.existId(instructor.getInstructorId()))
+        	throw new ClientException("DNI duplicat","ClauPrimariaDuplicada");            
+        if (instructorDao.existEmail(instructor.getEmail()))
+        	throw new ClientException("Email duplicat","ClauPrimariaDuplicada");
+        if (instructorDao.existIban(instructor.getIban()))
+        	throw new ClientException("IBAN duplicat","ClauPrimariaDuplicada");
         UserDetails user = new UserDetails();
         user.setUsuari(instructor.getInstructorId());
         user.setTipus("instructor");
@@ -122,11 +122,9 @@ public class InstructorController {
             e.printStackTrace();
         }
         instructor.setImatge(file.getOriginalFilename());
-        try {
-        	instructorDao.addInstructor(instructor);
-        }catch(DuplicateKeyException e) {
-        	throw new ClientException("DNI o camp unic(iban, email) duplicat","ClauPrimariaDuplicada");
-        }
+
+        instructorDao.addInstructor(instructor);
+
         emailService.sendSimpleMessage(instructor.getEmail(), EmailTemplates.SOLICITUD_ENVIADA.subject(), EmailTemplates.SOLICITUD_ENVIADA.fileName());
         return "redirect:pendents";
     }
