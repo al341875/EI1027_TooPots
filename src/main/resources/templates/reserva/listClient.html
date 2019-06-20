@@ -11,8 +11,8 @@
             src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
     </script>
-
     <style>
+
         .searchBox{
             position: fixed!important;
             bottom: 23px!important;
@@ -38,11 +38,16 @@
 
 <header th:replace="fragments/navBar.html :: navBar"></header>
 
-<a  class="waves-effect waves-light btn-small" href="/reserva/pendents">Pedents</a>
-<a  class="waves-effect waves-light btn-small" href="/reserva/acceptades">Acceptades</a>
+<div class="row" style="text-align: center">
+    <h2>Les meues reserves</h2>
+
+</div >
+<div class="row" style="">
+<a  class="waves-effect btn-small" href="/reserva/pendents">Pedents</a>
+<a  class="waves-effect btn-small" href="/reserva/acceptades">Acceptades</a>
 <a  class="waves-effect waves-light btn-small" href="/reserva/pagades">Pagades</a>
 <a  class="waves-effect waves-light btn-small" href="/reserva/confirmades">Confirmades</a>
-
+</div>
 
 <section>
     <ul class="collection">

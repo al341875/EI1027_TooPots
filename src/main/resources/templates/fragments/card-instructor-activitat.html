@@ -40,7 +40,7 @@
 
     <div class="card-content">
         <span class="card-title valign-wrapper">
-            <a href="#" class="activator black-text"  th:text="${activitat.nomLlarg}">
+            <a  class="activator black-text"  th:text="${activitat.nomLlarg}">
 
             </a>
         </span>
@@ -57,20 +57,7 @@
     </div>
 
 
-    <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4"  th:text="${activitat.nomLlarg}" ><i class="material-icons right">close</i></span>
-        <p th:text="${activitat.descripcio}"></p>
-        <span  class="card-title grey-text text-darken-4"></span>
-        <span class="card-title grey-text text-darken-4" th:href="@{/reserva/add/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}"></span>
 
-        <span  class="card-title grey-text text-darken-4"></span>
-
-        <div class="row">
-
-            <a th:href="@{/reserva/list/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}" class="btn "><i class="material-icons">assignment</i></a>
-
-        </div>
-    </div>
 </div>
 
 

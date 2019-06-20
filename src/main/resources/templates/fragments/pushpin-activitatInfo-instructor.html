@@ -88,7 +88,7 @@
         <a th:href="@{/activitat/tanca/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" class="btn waves-effect green col s6">
             TANCAR INSCRIPCIÓ
         </a>
-        <a th:href="@{/activitat/cancela/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" class="btn waves-effect green col s6">
+        <a th:href="@{/activitat/cancela/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" class="btn waves-effect blue col s6">
             cancela INSCRIPCIÓ
         </a>
     </div>
@@ -99,6 +99,9 @@
             </a>
             <a th:href="@{/activitat/delete/{nomLlarg} (nomLlarg=${activitat.nomLlarg})}" class="btn red"><i
                     class="material-icons">delete</i></a>
+            <a th:href="@{/reserva/list/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}" class="btn "><i class="material-icons">assignment</i></a>
+
         </div>
+
 
 </div>

@@ -20,6 +20,8 @@
     </style>
 </head>
 <body>
+<header th:replace="fragments/navBar.html :: navBar"></header>
+
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/user/add}"
           th:object="${admin}" method="post" >
@@ -38,7 +40,7 @@
 
         </div>
         <div class="row">
-            <div class="input-field col s12">
+            <div class="input-field col s7">
                 <input id="password" type="password" class="validate" th:field="*{contrasenya}" required>
                 <label for="password">Contrasenya</label>
                 <span th:if="${#fields.hasErrors('contrasenya')}" th:errors="*{contrasenya}" class="helper-text"></span>
