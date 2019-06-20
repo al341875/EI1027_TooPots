@@ -29,8 +29,8 @@
           th:object="${activitat}" method="get" enctype="multipart/form-data">
         <div class="row">
             <div class="input-field col s6 offset-s3">
-                <img class="responsive-img circle"
-                     src="../static/imatges/${imatge}" th:src="@{/imatges/{id}(id=${imatge})}" >
+                <img class="responsive-img "
+                     src="../static/imatges/${imatge}" th:src="@{/imatges/{id}(id=${activitat.imatge})}" >
             </div>
         </div>
             <div class="row">

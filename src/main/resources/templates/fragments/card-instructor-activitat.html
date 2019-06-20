@@ -52,14 +52,14 @@
                 <i class="material-icons vertical-align">event</i>
                     <span class="vertical-align"  th:text="${activitat.data}"></span>
             </span>
-            <span class="vertical-align dificultad">Dificultad:</span><span class="vertical-align">fácil</span>
+            <span class="vertical-align tipus"><i class="material-icons">bookmark</i></span><span class="vertical-align" th:text="${activitat.nomTipusActivitat}"></span>
         </div>
     </div>
 
 
     <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4"  th:text="${activitat.nomTipusActivitat}" ><i class="material-icons right">close</i></span>
-        <p th:text="${activitat.textPerClient}"></p>
+        <span class="card-title grey-text text-darken-4"  th:text="${activitat.nomLlarg}" ><i class="material-icons right">close</i></span>
+        <p th:text="${activitat.descripcio}"></p>
         <span  class="card-title grey-text text-darken-4"></span>
         <span class="card-title grey-text text-darken-4" th:href="@{/reserva/add/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}"></span>
 

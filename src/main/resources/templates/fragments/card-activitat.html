@@ -34,14 +34,13 @@
             <a href="#" class="black-text" th:text="${activitat.nomLlarg}"></a>
         </span>
     </div>
-
     <div class="card-action">
         <div class="center-align">
             <span style="padding-right: 2%!important;">
                 <i class="material-icons vertical-align">event</i>
-                    <span class="vertical-align" th:text="${activitat.data}">23 Abril</span>
+                    <span class="vertical-align" th:text="${activitat.data}"></span>
             </span>
-            <span class="vertical-align dificultad">Dificultad:</span><span class="vertical-align">fácil</span>
+            <span class="vertical-align tipus"><i class="material-icons">bookmark</i></span><span class="vertical-align" th:text="${activitat.nomTipusActivitat}"></span>
         </div>
     </div>
 </div>
