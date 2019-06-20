@@ -14,19 +14,30 @@
 <body>
 <header th:replace="fragments/navBar :: navBar"></header>
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Descripció</th>
-        </tr>
-        <tr th:each="nivell: ${nivells}">
-            <td th:text="${nivell.nivellId}"></td>
-            <td th:text="${nivell.descripcio}"></td>
-            <td>
-            <a th:href="@{/nivell/update/{nivellId}(nivellId=${nivell.nivellId})}"><i class="material-icons left">edit</i> </a>
-           <a th:href="@{/nivell/delete/{nivellId}(nivellId=${nivell.nivellId})}"><i class="material-icons left">delete</i></a></td>
-        </tr>
-    </table>
-    <td><a th:href="@{/nivell/add/}"><i class="material-icons left">add_circle</i></a>
+<div class="row" style="text-align: center">
+    <h2>Llistat dels nivells </h2>
+
+</div>
+<section>
+    <ul class="collection">
+        <li class="collection-item avatar valign-wrapper" th:each="nivell : ${nivells}">
+            <span class="title" th:text="${nivell.descripcio + ' (' + nivell.nivellId + ')'}">Descripció (id)</span>
+            <div class="secondary-content">
+                <a  th:href="@{/nivell/update/{nivellId}(nivellId=${nivell.nivellId})}" class="btn teal"><i class="material-icons">create</i></a>
+
+                <a
+                        th:href="@{/nivell/delete/{nivellId}(nivellId=${nivell.nivellId})}" class="btn red"><i
+                        class="material-icons">delete</i></a>
+
+
+
+            </div>
+        </li>
+    </ul>
+</section>
+
+    <td><a th:href="@{/nivell/add/}" class="btn-floating btn-large waves-effect waves-light "><i class="material-icons">add</i></a>
+        <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
+    </td>
 </body>
 </html>
