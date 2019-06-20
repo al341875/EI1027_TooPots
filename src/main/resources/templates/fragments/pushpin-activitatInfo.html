@@ -11,17 +11,31 @@
         </div>
     </div>
     <div class="row" style="margin-bottom: 5px!important;">
-        <div class="col s6"><label>Data</label></div>
-        <div class="col s6"><label>Hora</label></div>
+        <div class="col s6"><label >Tipus de activitat</label></div>
+        <div class="col s6"><label >Descripció</label></div>
+    </div>
+    <div class="row">
+        <div class="col s6 valign-wrapper">
+            <i class="material-icons" style="margin-right: 0.5rem!important;">grade</i>
+            <span th:text="${activitat.nomTipusActivitat}" ></span>
+        </div>
+        <div class="col s6 valign-wrapper">
+            <i class="material-icons" style="margin-right: 0.5rem!important;">info</i>
+            <span th:text="${activitat.textPerClient}"></span>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 5px!important;">
+        <div class="col s6"><label >Data</label></div>
+        <div class="col s6"><label >Hora</label></div>
     </div>
     <div class="row">
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">event</i>
-            <span>23 Abril</span>
+            <span th:text="${activitat.data}" ></span>
         </div>
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">access_time</i>
-            <span>15:00</span>
+            <span th:text="${activitat.horaDeTrobada}"></span>
         </div>
     </div>
     <div class="row" style="margin-bottom: 5px!important;">
@@ -31,11 +45,11 @@
     <div class="row">
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">timer</i>
-            <span>3h</span>
+            <span  th:text="${activitat.durada}" > </span>
         </div>
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">group</i>
-            <span>31/50 pers.</span>
+            <span th:text="${activitat.minAssistents} / ${activitat.maxAssistents} "> </span>
         </div>
     </div>
     <div class="row" style="margin-bottom: 5px!important;">
@@ -45,11 +59,11 @@
     <div class="row">
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">whatshot</i>
-            <span>Obert</span>
+            <span  th:text="${activitat.estat}" ></span>
         </div>
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">location_on</i>
-            <span>Moncofa</span>
+            <span  th:text="${activitat.lloc}" ></span>
         </div>
     </div>
 
@@ -60,16 +74,17 @@
     <div class="row">
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">near_me</i>
-            <span>Carrer Senia 69</span>
+            <span  th:text="${activitat.puntDeTrobada}" ></span>
         </div>
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">euro_symbol</i>
-            <span>35</span>
+            <span  th:text="${activitat.preu}"></span>
         </div>
     </div>
     <div class="row">
-        <a href="#" class="btn waves-effect red col s12">
-            TANCAR INSCRIPCIÓ
+        <a th:href="@{/reserva/add/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}" class="btn waves-effect red col s12">
+            RESERVA
         </a>
     </div>
 </div>
+

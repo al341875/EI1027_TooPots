@@ -3,6 +3,7 @@ package com.example.ei1027.controller;
 import com.example.ei1027.dao.ActivitatDao;
 import com.example.ei1027.dao.TipusActivitatDao;
 import com.example.ei1027.model.Activitat;
+import com.example.ei1027.model.EstatActivitat;
 import com.example.ei1027.validation.ActivitatValidator;
 import com.example.ei1027.validation.excepcions.ActivitatException;
 import com.example.ei1027.validation.excepcions.ClientException;
@@ -35,14 +36,21 @@ public class ActivitatController {
     private String uploadDirectory;
 
 	@GetMapping("/list")
-	public String listActivitats(Model model) {
-		model.addAttribute("activitats", activitatDao.getActivitats());
+	public String listActivitatsDisponibles(Model model) {
+	    //sols es mostren les que tenen el estat disponible
+		model.addAttribute("activitats", activitatDao.getActivitatsByStatus(EstatActivitat.OBERTA.toString()));
 		return "activitat/list";
 	}
+    @GetMapping("/listAdmin")
+    public String listActivitats(Model model) {
+        // es mostren totes les activitats
+        model.addAttribute("activitats", activitatDao.getActivitats());
+        return "activitat/list";
+    }
 	@GetMapping("/listInstructor")
 	public String listActivitatsInstructor(Model model,@SessionAttribute("username") String user) {
 		model.addAttribute("activitats", activitatDao.getActivitatsByInstructor(user));
-		return "activitat/list";
+		return "activitat/listInstructor";
 	}
 	@GetMapping(value = "/list/{nomLlarg}")
 	public String getActivitat(Model model, @PathVariable String nomLlarg) {
@@ -147,10 +155,20 @@ public class ActivitatController {
         model.addAttribute("activitat", activitatDao.getActivitat(nomLlarg));
         return "activitat/show";
     }
+    @GetMapping(value = "/showInstructor/{nomLlarg}")
+    public String showInstructor(Model model,@PathVariable String nomLlarg) {
+        model.addAttribute("activitat", activitatDao.getActivitat(nomLlarg));
+        return "activitat/showInstructor";
+    }
 	@RequestMapping(value = "/delete/{nomLlarg}")
 	public String delete(@PathVariable String nomLlarg) {
 		activitatDao.deleteActivitat(nomLlarg);
 		return "redirect:../list";
 	}
+    @RequestMapping(value = "/tanca/{nomLlarg}")
+    public String tancaActivitat(@PathVariable String nomLlarg) {
+        activitatDao.tancaActivitat(nomLlarg);
+        return "redirect:../list";
+    }
 
 }

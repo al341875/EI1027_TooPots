@@ -11,6 +11,7 @@ import com.example.ei1027.mapper.ActivitatMapper;
 import com.example.ei1027.model.Activitat;
 import com.example.ei1027.model.Client;
 
+import com.example.ei1027.model.EstatActivitat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -59,7 +60,10 @@ public class ActivitatDao {
 				Activitat.getPreu(), Activitat.getMinAssistents(), Activitat.getMaxAssistents(), Activitat.getLloc(),
 				Activitat.getPuntDeTrobada(), Activitat.getHoraDeTrobada(),Activitat.getTextPerClient(), Activitat.getIdInstructor(), Activitat.getNomTipusActivitat(),Activitat.getImatge(), Activitat.getNomLlarg());
 	}
+	public void tancaActivitat(String nomLlarg) {
 
+		this.jdbcTemplate.update("update Activitat set estat=? where nom_llarg=?", EstatActivitat.COMPLETA.toString(),  nomLlarg);
+	}
 	public void deleteActivitat(String nomLlarg) {
 		this.jdbcTemplate.update("delete from Activitat where nom_llarg=?", nomLlarg);
 	}

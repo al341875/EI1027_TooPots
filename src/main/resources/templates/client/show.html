@@ -21,6 +21,8 @@
     </style>
 </head>
 <body>
+<header th:replace="fragments/navBar.html :: navBar"></header>
+
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/client/show}"
           th:object="${client}" method="get" enctype="multipart/form-data">

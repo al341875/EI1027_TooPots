@@ -25,6 +25,8 @@
 <div th:fragment="card-activitat" class="card sticky-action">
     <div class="card-image">
         <img src="https://materializecss.com/images/sample-1.jpg">
+        <a class="btn-floating btn-large halfway-fab waves-effect waves-light "th:href="@{/activitat/show/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" ><i class="material-icons">visibility</i></a>
+
     </div>
 
     <div class="card-content">
