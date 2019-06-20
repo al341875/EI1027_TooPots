@@ -14,7 +14,9 @@
 </head>
 <body>
 <header th:replace="fragments/navBar.html :: navBar"></header>
-
+<div class="row" style="text-align: center">
+    <h2>actualitzar clients</h2>
+</div>
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/activitat/update}"
           th:object="${activitat}" method="post" enctype="multipart/form-data">

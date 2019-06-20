@@ -60,11 +60,16 @@ public class ReservaController {
         model.addAttribute("tabs", true);
         return "reserva/listClient";
     }
+    @GetMapping("/acceptarReservesInstructor")
+    public String listReservesByInstructor(Model model,@SessionAttribute("username") String user) {
+        model.addAttribute("reserves", reservaDao.reservesByInstructor(user));
+        return "reserva/list";
+    }
 
 
 
 
-    @GetMapping("/listClient")
+        @GetMapping("/listClient")
     public String listReservesUsuari(Model model ,@SessionAttribute("username") String user) {
         model.addAttribute("reserves", reservaDao.getReservaByUsuari(user));
 

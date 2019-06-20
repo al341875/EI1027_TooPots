@@ -25,6 +25,9 @@
 <header th:replace="fragments/navBar.html :: navBar"></header>
 
 <div class="row">
+    <div class="row" style="text-align: center">
+        <h2>Crear nova activitat</h2>
+    </div>
     <form class="col s6 offset-s3" th:action="@{/activitat/add}"
           th:object="${activitat}" method="post" enctype="multipart/form-data">
         <div class="row">

@@ -117,5 +117,8 @@ public class ReservaDao {
 				"select * from Reserva where DATEDIFF(day, data_activitat, data_reserva) > 10  ",
 				new ReservaMapper());
 	}
-
+	public  List<Reserva> reservesByInstructor(String idInstructor) {
+		return this.jdbcTemplate.query("select * from reserva INNER JOIN activitat ON reserva.nom_activitat=activitat.nom_llarg WHERE activitat.id_instructor=?;",
+				new ReservaMapper(), idInstructor);
+	}
 }
