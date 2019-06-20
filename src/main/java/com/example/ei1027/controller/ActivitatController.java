@@ -74,7 +74,7 @@ public class ActivitatController {
             return "activitat/add";
         }	//
 		activitat.setIdInstructor(user);
-		activitat.setEstat("oberta");
+		activitat.setEstat(EstatActivitat.OBERTA.toString());
 		if (file.isEmpty()) {
             // Enviar mensaje de error porque no hay fichero seleccionado
             redirectAttributes.addFlashAttribute("message",
@@ -100,7 +100,7 @@ public class ActivitatController {
         }catch(DuplicateKeyException e) {
         	throw new ActivitatException("Ja existeix un activitat de nom: "+activitat.getNomLlarg(),"ClauPrimariaDuplicada");
         }
-        return "redirect:list";
+        return "redirect:listInstructor";
     }
     @GetMapping(value="/update/{nomLlarg}")
     public String update(Model model, @PathVariable String nomLlarg) {
@@ -147,7 +147,7 @@ public class ActivitatController {
     	}catch(DuplicateKeyException e) {
     		throw new ActivitatException("Ja existeix una activitat amb el nom: "+activitat.getNomLlarg(),"ClauPrimariaDuplicada");
     	}
-        return "redirect:list";
+        return "redirect:showInstructor";
     }
 
     @GetMapping(value = "/show/{nomLlarg}")
@@ -163,12 +163,22 @@ public class ActivitatController {
 	@RequestMapping(value = "/delete/{nomLlarg}")
 	public String delete(@PathVariable String nomLlarg) {
 		activitatDao.deleteActivitat(nomLlarg);
-		return "redirect:../list";
+		return "redirect:../listInstructor";
 	}
     @RequestMapping(value = "/tanca/{nomLlarg}")
     public String tancaActivitat(@PathVariable String nomLlarg) {
         activitatDao.tancaActivitat(nomLlarg);
         return "redirect:../list";
+    }
+    @RequestMapping(value = "/cancela/{nomLlarg}")
+    public String cancelaActivitat(@PathVariable String nomLlarg) {
+        activitatDao.cancelaActivitat(nomLlarg);
+        return "redirect:../list";
+    }
+    @RequestMapping(value = "/imatges/{id}")
+    public String mostrarImatge(Model model,@PathVariable String id) {
+        model.addAttribute("activitat", activitatDao.getImatge(id));
+        return "activitat/list";
     }
 
 }

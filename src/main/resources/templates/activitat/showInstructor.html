@@ -27,17 +27,17 @@
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/activitat/show}"
           th:object="${activitat}" method="get" enctype="multipart/form-data">
-        <div class="row">
-            <div class="row">
+        <div class="container">
                 <img
-                     src="../static/imatges/${imatge}" th:src="@{/imatges/{id}(id=${imatge})}" >
-            </div>
-        </div>
+                        src="../static/imatges/{activitat.imatge}" th:src="@{/imatges/{id}(id=${activitat.imatge})}" >
 
-        <div class="row">
+
+        <div class="container">
             <div th:replace="fragments/pushpin-activitatInfo-instructor.html :: pushpin-activitatInfo"></div>
 
         </div>
+        </div>
+
     </form>
 </div>
 <div class="row">

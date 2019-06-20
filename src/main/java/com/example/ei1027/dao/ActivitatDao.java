@@ -62,7 +62,11 @@ public class ActivitatDao {
 	}
 	public void tancaActivitat(String nomLlarg) {
 
-		this.jdbcTemplate.update("update Activitat set estat=? where nom_llarg=?", EstatActivitat.COMPLETA.toString(),  nomLlarg);
+		this.jdbcTemplate.update("update Activitat set estat=? where nom_llarg=?", EstatActivitat.TANCADA.toString(),  nomLlarg);
+	}
+	public void cancelaActivitat(String nomLlarg) {
+
+		this.jdbcTemplate.update("update Activitat set estat=? where nom_llarg=?", EstatActivitat.CANCELADA.toString(),  nomLlarg);
 	}
 	public void deleteActivitat(String nomLlarg) {
 		this.jdbcTemplate.update("delete from Activitat where nom_llarg=?", nomLlarg);

@@ -32,7 +32,7 @@
 
 <div th:fragment="card-instructor-activitat" class="card sticky-action">
     <div class="card-image">
-        <img src="https://materializecss.com/images/sample-1.jpg">
+        <img src="../static/imatges/{activitat.imatge}" th:src="@{/imatges/{id}(id=${activitat.imatge})}">
         <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"  th:href="@{/activitat/showInstructor/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" ><i class="material-icons">visibility</i></a>
 
 
@@ -66,10 +66,8 @@
         <span  class="card-title grey-text text-darken-4"></span>
 
         <div class="row">
-            <a th:href="@{/activitat/delete/{nomLlarg} (nomLlarg=${activitat.nomLlarg})}" class="btn red"><i
-                    class="material-icons">delete</i></a>
+
             <a th:href="@{/reserva/list/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}" class="btn "><i class="material-icons">assignment</i></a>
-            <a class="btn-floating btn-large halfway-fab waves-effect waves-light red" th:href="@{/activitat/update/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" ><i class="material-icons">create</i></a>
 
         </div>
     </div>

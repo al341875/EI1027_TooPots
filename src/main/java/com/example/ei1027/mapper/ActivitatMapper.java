@@ -29,6 +29,7 @@ public class ActivitatMapper implements RowMapper<Activitat> {
         Activitat.setTextPerClient(rs.getString("text_per_clients"));
         Activitat.setIdInstructor(rs.getString("id_instructor"));
         Activitat.setNomTipusActivitat(rs.getString("nom_tipus_activitat"));
+        Activitat.setImatge(rs.getString("imatge"));
         return Activitat;
     }
 }
