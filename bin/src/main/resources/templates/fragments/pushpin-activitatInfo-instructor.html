@@ -49,7 +49,7 @@
         </div>
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">group</i>
-            <span th:text="${activitat.minAssistents} / ${activitat.maxAssistents} "> </span>
+            <span th:text="${activitat.maxAssistents} "> </span>
         </div>
     </div>
     <div class="row" style="margin-bottom: 5px!important;">
@@ -85,14 +85,23 @@
         </div>
     </div>
     <div class="row">
-        <a th:href="@{/activitat/tanca/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" class="btn waves-effect red col s12">
+        <a th:href="@{/activitat/tanca/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" class="btn waves-effect green col s6">
             TANCAR INSCRIPCIÓ
+        </a>
+        <a th:href="@{/activitat/cancela/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" class="btn waves-effect blue col s6">
+            cancela INSCRIPCIÓ
         </a>
     </div>
         <div class="row">
-            <a  th:href="@{/activitat/update/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" class="btn waves-effect blue col s12">
-               Edita
+            <a  th:href="@{/activitat/update/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" class="btn waves-effect blue ">
+                <i
+                        class="material-icons">create</i>
             </a>
+            <a th:href="@{/activitat/delete/{nomLlarg} (nomLlarg=${activitat.nomLlarg})}" class="btn red"><i
+                    class="material-icons">delete</i></a>
+            <a th:href="@{/reserva/list/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}" class="btn "><i class="material-icons">assignment</i></a>
+
         </div>
+
 
 </div>

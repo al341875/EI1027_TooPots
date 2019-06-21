@@ -54,11 +54,11 @@ public class ActivitatDao {
 	public void updateActivitat(Activitat Activitat) {
 		LocalDate DOB = LocalDate.parse(Activitat.getData(), DateTimeFormatter.ofPattern("d/M/yyyy"));
 
-		this.jdbcTemplate.update("update Activitat set estat=?,descripcio=?,durada=?,data=?,preu=?,min_assistents=?,max_assistents=?,lloc=?,punt_de_trobada=?,hora_de_trobada=?,"
-				+ " text_per_clients=?,id_instructor=?,nom_tipus_activitat=?, imatge=? where nom_llarg=?",
-				Activitat.getEstat(), Activitat.getDescripcio(),Activitat.getDurada(),DOB,
+		this.jdbcTemplate.update("update Activitat set descripcio=?,durada=?,data=?,preu=?,min_assistents=?,max_assistents=?,lloc=?,punt_de_trobada=?,hora_de_trobada=?,"
+				+ " text_per_clients=?,nom_tipus_activitat=?, imatge=? where nom_llarg=?",
+				Activitat.getDescripcio(),Activitat.getDurada(),DOB,
 				Activitat.getPreu(), Activitat.getMinAssistents(), Activitat.getMaxAssistents(), Activitat.getLloc(),
-				Activitat.getPuntDeTrobada(), Activitat.getHoraDeTrobada(),Activitat.getTextPerClient(), Activitat.getIdInstructor(), Activitat.getNomTipusActivitat(),Activitat.getImatge(), Activitat.getNomLlarg());
+				Activitat.getPuntDeTrobada(), Activitat.getHoraDeTrobada(),Activitat.getTextPerClient(), Activitat.getNomTipusActivitat(),Activitat.getImatge(), Activitat.getNomLlarg());
 	}
 	public void tancaActivitat(String nomLlarg) {
 

@@ -11,8 +11,8 @@
             src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
     </script>
-
     <style>
+
         .searchBox{
             position: fixed!important;
             bottom: 23px!important;
@@ -38,11 +38,16 @@
 
 <header th:replace="fragments/navBar.html :: navBar"></header>
 
-<a  class="waves-effect waves-light btn-small" href="/reserva/pendents">Pedents</a>
-<a  class="waves-effect waves-light btn-small" href="/reserva/acceptades">Acceptades</a>
+<div class="row" style="text-align: center">
+    <h2>Les meues reserves</h2>
+
+</div >
+<div class="row" style="">
+<a  class="waves-effect btn-small" href="/reserva/pendents">Pedents</a>
+<a  class="waves-effect btn-small" href="/reserva/acceptades">Acceptades</a>
 <a  class="waves-effect waves-light btn-small" href="/reserva/pagades">Pagades</a>
 <a  class="waves-effect waves-light btn-small" href="/reserva/confirmades">Confirmades</a>
-
+</div>
 
 <section>
     <ul class="collection">
@@ -50,7 +55,7 @@
             <img src="https://img.icons8.com/color/420/person-male.png" alt="" class="circle">
             <span class="title" th:text="${reserva.nomActivitat + ' (' + reserva.dataActivitat + ')'}">NomActivitat(dataActivitat)</span>
             <div class="secondary-content">
-                <a   th:href="@{/reserva/list2/{idReserva} (idReserva=${reserva.idReserva})}" class="btn blue"><i class="material-icons">info</i></a>
+                <a   th:href="@{/reserva/show/{idReserva} (idReserva=${reserva.idReserva})}" class="btn blue"><i class="material-icons">info</i></a>
 
                 <a th:if="${reserva.estatPagament.equals('pendent')}"
                 th:href="@{/reserva/pagament/{idReserva} (idReserva=${reserva.idReserva})}"

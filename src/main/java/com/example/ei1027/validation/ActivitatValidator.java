@@ -49,10 +49,7 @@ public class ActivitatValidator implements Validator {
 			errors.rejectValue("minAssistents", "length.minMax");
 		if( activitat.getTextPerClient().length()>=TEXT_CLIENTS_LENGHT)
 			errors.rejectValue("textPerClient", "lenght.textClient");
-		if( activitat.getLloc().length()>=LLOC_TROBADA_LENGHT)
-			errors.rejectValue("lloc", "lloc");
-		if( activitat.getPuntDeTrobada().length()>=LLOC_TROBADA_LENGHT)
-			errors.rejectValue("puntDeTrobada", "trobada");
+
 		
 	}
 

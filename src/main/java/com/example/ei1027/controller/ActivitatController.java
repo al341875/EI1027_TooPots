@@ -109,26 +109,28 @@ public class ActivitatController {
     @GetMapping(value="/update/{nomLlarg}")
     public String update(Model model, @PathVariable String nomLlarg) {
         model.addAttribute("activitat", activitatDao.getActivitat(nomLlarg));
+        model.addAttribute("tipusActivitats", tipusActivitatDao.getTipusActivitats());
         return "activitat/update";
     }
     @PostMapping(value="/update")
     public String update(@ModelAttribute("activitat") Activitat activitat,
-                         BindingResult bindingResult,@RequestParam("file") MultipartFile file,
+                         BindingResult bindingResult, Model model ,@RequestParam("file") MultipartFile file,
                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors())
             return "activitat/update";
-        activitatDao.updateActivitat(activitat);
+        
     	 ActivitatValidator activitatValidator = new ActivitatValidator();
     	 activitatValidator.validate(activitat, bindingResult);
-    	 
+    	 model.addAttribute("tipusActivitats", tipusActivitatDao.getTipusActivitats()); 
     	 //if( !(activitatDao.existIdInstructor(activitat.getIdInstructor())) )
     		 //No existe un instructor con este id
     			 
     			 
     	if (bindingResult.hasErrors()) {
             System.out.println(bindingResult);
-            return "activitat/add";
+            return "activitat/update";
         }
+    	activitat.setEstat(EstatActivitat.OBERTA.toString());
     	if (file.isEmpty()) {
             // Enviar mensaje de error porque no hay fichero seleccionado
             redirectAttributes.addFlashAttribute("message",
@@ -146,12 +148,9 @@ public class ActivitatController {
             e.printStackTrace();
         }
         activitat.setImatge(file.getOriginalFilename());
-    	try {
-    		activitatDao.addActivitat(activitat);
-    	}catch(DuplicateKeyException e) {
-    		throw new ActivitatException("Ja existeix una activitat amb el nom: "+activitat.getNomLlarg(),"ClauPrimariaDuplicada");
-    	}
-        return "redirect:showInstructor";
+    	activitatDao.updateActivitat(activitat);
+
+        return "redirect:listInstructor";
     }
 
     @GetMapping(value = "/show/{nomLlarg}")
