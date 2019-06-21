@@ -2,16 +2,17 @@ package com.example.ei1027.controller;
 
 import com.example.ei1027.dao.ReservaDao;
 import com.example.ei1027.dao.ActivitatDao;
-import com.example.ei1027.model.Activitat;
-import com.example.ei1027.model.EstatActivitat;
-import com.example.ei1027.model.EstatPagament;
-import com.example.ei1027.model.Reserva;
+import com.example.ei1027.dao.UserDao;
+import com.example.ei1027.model.*;
+import com.example.ei1027.validation.UserValidator;
+import com.example.ei1027.validation.excepcions.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -24,6 +25,9 @@ public class ReservaController {
     @Autowired
     private ActivitatDao activitatDao;
 
+    @Autowired
+    private UserDao userDao;
+
     @GetMapping("/list")
     public String listReserva(Model model) {
         model.addAttribute("reserves", reservaDao.getReservas());
@@ -32,14 +36,23 @@ public class ReservaController {
 
 
     @GetMapping("/pendents")
-    public String listReservesPendents(Model model,@SessionAttribute("username") String user) {
+    public String listReservesPendents(Model model,HttpSession session) {
+
+        String user = (String)  session.getAttribute("username");
+        if ( user == null) {
+            throw new UserException("Usuari no valid","usuariNoValid");
+        }
         model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.PENDENT.toString(),user));
         model.addAttribute("boldPendent", true);
         model.addAttribute("tabs", true);
         return "reserva/listClient";
     }
     @GetMapping("/pagades")
-    public String listReservesPagat(Model model,@SessionAttribute("username") String user) {
+    public String listReservesPagat(Model model,HttpSession session) {
+        String user = (String)  session.getAttribute("username");
+        if ( user == null) {
+            throw new UserException("Usuari no valid","usuariNoValid");
+        }
         model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.PAGAT.toString(),user));
         model.addAttribute("boldPendent", true);
         model.addAttribute("tabs", true);
@@ -47,31 +60,43 @@ public class ReservaController {
     }
 
     @GetMapping("/acceptades")
-    public String listReservesAcceptats(Model model,@SessionAttribute("username") String user) {
+    public String listReservesAcceptats(Model model,HttpSession session) {
+        String user = (String)  session.getAttribute("username");
+        if ( user == null) {
+            throw new UserException("Usuari no valid","usuariNoValid");
+        }
         model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.ACCEPTADA.toString(),user));
         model.addAttribute("boldAcceptat", true);
         model.addAttribute("tabs", true);
         return "reserva/listClient";
     }
     @GetMapping("/confirmades")
-    public String listReservesConfirmades(Model model,@SessionAttribute("username") String user) {
+    public String listReservesConfirmades(Model model,HttpSession session) {
+        String user = (String)  session.getAttribute("username");
+        if ( user == null) {
+            throw new UserException("Usuari no valid","usuariNoValid");
+        }
         model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.CONFIRMAT.toString(),user));
         model.addAttribute("boldPendent", true);
         model.addAttribute("tabs", true);
         return "reserva/listClient";
     }
     @GetMapping("/acceptarReservesInstructor")
-    public String listReservesByInstructor(Model model,@SessionAttribute("username") String user) {
+    public String listReservesByInstructor(Model model,HttpSession session) {
+        String user = (String)  session.getAttribute("username");
+        if ( user == null) {
+            throw new UserException("Usuari no valid","usuariNoValid");
+        }
         model.addAttribute("reserves", reservaDao.reservesByInstructor(user));
         return "reserva/list";
     }
-
-
-
-
         @GetMapping("/listClient")
-    public String listReservesUsuari(Model model ,@SessionAttribute("username") String user) {
-        model.addAttribute("reserves", reservaDao.getReservaByUsuari(user));
+    public String listReservesUsuari(Model model ,HttpSession session)  {
+        String user = (String)  session.getAttribute("username");
+            if ( user == null) {
+                throw new UserException("Usuari no valid","usuariNoValid");
+            }
+            model.addAttribute("reserves", reservaDao.getReservaByUsuari(user));
 
         return "reserva/listClient";
     }
@@ -102,9 +127,18 @@ public class ReservaController {
         return "reserva/add";
     }
     @PostMapping(value = "/add")
+<<<<<<< HEAD
     public String addReserva(@ModelAttribute("reserva") Reserva reserva,@SessionAttribute("username") String user ,Model model, BindingResult bindingResult) {
     	model.addAttribute("libres", reservaDao.getPuestosLliures(reserva.getNomActivitat()));
     	if (bindingResult.hasErrors())
+=======
+    public String addReserva(@ModelAttribute("reserva") Reserva reserva,HttpSession session , BindingResult bindingResult) {
+        String user = (String)  session.getAttribute("username");
+        if ( user == null) {
+            throw new UserException("Usuari no valid","usuariNoValid");
+        }
+        if (bindingResult.hasErrors())
+>>>>>>> b9025818d5963c7c4147d475a367c995ab286e59
             return "reserva/add";
 
 

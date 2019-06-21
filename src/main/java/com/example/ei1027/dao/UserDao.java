@@ -50,7 +50,9 @@ public class UserDao {
 		String contrasenyaEnc = this.jdbcTemplate.queryForObject("select contrasenya from usuaris where usuari = ?", String.class, userDetails.getUsuari());
 		return encryptorFactory.getEncryptor().checkPassword(contrasenya, contrasenyaEnc);
 	}
-
+	public UserDetails getUser(String id) {
+		return this.jdbcTemplate.queryForObject("select * from usuaris where usuari = ?", new UserMapper(), id) ;
+	}
 	private static final class UserMapper implements RowMapper<UserDetails> {
 		public UserDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
 			UserDetails userDetails = new UserDetails();
