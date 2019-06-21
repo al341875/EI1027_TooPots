@@ -65,7 +65,12 @@ public class LoginController {
 		if (user.getTipus().equals("client"))
 			return "home/client";
 		else if(user.getTipus().equals("instructor"))
-			return "home/monitor";
+			if (userDao.instructorsAcceptats(user.getUsuari())) {
+				return "home/monitor";
+			}else {
+				throw new UserException("Usuari no valid","usuariNoValid");
+
+			}
 		else if(user.getTipus().equals("admin"))
 			return "home/admin";
 		return "redirect:login";

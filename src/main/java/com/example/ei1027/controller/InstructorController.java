@@ -127,10 +127,13 @@ public class InstructorController {
 
         instructorDao.addInstructor(instructor);
 
-        emailService.sendSimpleMessage(instructor.getEmail(), EmailTemplates.SOLICITUD_ENVIADA.subject(), EmailTemplates.SOLICITUD_ENVIADA.fileName());
-        return "redirect:pendents";
+      //  emailService.sendSimpleMessage(instructor.getEmail(), EmailTemplates.SOLICITUD_ENVIADA.subject(), EmailTemplates.SOLICITUD_ENVIADA.fileName());
+        return "instructor/despRegistrar";
     }
-
+    @GetMapping( "/despRegistrar")
+    public String update(Model model) {
+        return "instructor/despRegistrar";
+    }
     @GetMapping(value = "/update/{instructorId}")
     public String update(Model model, @PathVariable String instructorId) {
         model.addAttribute("instructor", instructorDao.getInstructor(instructorId));

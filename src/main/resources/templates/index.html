@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>toopots</title>
+    <meta charset="utf-8" />
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script type = "text/javascript"
+            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
+
+</head>
+<body>
+<header th:replace="fragments/navBar :: navBar"></header>
+
+<div class="container">
+    <h3>Materialize Carousel Demo</h3>
+    <div class="carousel carousel-slider" id="demo-carousel-indicators" data-indicators="true">
+        <a class="carousel-item" href="#one!"><img  src="../static/imatges/adrenalina_deporte.jpg"></a>
+        <a class="carousel-item" href="#two!"><img  src="../static/imatges/adrenalina_deporte.jpg"></a>
+        <a class="carousel-item" href="#three!"><img  src="../static/imatges/adrenalina_deporte.jpg"></a>
+        <a class="carousel-item" href="#four!"><img  src="../static/imatges/adrenalina_deporte.jpg"></a>
+        <a class="carousel-item" href="#five!"><img  src="../static/imatges/adrenalina_deporte.jpg"></a>
+    </div>
+</div>
+
+</body>
+<script>
+    $(document).ready(function(){
+        $('#demo-carousel-indicators').carousel({fullWidth: true});
+    });
+</script>
+</html>

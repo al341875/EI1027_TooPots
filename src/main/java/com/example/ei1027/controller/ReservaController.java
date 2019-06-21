@@ -171,7 +171,7 @@ public class ReservaController {
     @RequestMapping(value = "/accept/{idReserva}")
     public String accept(@PathVariable Integer idReserva) {
         reservaDao.aceptarSolicitud(idReserva);
-        return "redirect:../list";
+        return "redirect:../acceptarReservesInstructor";
     }
 
 

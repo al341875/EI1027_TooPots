@@ -48,7 +48,7 @@ public class ActivitatController {
     public String listActivitats(Model model) {
         // es mostren totes les activitats
         model.addAttribute("activitats", activitatDao.getActivitats());
-        return "activitat/list";
+        return "activitat/listAdmin";
     }
 	@GetMapping("/listInstructor")
 	public String listActivitatsInstructor(Model model,@SessionAttribute("username") String user) {
