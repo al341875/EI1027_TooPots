@@ -34,6 +34,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "login";
         }
+
         // Autenticats correctament.
         // Guardem les dades de l'usuari autenticat a la sessió
         session.setAttribute("user", user);

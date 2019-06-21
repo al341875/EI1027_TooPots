@@ -24,8 +24,9 @@ public class LoginController {
 
 	@RequestMapping("/home")
 	public String login(Model model,HttpSession session) {
-		model.addAttribute("user", new UserDetails());
-
+		UserDetails user = new UserDetails();
+		model.addAttribute("user",user );
+		model.addAttribute("username",user.getUsuari() );
 
 		if (session.getAttribute("usertype").equals("client"))
 			return "home/client";
@@ -48,7 +49,7 @@ public class LoginController {
 		UserDetails user = userDao.find(userData);
 
 		if (bindingResult.hasErrors() || user == null) {
-			return "home/main";
+			return "redirect:login";
 		}
 		//System.out.println("el usuario es :"+ user.getClave());
 	       // Comprova que el login siga correcte
@@ -62,7 +63,7 @@ public class LoginController {
 			return "home/monitor";
 		else if(user.getTipus().equals("admin"))
 			return "home/admin";
-		return "home/main";
+		return "redirect:login";
 		//return "redirect:home";
 
 //			if(user.getTipus().equals("client")) {session.setAttribute("home", "home/client");

@@ -2,16 +2,15 @@ package com.example.ei1027.controller;
 
 import com.example.ei1027.dao.ReservaDao;
 import com.example.ei1027.dao.ActivitatDao;
-import com.example.ei1027.model.Activitat;
-import com.example.ei1027.model.EstatActivitat;
-import com.example.ei1027.model.EstatPagament;
-import com.example.ei1027.model.Reserva;
+import com.example.ei1027.dao.UserDao;
+import com.example.ei1027.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -24,6 +23,9 @@ public class ReservaController {
     @Autowired
     private ActivitatDao activitatDao;
 
+    @Autowired
+    private UserDao userDao;
+
     @GetMapping("/list")
     public String listReserva(Model model) {
         model.addAttribute("reserves", reservaDao.getReservas());
@@ -33,6 +35,9 @@ public class ReservaController {
 
     @GetMapping("/pendents")
     public String listReservesPendents(Model model,@SessionAttribute("username") String user) {
+        if(user == "null"){
+            return "/login";
+        }
         model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.PENDENT.toString(),user));
         model.addAttribute("boldPendent", true);
         model.addAttribute("tabs", true);
@@ -65,13 +70,13 @@ public class ReservaController {
         model.addAttribute("reserves", reservaDao.reservesByInstructor(user));
         return "reserva/list";
     }
-
-
-
-
         @GetMapping("/listClient")
     public String listReservesUsuari(Model model ,@SessionAttribute("username") String user) {
-        model.addAttribute("reserves", reservaDao.getReservaByUsuari(user));
+
+            if ( user == null) {
+                return "home/main";
+            }
+            model.addAttribute("reserves", reservaDao.getReservaByUsuari(user));
 
         return "reserva/listClient";
     }

@@ -17,6 +17,9 @@
         .inputError {
             color: red;
         }
+        div{
+            word-wrap: break-word;
+        }
     </style>
 
 
@@ -27,8 +30,8 @@
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/activitat/show}"
           th:object="${activitat}" method="get" enctype="multipart/form-data">
-        <div class="container" style="margin-top: 5%">
-                <img
+        <div class="container" style="margin-top: 5%; width: 50%;margin-top: 12%">
+                <img style="align-self: center"
                         src="../static/imatges/{activitat.imatge}" th:src="@{/imatges/{id}(id=${activitat.imatge})}" >
 
 
