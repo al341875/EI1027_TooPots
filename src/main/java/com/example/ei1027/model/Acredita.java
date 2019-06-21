@@ -2,11 +2,19 @@ package com.example.ei1027.model;
 
 public class Acredita {
 	String nomTipusActivitat;
-	String certificatUrl;
+	String instructorId;
+
+	public Acredita() {
+	}
+
+	public Acredita(String nomTipusActivitat, String instructorId) {
+		this.nomTipusActivitat = nomTipusActivitat;
+		this.instructorId = instructorId;
+	}
 
 	@Override
 	public String toString() {
-		return "Acredita [nomTipusActivitat=" + nomTipusActivitat + ", certificatUrl=" + certificatUrl + "]";
+		return "Acredita [nom=" + nomTipusActivitat + ", instructorId=" + instructorId + "]";
 	}
 	public String getNomTipusActivitat() {
 		return nomTipusActivitat;
@@ -14,11 +22,13 @@ public class Acredita {
 	public void setNomTipusActivitat(String nomTipusActivitat) {
 		this.nomTipusActivitat = nomTipusActivitat;
 	}
-	public String getCertificatUrl() {
-		return certificatUrl;
+
+	public String getInstructorId() {
+		return instructorId;
 	}
-	public void setCertificatUrl(String certificatUrl) {
-		this.certificatUrl = certificatUrl;
+
+	public void setInstructorId(String instructorId) {
+		this.instructorId = instructorId;
 	}
 
 	

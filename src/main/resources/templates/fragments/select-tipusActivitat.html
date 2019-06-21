@@ -1,0 +1,12 @@
+<form action="@{tipusActivitat/asignaTipusActivitat}" method="post">
+    <div class="modal">
+        <div class="modal-content">
+            <p th:each="tipusActivitat: ${tipusActivitats}">
+                <label>
+                    <input type="checkbox" name="tipus" th:field="*{tipus}" value="tipusActivitat.nom"/>
+                    <span th:text="tipusActivitat.nom"></span>
+                </label>
+            </p>
+        </div>
+    </div>
+</form>

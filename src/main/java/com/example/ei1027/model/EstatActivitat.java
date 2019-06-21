@@ -4,7 +4,7 @@ public enum EstatActivitat {
     OBERTA("oberta"),
     TANCADA("tancada"),
     COMPLETA("completa"),
-    CANCELADA( "cancelada");
+    CANCELADA("cancelada");
 
 
     private final String descripcioEstatActivitat;

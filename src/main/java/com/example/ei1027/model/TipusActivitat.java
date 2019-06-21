@@ -1,15 +1,16 @@
 package com.example.ei1027.model;
 
 public class TipusActivitat {
-	String nomTipusActivitat;
-	short nivell;
-	
-	public String getNomTipusActivitat() {
-		return nomTipusActivitat;
-	}
-	public void setNomTipusActivitat(String nomTipusActivitat) {
-		this.nomTipusActivitat = nomTipusActivitat;
-	}
+    String nom;
+    short nivell;
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 	public short getNivell() {
 		return nivell;
 	}
@@ -18,8 +19,8 @@ public class TipusActivitat {
 	}
 	@Override
 	public String toString() {
-		return "TipusActivitat [nomTipusActivitat=" + nomTipusActivitat + ", nivell=" + nivell + "]";
-	}
+        return "TipusActivitat [nom=" + nom + ", nivell=" + nivell + "]";
+    }
 
 	
 }

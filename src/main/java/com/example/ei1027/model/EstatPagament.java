@@ -4,7 +4,7 @@ public enum EstatPagament {
     PENDENT("pendent"),
     ACCEPTADA("acceptat"),
     PAGAT("pagat"),
-    CONFIRMAT( "confirmat");
+    CONFIRMAT("confirmat");
 
 
     private final String descripcioEstatPagament;

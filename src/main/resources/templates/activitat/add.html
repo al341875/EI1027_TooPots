@@ -4,14 +4,14 @@
     <title>Crear nova activitat</title>
     <meta charset="UTF-8"/>
     <!--Import Google Icon Font-->
-     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-         <style>
+    <style>
         .helper-text {
             color: red !important;
         }
@@ -78,7 +78,7 @@
         </div>
         <div class="row">
             <div class="input-field col s3">
-                <input id="minAssistents" class="validate" placeholder="1" type="number"  th:field="*{minAssistents}" />
+                <input id="minAssistents" class="validate" placeholder="1" type="number" th:field="*{minAssistents}"/>
                 <label for="minAssistents">Nombre mínim d'assistents</label>
             </div>
             <div class="input-field col s3">
@@ -98,13 +98,14 @@
         </div>
         </div>
         <div class="row">
-        	<div class="input-field col s6">
-                <input   placeholder="hh:mm:ss" data-format="hh:mm:ss" id="horaDeTrobada"  class="form-control" type="text" th:field="*{horaDeTrobada}"   />
+            <div class="input-field col s6">
+                <input placeholder="hh:mm:ss" data-format="hh:mm:ss" id="horaDeTrobada" class="form-control" type="text"
+                       th:field="*{horaDeTrobada}"/>
                 <label for="horaDeTrobada">Hora de trobada</label>
             </div>
         <div class="input-field col s3">
-            <input id="nomTipusActivitat" type="text"   th:field="*{nomTipusActivitat}"  />
-            <label for="nomTipusActivitat">Tipus d'Activitat</label>
+            <input id="nom" type="text" th:field="*{nom}"/>
+            <label for="nom">Tipus d'Activitat</label>
         </div>
             <div class="input-field col s8">
                 <textarea id="textPerClient" type="text"  class="validate" placeholder="Descripció per als clients "  th:field="*{textPerClient}"  />
@@ -135,7 +136,7 @@
         format: 'dd/mm/yyyy',
         minDate: startDate,
         firstDay: 1,
-        
+
         i18n: {
             months: ['Gener',
                 'Febrer',

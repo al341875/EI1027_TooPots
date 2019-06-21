@@ -1,6 +1,8 @@
 package com.example.ei1027.controller;
 
+import com.example.ei1027.dao.AcreditaDao;
 import com.example.ei1027.dao.TipusActivitatDao;
+import com.example.ei1027.model.Acredita;
 import com.example.ei1027.model.TipusActivitat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,16 +17,22 @@ public class TipusActivitatController {
     @Autowired
     private TipusActivitatDao tipusActivitatDao;
 
+    @Autowired
+    private AcreditaDao acreditaDao;
+
     @GetMapping("/list")
     public String listTipusActitat(Model model) {
         model.addAttribute("tipusActivitats", tipusActivitatDao.getTipusActivitats());
         return "tipusActivitat/list";
     }
+
+    //NO FA FALTA
     @GetMapping(value="/list/{nomTipusActivtat}")
     public String getTipusActivitat(Model model, @PathVariable String nomTipusActivtat) {
         model.addAttribute("tipusActivitat", tipusActivitatDao.getTipusActivitat(nomTipusActivtat));
         return "tipusActivitat/list";
     }
+
     @GetMapping(value = "/add")
     public String addNivell(Model model) {
         model.addAttribute("tipusActivitat", new TipusActivitat());
@@ -47,13 +55,21 @@ public class TipusActivitatController {
                          BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "tipusActivitat/update";
-        tipusActivitat.setNomTipusActivitat(nomTipusActivitat);
+        tipusActivitat.setNom(nomTipusActivitat);
         tipusActivitatDao.updateTipusActivitat(tipusActivitat);
         return "redirect:../list";
     }
+
     @RequestMapping(value = "/delete/{nomTipusActivitat}")
     public String delete(@PathVariable String nomTipusActivitat) {
         tipusActivitatDao.deleteTipusActivitat(nomTipusActivitat);
+        return "redirect:../list";
+    }
+
+    @PostMapping(value = "/asignaTipusActivitat/{instructorId}")
+    public String asigna(@RequestParam(value = "tipusActivitat", required = false) String[] tipusActivitats, @PathVariable String instructorId) {
+        for (String tipusActivitat : tipusActivitats)
+            acreditaDao.addAcredita(new Acredita(tipusActivitat, instructorId));
         return "redirect:../list";
     }
 

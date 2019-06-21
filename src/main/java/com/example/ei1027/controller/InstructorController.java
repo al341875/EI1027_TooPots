@@ -1,10 +1,11 @@
 package com.example.ei1027.controller;
 
-import com.example.ei1027.config.EncryptorFactory;
 import com.example.ei1027.dao.InstructorDao;
+import com.example.ei1027.dao.TipusActivitatDao;
 import com.example.ei1027.dao.UserDao;
 import com.example.ei1027.email.EmailService;
 import com.example.ei1027.email.EmailTemplates;
+import com.example.ei1027.model.CheckboxList;
 import com.example.ei1027.model.Estat;
 import com.example.ei1027.model.Instructor;
 import com.example.ei1027.model.UserDetails;
@@ -31,10 +32,11 @@ public class InstructorController {
     private EmailService emailService;
 
     @Autowired
-    private EncryptorFactory encryptorFactory;
+    private UserDao userDao;
 
     @Autowired
-    private UserDao userDao;
+    private TipusActivitatDao tipusActivitatDao;
+
     @GetMapping("/pendents")
     public String listInstructorsPendents(Model model) {
         model.addAttribute("instructors", instructorDao.getInstructorsByStatus(Estat.PENDENT.toString()));
@@ -49,6 +51,8 @@ public class InstructorController {
         model.addAttribute("instructors", instructorDao.getInstructorsByStatus(Estat.ACCEPTADA.toString()));
         model.addAttribute("boldAcceptat", true);
         model.addAttribute("tabs", true);
+        model.addAttribute("tipusActivitats", tipusActivitatDao.getTipusActivitats());
+        model.addAttribute("tipus", new CheckboxList());
         return "instructor/list";
     }
 
@@ -90,7 +94,7 @@ public class InstructorController {
         if (bindingResult.hasErrors())
             return "instructor/add";
         try {
-        	instructorDao.addInstructor(instructor);
+            instructorDao.addInstructor(instructor);
         }catch(DuplicateKeyException e) {
         	throw new ClientException("DNI o camp unic(iban, email) duplicat","ClauPrimariaDuplicada");
         }

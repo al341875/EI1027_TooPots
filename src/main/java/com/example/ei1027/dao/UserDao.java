@@ -31,10 +31,10 @@ public class UserDao {
 	}
 
 	public void add(UserDetails user) {
-		String passwordEnc = encryptorFactory.getEncryptor().encryptPassword(user.getContrasenya());
-		this.jdbcTemplate.update("insert into usuaris(usuari, contrasenya, tipus) values(?, ?, ?)", user.getUsuari(),
-				passwordEnc, user.getTipus());
-	}
+        String passwordEnc = encryptorFactory.getEncryptor().encryptPassword(user.getContrasenya());
+        this.jdbcTemplate.update("insert into usuaris(usuari, contrasenya, tipus) values(?, ?, ?)", user.getUsuari(),
+                passwordEnc, user.getTipus());
+    }
 
 	public void delete(String userDni) {
 		this.jdbcTemplate.update("delete from usuarios where usuari = ?", userDni);

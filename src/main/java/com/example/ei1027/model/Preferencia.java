@@ -7,6 +7,11 @@ public class Preferencia{
     public Preferencia() {
     }
 
+    public Preferencia(String clientId, String nomTipusActivitat) {
+        this.clientId = clientId;
+        this.nomTipusActivitat = nomTipusActivitat;
+    }
+
     public String getClientId() {
         return clientId;
     }

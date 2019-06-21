@@ -105,7 +105,7 @@
     var rangeOfyears = [];
     const today = new Date();
     var startYear = today.getFullYear() - 90;
-    var startDate = new Date(new String(startYear));
+    var startDate = new Date(String(startYear));
     var instances = M.Datepicker.init(Calendar, {
         format: 'dd/mm/yyyy',
         minDate: startDate,

@@ -38,13 +38,14 @@
 
 <header th:replace="fragments/navBar.html :: navBar"></header>
 
+
 <section>
     <ul class="collection">
         <li class="collection-item avatar valign-wrapper" th:each="instructor : ${instructors}">
             <img src="https://img.icons8.com/color/420/person-male.png" alt="" class="circle">
             <span class="title" th:text="${instructor.nom + ' (' + instructor.instructorId + ')'}">Nombre (DNI)</span>
             <div class="secondary-content">
-                <a href="#!" class="btn blue"><i class="material-icons">info</i></a>
+                <a href="#asignaModal" class="btn blue modal-trigger"><i class="material-icons">info</i></a>
                 <a th:if="${instructor.estat.equals('acceptada')}"
                    th:href="@{/instructor/update/{instructorId}(instructorId=${instructor.instructorId})}" class="btn teal"><i
                         class="material-icons">create</i></a>
@@ -61,6 +62,28 @@
             </div>
         </li>
     </ul>
+</section>
+
+<form action="../tipusActivitat/asignaTipusActivitat/3" th:object="${tipus}" method="post">
+    <div class="modal" id="asignaModal">
+        <div class="modal-content">
+            <p th:each="tipusActivitat: ${tipusActivitats}">
+                <label>
+                    <input type="checkbox" name="tipusActivitat" th:value="${tipusActivitat.nom}"/>
+                    <span th:text="${tipusActivitat.nom}"></span>
+                </label>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="submit">ENVIAR</button>
+        </div>
+    </div>
+</form>
+
+<section>
+
+    <input type="checkbox" name="proba" value="proba"/>
+    <span>PROBA</span>
 </section>
 
 <div th:replace="fragments/searchBar-floating.html :: searchBar-floating"></div>
@@ -80,6 +103,10 @@
     var instances = M.FloatingActionButton.init(elems, {
         direction: 'left'
     });
+</script>
+<script>
+    var elems = document.querySelector('.modal');
+    var instances = M.Modal.init(elems, {});
 </script>
 </body>
 </html>

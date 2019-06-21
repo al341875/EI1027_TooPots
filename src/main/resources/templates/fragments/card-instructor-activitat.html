@@ -57,10 +57,12 @@
 
 
     <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4"  th:text="${activitat.nomTipusActivitat}" ><i class="material-icons right">close</i></span>
+        <span class="card-title grey-text text-darken-4" th:text="${activitat.nom}"><i
+                class="material-icons right">close</i></span>
         <p th:text="${activitat.textPerClient}"></p>
 
-        <span class="card-title grey-text text-darken-4" th:href="@{/reserva/add/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}"></span>
+        <span class="card-title grey-text text-darken-4"
+              th:href="@{/reserva/add/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}"></span>
     </div>
 </div>
 

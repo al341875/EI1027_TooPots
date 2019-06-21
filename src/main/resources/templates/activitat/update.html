@@ -97,8 +97,8 @@
         </div>
 
         <div class="input-field col s3">
-            <input id="nomTipusActivitat" type="text" placeholder="nomTipusActivitat "   th:field="*{nomTipusActivitat}"  />
-            <label for="nomTipusActivitat">nomTipusActivitat</label>
+            <input id="nom" type="text" placeholder="nom " th:field="*{nom}"/>
+            <label for="nom">nom</label>
         </div>
         <div class="row">
             <div class="col s12">
@@ -118,7 +118,7 @@
     var rangeOfyears = [];
     const today = new Date();
     var startYear = today.getFullYear() - 90;
-    var startDate = new Date(new String(startYear));
+    var startDate = new Date(String(startYear));
     M.Datepicker.init(Calendar, {
         format: 'dd/mm/yyyy',
         minDate: startDate,
