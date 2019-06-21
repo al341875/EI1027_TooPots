@@ -59,9 +59,11 @@ public class ClientController {
             RedirectAttributes redirectAttributes) {
         ClientValidator clientValidator = new ClientValidator();
         clientValidator.validate(client, bindingResult);
-        //if (clientDao.existId(client.getClientId()))
+        if (clientDao.existId(client.getClientId()))
+        	throw new ClientException("DNI duplicat","ClauPrimariaDuplicada");
         //El id ya existe!
-        //if (clientDao.existMail(client.getEmail()))
+        if (clientDao.existEmail(client.getEmail()))
+        	throw new ClientException("E-mail duplicat","ClauPrimariaDuplicada");
         //El email ya existe!
 		//afegir client en tabla usuari
 		UserDetails user = new UserDetails();

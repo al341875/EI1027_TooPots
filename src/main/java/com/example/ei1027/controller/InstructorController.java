@@ -10,6 +10,8 @@ import com.example.ei1027.model.Instructor;
 import com.example.ei1027.model.UserDetails;
 import com.example.ei1027.validation.InstructorValidator;
 import com.example.ei1027.validation.excepcions.ClientException;
+import com.example.ei1027.validation.excepcions.InstructorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
@@ -91,11 +93,11 @@ public class InstructorController {
         InstructorValidator instructorValidator = new InstructorValidator();
         instructorValidator.validate(instructor, bindingResult);
         if (instructorDao.existId(instructor.getInstructorId()))
-        	throw new ClientException("DNI duplicat","ClauPrimariaDuplicada");            
+        	throw new InstructorException("DNI duplicat","ClauPrimariaDuplicada");            
         if (instructorDao.existEmail(instructor.getEmail()))
-        	throw new ClientException("Email duplicat","ClauPrimariaDuplicada");
+        	throw new InstructorException("Email duplicat","ClauPrimariaDuplicada");
         if (instructorDao.existIban(instructor.getIban()))
-        	throw new ClientException("IBAN duplicat","ClauPrimariaDuplicada");
+        	throw new InstructorException("IBAN duplicat","ClauPrimariaDuplicada");
         UserDetails user = new UserDetails();
         user.setUsuari(instructor.getInstructorId());
         user.setTipus("instructor");

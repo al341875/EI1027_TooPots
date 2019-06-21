@@ -123,12 +123,13 @@ public class ReservaController {
         Reserva reserva = new Reserva();
         reserva.setNomActivitat(nomActivitat);
         model.addAttribute("reserva",  reserva);
-
+        model.addAttribute("puestosLliures", reservaDao.getPuestosLliures(nomActivitat));
         return "reserva/add";
     }
     @PostMapping(value = "/add")
-    public String addReserva(@ModelAttribute("reserva") Reserva reserva,HttpSession session , BindingResult bindingResult) {
-        String user = (String)  session.getAttribute("username");
+    public String addReserva(Model model,@ModelAttribute("reserva") Reserva reserva,HttpSession session , BindingResult bindingResult) {
+    	//model.addAttribute("puestosLliures", reservaDao.getPuestosLliures(reserva.getNomActivitat()));
+    	String user = (String)  session.getAttribute("username");
         if ( user == null) {
             throw new UserException("Usuari no valid","usuariNoValid");
         }
