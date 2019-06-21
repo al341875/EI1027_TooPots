@@ -1,0 +1,106 @@
+##################################################
+Thu Aug 30 16:43:55 2018
+##################################################
+
+Attempting to access license server at "6200@winlic.uji.es".
+Default Inspire license file "C:/SOFT/DiG/SolidThinking/security/altair_lic.dat" doesn't exist.
+Environment variable ALTAIR_LICENSE_PATH not set.
+Environment variable LMX_LICENSE_PATH not set.
+Hosted HyperWorks Units (HHWUs) access will be attempted as well, if needed.
+
+--------------------------------------------------
+
+Unable to checkout InspireStampingOneStep 13.0 units (Optional):
+
+Altair License Manager: License error
+
+Feature: GlobalZoneEU
+Error Code: 17
+Error Description:
+[NETWORK] 6200@winlic.uji.es - (Err: 17) Request for more licenses than available on license server
+
+Feature: InspireStampingOneStep
+Error Code: 9
+Error Description:
+[NETWORK] 6200@winlic.uji.es - (Err: 9) Feature not found
+
+License Path: 6200@winlic.uji.es;
+
+
+--------------------------------------------------
+
+Unable to checkout feature InspireStampingOneStepFeature 17.0 (Optional):
+
+Altair License Manager: License error
+
+Feature: GlobalZoneEU
+Error Code: 17
+Error Description:
+[NETWORK] 6200@winlic.uji.es - (Err: 17) Request for more licenses than available on license server
+
+Feature: InspireStampingOneStepFeature
+Error Code: 9
+Error Description:
+[NETWORK] 6200@winlic.uji.es - (Err: 9) Feature not found
+
+License Path: 6200@winlic.uji.es;
+
+
+--------------------------------------------------
+
+
+
+
+##################################################
+Thu Aug 30 16:43:56 2018
+##################################################
+
+Attempting to access license server at "6200@winlic.uji.es".
+Default Inspire license file "C:/SOFT/DiG/SolidThinking/security/altair_lic.dat" doesn't exist.
+Environment variable ALTAIR_LICENSE_PATH not set.
+Environment variable LMX_LICENSE_PATH not set.
+Hosted HyperWorks Units (HHWUs) access will be attempted as well, if needed.
+
+--------------------------------------------------
+
+Unable to checkout InspireMotion 13.0 units (Optional):
+
+Altair License Manager: License error
+
+Feature: GlobalZoneEU
+Error Code: 17
+Error Description:
+[NETWORK] 6200@winlic.uji.es - (Err: 17) Request for more licenses than available on license server
+
+Feature: InspireMotion
+Error Code: 9
+Error Description:
+[NETWORK] 6200@winlic.uji.es - (Err: 9) Feature not found
+
+License Path: 6200@winlic.uji.es;
+
+
+--------------------------------------------------
+
+Unable to checkout feature InspireMotionFeature 17.0 (Optional):
+
+Altair License Manager: License error
+
+Feature: GlobalZoneEU
+Error Code: 17
+Error Description:
+[NETWORK] 6200@winlic.uji.es - (Err: 17) Request for more licenses than available on license server
+
+Feature: InspireMotionFeature
+Error Code: 9
+Error Description:
+[NETWORK] 6200@winlic.uji.es - (Err: 9) Feature not found
+
+License Path: 6200@winlic.uji.es;
+
+
+--------------------------------------------------
+
+
+
+

@@ -98,12 +98,13 @@ public class ReservaController {
         Reserva reserva = new Reserva();
         reserva.setNomActivitat(nomActivitat);
         model.addAttribute("reserva",  reserva);
-
+        model.addAttribute("libres", reservaDao.getPuestosLliures(nomActivitat));
         return "reserva/add";
     }
     @PostMapping(value = "/add")
-    public String addReserva(@ModelAttribute("reserva") Reserva reserva,@SessionAttribute("username") String user , BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
+    public String addReserva(@ModelAttribute("reserva") Reserva reserva,@SessionAttribute("username") String user ,Model model, BindingResult bindingResult) {
+    	model.addAttribute("libres", reservaDao.getPuestosLliures(reserva.getNomActivitat()));
+    	if (bindingResult.hasErrors())
             return "reserva/add";
 
 

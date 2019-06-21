@@ -121,4 +121,13 @@ public class ReservaDao {
 		return this.jdbcTemplate.query("select * from reserva INNER JOIN activitat ON reserva.nom_activitat=activitat.nom_llarg WHERE activitat.id_instructor=?;",
 				new ReservaMapper(), idInstructor);
 	}
+	public Integer getPuestosLliures(String nomLlarg) {
+		int resultat;
+		int reserves=this.jdbcTemplate.queryForObject("select count(id_client) from Reserva where nom_activitat = ?", Integer.class, nomLlarg);
+		int maxAssistents=this.jdbcTemplate.queryForObject("select max_assistents from Activitat where nom_llarg = ?", Integer.class, nomLlarg);
+		resultat=maxAssistents-reserves;
+		if(resultat <0)
+			resultat=0;
+		return resultat;
+	}
 }
