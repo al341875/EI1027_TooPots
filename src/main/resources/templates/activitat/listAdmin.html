@@ -11,7 +11,12 @@
             src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
     </script>
-
+    <link rel = "stylesheet"
+          href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script type = "text/javascript"
+            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
     <style>
         .searchBox{
             position: fixed!important;
@@ -39,9 +44,17 @@
 
 <div class="row" style="text-align: center">
     <h2>Llistat d'activitats  </h2>
+    <ul id = "dropdown" class = "dropdown-content right" >
+        <li><a href = "/activitat/sortFecha">Fecha</a></li>
+        <li><a href = "/activitat/sortEstat">Estat</a></li>
+        <li><a href = "/activitat/sortTipus">Tipus</a></li>
 
+    </ul>
+<div class="row right">
+    <a class = "btn dropdown-button" href = "#" data-activates = "dropdown"><i class="material-icons">filter_list</i>
+        <i class = "mdi-navigation-arrow-drop-down right"></i></a>
 </div>
-
+</div>
 
 <div class="row">
     <div class="col s3" th:each="activitat : ${activitats}">
@@ -51,4 +64,25 @@
 <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()" ><i class="material-icons">keyboard_backspace</i></a>
 
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems, options);
+    });
+
+    // Or with jQuery
+
+    $('.dropdown-trigger').dropdown();
+    $('.dropdown-button').dropdown({
+            inDuration: 300,
+            outDuration: 225,
+            constrain_width: false, // Does not change width of dropdown to that of the activator
+            hover: true, // Activate on hover
+            gutter: 0, // Spacing from edge
+            belowOrigin: false, // Displays dropdown below the button
+            alignment: 'left' // Displays dropdown with edge aligned to the left of button
+        }
+    );
+
+</script>
 </html>

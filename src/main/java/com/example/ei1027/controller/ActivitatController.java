@@ -50,8 +50,27 @@ public class ActivitatController {
         model.addAttribute("activitats", activitatDao.getActivitats());
         return "activitat/listAdmin";
     }
+    @GetMapping("/sortFecha")
+    public String listActivitatsFecha(Model model) {
+        model.addAttribute("activitats", activitatDao.getActivitatsSortFecha());
+        return "activitat/listAdmin";
+    }
+    @GetMapping("/sortTipus")
+    public String listActivitatsTipus(Model model) {
+        model.addAttribute("activitats", activitatDao.getActivitatsSortTipus());
+        return "activitat/listAdmin";
+    }
+    @GetMapping("/sortEstat")
+    public String listActivitatsEstat(Model model) {
+        model.addAttribute("activitats", activitatDao.getActivitatsSortEstat());
+        return "activitat/listAdmin";
+    }
 	@GetMapping("/listInstructor")
-	public String listActivitatsInstructor(Model model,@SessionAttribute("username") String user) {
+	public String listActivitatsInstructor(Model model,HttpSession session) {
+        String user = (String)  session.getAttribute("username");
+        if ( user == null) {
+            throw new UserException("Usuari no valid","usuariNoValid");
+        }
 		model.addAttribute("activitats", activitatDao.getActivitatsByInstructor(user));
 		return "activitat/listInstructor";
 	}

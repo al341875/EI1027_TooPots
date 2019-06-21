@@ -11,6 +11,12 @@
             src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
     </script>
+    <link rel = "stylesheet"
+          href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script type = "text/javascript"
+            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
     <style>
 
         .searchBox{
@@ -40,14 +46,19 @@
 
 <div class="row" style="text-align: center">
     <h2>Les meues reserves</h2>
+    <ul id = "dropdown" class = "dropdown-content right" >
+        <li><a href="/reserva/pendents">Pedents</a></li>
+        <li><a href="/reserva/pagades">Pagades</a></li>
+        <li><a href="/reserva/acceptades">Acceptades</a></li>
+        <li><a  href="/reserva/confirmades">Confirmades</a></li>
 
+    </ul>
+    <div class="row right">
+        <a class = "btn dropdown-button" href = "#" data-activates = "dropdown"><i class="material-icons">filter_list</i>
+            <i class = "mdi-navigation-arrow-drop-down right"></i></a>
+    </div>
 </div >
-<div class="row" style="">
-<a  class="waves-effect btn-small" href="/reserva/pendents">Pedents</a>
-<a  class="waves-effect btn-small" href="/reserva/acceptades">Acceptades</a>
-<a  class="waves-effect waves-light btn-small" href="/reserva/pagades">Pagades</a>
-<a  class="waves-effect waves-light btn-small" href="/reserva/confirmades">Confirmades</a>
-</div>
+
 
 <section>
     <ul class="collection">
@@ -91,5 +102,26 @@
     var instances = M.FloatingActionButton.init(elems, {
         direction: 'left'
     });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems, options);
+    });
+
+    // Or with jQuery
+
+    $('.dropdown-trigger').dropdown();
+    $('.dropdown-button').dropdown({
+            inDuration: 300,
+            outDuration: 225,
+            constrain_width: false, // Does not change width of dropdown to that of the activator
+            hover: true, // Activate on hover
+            gutter: 0, // Spacing from edge
+            belowOrigin: false, // Displays dropdown below the button
+            alignment: 'left' // Displays dropdown with edge aligned to the left of button
+        }
+    );
+
 </script>
 </body>

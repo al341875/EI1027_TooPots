@@ -79,10 +79,18 @@ public class ActivitatDao {
 				"select * from activitat where imatge=?  ",
 				new Object[] {url}, new ActivitatMapper());
 }
-
-
-
-
+	public List<Activitat> getActivitatsSortFecha(){
+		return this.jdbcTemplate.query(
+				"select * from Activitat ORDER BY data", new ActivitatMapper());
+	}
+	public List<Activitat> getActivitatsSortTipus(){
+		return this.jdbcTemplate.query(
+				"select * from Activitat ORDER BY nom_tipus_activitat", new ActivitatMapper());
+	}
+	public List<Activitat> getActivitatsSortEstat(){
+		return this.jdbcTemplate.query(
+				"select * from Activitat ORDER BY estat", new ActivitatMapper());
+	}
 
 
 }
