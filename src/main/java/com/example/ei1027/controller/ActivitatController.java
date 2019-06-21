@@ -160,9 +160,9 @@ public class ActivitatController {
         return "activitat/show";
     }
     @GetMapping(value = "/show2/{nomLlarg}")
-    public String show3Client(Model model,@PathVariable String nomLlarg) {
+    public String show2Client(Model model,@PathVariable String nomLlarg) {
         model.addAttribute("activitat", activitatDao.getActivitat(nomLlarg));
-        return "activitat/show2";
+        return "activitat/show2C";
     }
     @GetMapping(value = "/showInstructor/{nomLlarg}")
     public String showInstructor(Model model,@PathVariable String nomLlarg) {
