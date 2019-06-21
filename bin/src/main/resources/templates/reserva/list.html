@@ -29,7 +29,7 @@
             <img src="https://img.icons8.com/color/420/person-male.png" alt="" class="circle">
             <span class="title" th:text="${reserva.idClient + ' (' + reserva.dataActivitat + ')'}">idClient(dataActivitat)</span>
             <div class="secondary-content">
-                <a   th:href="@{/reserva/list2/{idReserva} (idReserva=${reserva.idReserva})}" class="btn blue"><i class="material-icons">info</i></a>
+                <a  th:href="@{/activitat/showInstructor/{nomllarg} (nomllarg=${reserva.nomActivitat})}"  class="btn blue"><i class="material-icons">info</i></a>
 
                 <a th:if="${reserva.estatPagament.equals('pendent')}"
                    th:href="@{/reserva/accept/{idReserva} (idReserva=${reserva.idReserva})}"

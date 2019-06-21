@@ -5,7 +5,7 @@
     <meta charset="UTF-8"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -25,6 +25,9 @@
 <header th:replace="fragments/navBar.html :: navBar"></header>
 
 <div class="row">
+    <div class="row" style="text-align: center">
+        <h2>Crear nova activitat</h2>
+    </div>
     <form class="col s6 offset-s3" th:action="@{/activitat/add}"
           th:object="${activitat}" method="post" enctype="multipart/form-data">
         <div class="row">
@@ -49,23 +52,26 @@
                 <label for="descripcio">Descripció</label>
             </div>
             <div class="input-field col s3">
-                <input id="preu"  placeholder="20" class="validate" type="number"  th:field="*{preu}" />
+                <input id="preu"  placeholder="20" class="validate" type="number"  th:field="*{preu}" min="0"/>
                 <label for="preu">Preu</label>
+                <span class="helper-text" th:if="${#fields.hasErrors('preu')}" th:errors="*{preu}"></span>
             </div>
         </div>
-            <div class="row">
             <div class="input-field col s3">
-                <input id="durada" placeholder="20"  type="number" class="validate" th:field="*{durada}" required>
+                <input id="durada" placeholder="20"  type="number" class="validate" th:field="*{durada}" min="0" required>
                 <label for="durada">Durada</label>
-        </div>
+                <span class="helper-text" th:if="${#fields.hasErrors('durada')}" th:errors="*{durada}"></span>
+        	</div>
         <div class="row">
             <div class="input-field col s3">
-                <input id="minAssistents" class="validate" placeholder="1" type="number"  th:field="*{minAssistents}" />
+                <input id="minAssistents" class="validate" placeholder="1" type="number"  th:field="*{minAssistents}" min="1"/>
                 <label for="minAssistents">Nombre mínim d'assistents</label>
+                <span class="helper-text" th:if="${#fields.hasErrors('minAssistents')}" th:errors="*{minAssistents}" ></span>
             </div>
             <div class="input-field col s3">
-                <input id="maxAssistents" class="validate" placeholder="15" type="number"  th:field="*{maxAssistents}" />
+                <input id="maxAssistents" class="validate" placeholder="15" type="number"  th:field="*{maxAssistents}" min="1"/>
                 <label for="maxAssistents">Nombre màxim d'assistents</label>
+                <span class="helper-text" th:if="${#fields.hasErrors('maxAssistents')}" th:errors="*{maxAssistents}"></span>
             </div>
 
         </div>
@@ -73,23 +79,29 @@
         <div class="input-field col s6">
             <input id="Lloc"type="text" th:field="*{lloc}" class="validate"  minlength="8" maxlength="20" />
             <label for="Lloc">Lloc</label>
+            <span class="helper-text" th:if="${#fields.hasErrors('lloc')}" th:errors="*{lloc}"></span>
         </div>
         <div class="input-field col s6">
             <input   id="puntDeTrobada"type="text" class="validate" th:field="*{puntDeTrobada}"   maxlength="20" />
             <label for="puntDeTrobada">Punt de trobada</label>
+            <span class="helper-text" th:if="${#fields.hasErrors('puntDeTrobada')}" th:errors="*{puntDeTrobada}"></span>
         </div>
         </div>
         <div class="row">
+<!--         	<div class="input-field col s3" >
+                <input id="horaDeTrobada" type="text"   class="timepicker validate" th:field="*{horaDeTrobada}" required>
+                <label for="horaDeTrobada">Hora de trobada</label>
+
+            </div> -->
+        
         	<div class="input-field col s3">
                 <input   placeholder="hh:mm:ss" data-format="hh:mm:ss" id="horaDeTrobada"  class="form-control" type="text" th:field="*{horaDeTrobada}"   />
                 <label for="horaDeTrobada">Hora de trobada</label>
             </div>
             <div class="input-field col s8">
                 <select id="nomTipusActivitat" th:field="*{nomTipusActivitat}" required>
-
-                    <option th:each="tActivitat : ${tipusActivitats}"
-                            th:value="${tActivitat.nomTipusActivitat}"
-                            th:utext="${tActivitat.nomTipusActivitat}"/>
+                    <option th:each="tActivitat : ${tipusActivitats}" th:value="${tActivitat.nomTipusActivitat}"
+                            th:utext="${tActivitat.nomTipusActivitat}" />
                 </select>
 
 
@@ -107,6 +119,7 @@
             <div class="input-field col s8">
                 <textarea id="textPerClient" type="text"  class="validate" placeholder="Descripció per als clients "  th:field="*{textPerClient}"  />
                 <label for="textPerClient">Afegix text per als clients</label>
+                <span class="helper-text" th:if="${#fields.hasErrors('textPerClient')}" th:errors="*{textPerClient}"></span>
             </div>
         </div>
 
@@ -180,6 +193,23 @@
         }
     });
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.js"></script>
+  <script>
+  $('.timepicker').timepicker({
+	  onSelect: function(time) {
+	    console.log(time)
+	  }
+	});
+
+	$('.datepicker').datepicker({
+	  onSelect: function(time){
+	    console.log(time)
+	  }
+	});
+  </script>
 <script>
     const estat = document.querySelector('select');
     M.FormSelect.init(estat, {});
