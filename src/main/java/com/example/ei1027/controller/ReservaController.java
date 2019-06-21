@@ -166,6 +166,11 @@ public class ReservaController {
 
         return "redirect:../pendents";
     }
+    @RequestMapping(value="/show/{idReserva}")
+    public String show(Model model, @PathVariable Integer idReserva) {
+        model.addAttribute("reserva",reservaDao.getReserva(idReserva) );
+        return "reserva/show";
+    }
 
 
 }

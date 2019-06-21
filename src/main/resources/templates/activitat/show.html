@@ -36,16 +36,14 @@
             <div class="row">
 
                     <div th:replace="fragments/pushpin-activitatInfo.html :: pushpin-activitatInfo"></div>
-
+                <a th:href="@{/reserva/add/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}" class="btn waves-effect red col s12">
+                    RESERVA
+                </a>
             </div>
 
         </div>
 
 
-
-            <div class="row">
-
-            </div>
 
     </form>
 </div>
