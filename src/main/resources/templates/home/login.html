@@ -56,13 +56,13 @@
 					  th:object="${user}" method="post">
 					<p>
 						<label>Nom d'usuari:</label>
-						<input class="form_control" type="text" th:field="*{usuari}"/>
+						<input class="validate" type="text" th:field="*{usuari}" required/>
 						<span th:if="${#fields.hasErrors('usuari')}" th:errors="*{usuari}" class="helper-text"></span>
 
 					</p>
 					<p>
 						<label>Contrasenya:</label>
-						<input class="form_control" type="password" th:field="*{contrasenya}"/>
+						<input class="validate" type="password" th:field="*{contrasenya}" required/>
 						<span th:if="${#fields.hasErrors('contrasenya')}" th:errors="*{contrasenya}" class="helper-text"></span>
 
 					</p>

@@ -4,6 +4,8 @@ import com.example.ei1027.dao.ReservaDao;
 import com.example.ei1027.dao.ActivitatDao;
 import com.example.ei1027.dao.UserDao;
 import com.example.ei1027.model.*;
+import com.example.ei1027.validation.UserValidator;
+import com.example.ei1027.validation.excepcions.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,9 +36,11 @@ public class ReservaController {
 
 
     @GetMapping("/pendents")
-    public String listReservesPendents(Model model,@SessionAttribute("username") String user) {
-        if(user == "null"){
-            return "/login";
+    public String listReservesPendents(Model model,HttpSession session) {
+
+        String user = (String)  session.getAttribute("username");
+        if ( user == null) {
+            throw new UserException("Usuari no valid","usuariNoValid");
         }
         model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.PENDENT.toString(),user));
         model.addAttribute("boldPendent", true);
@@ -44,7 +48,11 @@ public class ReservaController {
         return "reserva/listClient";
     }
     @GetMapping("/pagades")
-    public String listReservesPagat(Model model,@SessionAttribute("username") String user) {
+    public String listReservesPagat(Model model,HttpSession session) {
+        String user = (String)  session.getAttribute("username");
+        if ( user == null) {
+            throw new UserException("Usuari no valid","usuariNoValid");
+        }
         model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.PAGAT.toString(),user));
         model.addAttribute("boldPendent", true);
         model.addAttribute("tabs", true);
@@ -52,29 +60,41 @@ public class ReservaController {
     }
 
     @GetMapping("/acceptades")
-    public String listReservesAcceptats(Model model,@SessionAttribute("username") String user) {
+    public String listReservesAcceptats(Model model,HttpSession session) {
+        String user = (String)  session.getAttribute("username");
+        if ( user == null) {
+            throw new UserException("Usuari no valid","usuariNoValid");
+        }
         model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.ACCEPTADA.toString(),user));
         model.addAttribute("boldAcceptat", true);
         model.addAttribute("tabs", true);
         return "reserva/listClient";
     }
     @GetMapping("/confirmades")
-    public String listReservesConfirmades(Model model,@SessionAttribute("username") String user) {
+    public String listReservesConfirmades(Model model,HttpSession session) {
+        String user = (String)  session.getAttribute("username");
+        if ( user == null) {
+            throw new UserException("Usuari no valid","usuariNoValid");
+        }
         model.addAttribute("reserves", reservaDao.getReservaByUsuariStatus(EstatPagament.CONFIRMAT.toString(),user));
         model.addAttribute("boldPendent", true);
         model.addAttribute("tabs", true);
         return "reserva/listClient";
     }
     @GetMapping("/acceptarReservesInstructor")
-    public String listReservesByInstructor(Model model,@SessionAttribute("username") String user) {
+    public String listReservesByInstructor(Model model,HttpSession session) {
+        String user = (String)  session.getAttribute("username");
+        if ( user == null) {
+            throw new UserException("Usuari no valid","usuariNoValid");
+        }
         model.addAttribute("reserves", reservaDao.reservesByInstructor(user));
         return "reserva/list";
     }
         @GetMapping("/listClient")
-    public String listReservesUsuari(Model model ,@SessionAttribute("username") String user) {
-
+    public String listReservesUsuari(Model model ,HttpSession session)  {
+        String user = (String)  session.getAttribute("username");
             if ( user == null) {
-                return "home/main";
+                throw new UserException("Usuari no valid","usuariNoValid");
             }
             model.addAttribute("reserves", reservaDao.getReservaByUsuari(user));
 
@@ -107,7 +127,11 @@ public class ReservaController {
         return "reserva/add";
     }
     @PostMapping(value = "/add")
-    public String addReserva(@ModelAttribute("reserva") Reserva reserva,@SessionAttribute("username") String user , BindingResult bindingResult) {
+    public String addReserva(@ModelAttribute("reserva") Reserva reserva,HttpSession session , BindingResult bindingResult) {
+        String user = (String)  session.getAttribute("username");
+        if ( user == null) {
+            throw new UserException("Usuari no valid","usuariNoValid");
+        }
         if (bindingResult.hasErrors())
             return "reserva/add";
 

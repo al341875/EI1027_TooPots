@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.example.ei1027.validation.excepcions.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
@@ -22,6 +23,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/activitat")
@@ -67,12 +70,17 @@ public class ActivitatController {
 	}
 
 	@PostMapping(value = "/add")
-    public String addActivitat(@ModelAttribute("activitat") Activitat activitat, BindingResult bindingResult,@SessionAttribute("username") String user,
-    		@RequestParam("file") MultipartFile file, Model model,
-            RedirectAttributes redirectAttributes) {
+    public String addActivitat(@ModelAttribute("activitat") Activitat activitat, BindingResult bindingResult, HttpSession session,
+                               @RequestParam("file") MultipartFile file, Model model,
+                               RedirectAttributes redirectAttributes) {
+        String user = (String)  session.getAttribute("username");
+        if ( user == null) {
+            throw new UserException("Usuari no valid","usuariNoValid");
+        }
 		ActivitatValidator activitatValidator=new ActivitatValidator();
 		  activitatValidator.validate(activitat, bindingResult);
-		  model.addAttribute("tipusActivitats", tipusActivitatDao.getTipusActivitats()); 
+		  model.addAttribute("tipusActivitats", tipusActivitatDao.getTipusActivitats());
+
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult);
             return "activitat/add";

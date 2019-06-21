@@ -4,6 +4,7 @@ import com.example.ei1027.dao.ActivitatDao;
 import com.example.ei1027.dao.UserDao;
 import com.example.ei1027.model.UserDetails;
 import com.example.ei1027.validation.UserValidator;
+import com.example.ei1027.validation.excepcions.UserException;
 import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,8 +50,12 @@ public class LoginController {
 		UserDetails user = userDao.find(userData);
 
 		if (bindingResult.hasErrors() || user == null) {
-			return "redirect:login";
+            throw new UserException("Usuari no valid","usuariNoValid");
 		}
+
+
+
+
 		//System.out.println("el usuario es :"+ user.getClave());
 	       // Comprova que el login siga correcte
 		// intentant carregar les dades de l'usuari 
