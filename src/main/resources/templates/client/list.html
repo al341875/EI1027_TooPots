@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script type = "text/javascript"
-            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
     </script>
 </head>
 <body>
@@ -17,26 +17,28 @@
 <div class="row" style="text-align: center">
     <h2>Llistat de clients</h2>
 </div>
-    <section>
-        <ul class="collection">
-            <li class="collection-item avatar valign-wrapper" th:each="client : ${clients}">
-                <img src="../static/imatges/${client.imatge}" th:src="@{/imatges/{id}(id=${client.imatge})}" alt="" class="circle">
-                <span class="title" th:text="${client.nom + ' (' + client.clientId + ')'}">Nombre (DNI)</span>
-                <div class="secondary-content">
-                    <a th:href="@{/client/show/{clientId}(clientId=${client.clientId})}" class="btn blue"><i class="material-icons">info</i></a>
-                    <a
-                            th:href="@{/client/delete/{clientId} (clientId=${client.clientId})}" class="btn red"><i
-                            class="material-icons">delete</i></a>
+<section>
+    <ul class="collection">
+        <li class="collection-item avatar valign-wrapper" th:each="client : ${clients}">
+            <img src="../static/imatges/${client.imatge}" th:src="@{/imatges/{id}(id=${client.imatge})}" alt=""
+                 class="circle">
+            <span class="title" th:text="${client.nom + ' (' + client.clientId + ')'}">Nombre (DNI)</span>
+            <div class="secondary-content">
+                <a th:href="@{/client/show/{clientId}(clientId=${client.clientId})}" class="btn blue"><i
+                        class="material-icons">info</i></a>
+                <a
+                        th:href="@{/client/delete/{clientId} (clientId=${client.clientId})}" class="btn red"><i
+                        class="material-icons">delete</i></a>
 
 
+            </div>
+        </li>
+    </ul>
+</section>
 
-                </div>
-            </li>
-        </ul>
-    </section>
 
-
-        <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()" ><i class="material-icons">keyboard_backspace</i></a>
+<a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i
+        class="material-icons">keyboard_backspace</i></a>
 
 </body>
 </html>

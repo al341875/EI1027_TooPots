@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice
 public class UserControllerAdvice {
     @ExceptionHandler(value = UserException.class)
-    public ModelAndView handleUserException(UserException ex){
+    public ModelAndView handleUserException(UserException ex) {
 
         ModelAndView mav = new ModelAndView("error/ErrorLogin");
         mav.addObject("message", ex.getMessage());

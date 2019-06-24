@@ -29,14 +29,14 @@
         <div class="row">
             <div class="input-field col s6 offset-s3">
                 <img class="responsive-img circle"
-                     src="../static/imatges/${imatge}" th:src="@{/imatges/{id}(id=${imatge})}" >
+                     src="../static/imatges/${imatge}" th:src="@{/imatges/{id}(id=${imatge})}">
             </div>
         </div>
         <div class="row">
             <div class="input-field col s7">
                 <input id="nom" type="text" class="validate" th:field="*{nom}" required>
                 <label for="nom">Nom</label>
-                 <span class="helper-text" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+                <span class="helper-text" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
             </div>
             <div class="input-field col s5">
                 <input readonly id="nif" type="text" class="validate" th:field="*{instructorId}" required>
@@ -91,15 +91,17 @@
             <div class="input-field col s6">
                 <input id="re-password" type="password" class="validate" th:field="*{recontrasenya}" required>
                 <label for="re-password">Repeteix la contrasenya</label>
-                <span th:if="${#fields.hasErrors('recontrasenya')}" th:errors="*{recontrasenya}" class="helper-text"></span>
+                <span th:if="${#fields.hasErrors('recontrasenya')}" th:errors="*{recontrasenya}"
+                      class="helper-text"></span>
             </div>
         </div>
         <div class="row">
 
-                <button class="btn waves-effect waves-light right" type="submit" name="action">Actualitzar compte
-                    <i class="material-icons right">send</i>
-                </button>
-                <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
+            <button class="btn waves-effect waves-light right" type="submit" name="action">Actualitzar compte
+                <i class="material-icons right">send</i>
+            </button>
+            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i
+                    class="material-icons">keyboard_backspace</i></a>
 
         </div>
     </form>
@@ -111,7 +113,7 @@
     var rangeOfyears = [];
     const today = new Date();
     var startYear = today.getFullYear() - 90;
-    var startDate = new Date(new String(startYear));
+    var startDate = new Date(String(startYear));
     var instances = M.Datepicker.init(Calendar, {
         format: 'dd/mm/yyyy',
         minDate: startDate,

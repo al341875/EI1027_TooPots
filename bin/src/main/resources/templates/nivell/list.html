@@ -23,12 +23,12 @@
         <li class="collection-item avatar valign-wrapper" th:each="nivell : ${nivells}">
             <span class="title" th:text="${nivell.descripcio + ' (' + nivell.nivellId + ')'}">Descripció (id)</span>
             <div class="secondary-content">
-                <a  th:href="@{/nivell/update/{nivellId}(nivellId=${nivell.nivellId})}" class="btn teal"><i class="material-icons">create</i></a>
+                <a th:href="@{/nivell/update/{nivellId}(nivellId=${nivell.nivellId})}" class="btn teal"><i
+                        class="material-icons">create</i></a>
 
                 <a
                         th:href="@{/nivell/delete/{nivellId}(nivellId=${nivell.nivellId})}" class="btn red"><i
                         class="material-icons">delete</i></a>
-
 
 
             </div>
@@ -36,8 +36,10 @@
     </ul>
 </section>
 
-    <td><a th:href="@{/nivell/add/}" class="btn-floating btn-large waves-effect waves-light "><i class="material-icons">add</i></a>
-        <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
-    </td>
+<td><a th:href="@{/nivell/add/}" class="btn-floating btn-large waves-effect waves-light "><i
+        class="material-icons">add</i></a>
+    <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i
+            class="material-icons">keyboard_backspace</i></a>
+</td>
 </body>
 </html>

@@ -10,7 +10,7 @@
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-     <style>
+    <style>
         .helper-text {
             color: red !important;
         }
@@ -40,7 +40,8 @@
             <div class="input-field col s5">
                 <input id="nif" type="text" class="validate" th:field="*{instructorId}" required>
                 <label for="nif">NIF</label>
-                <span th:if="${#fields.hasErrors('instructorId')}" th:errors="*{instructorId}" class="helper-text"></span>
+                <span th:if="${#fields.hasErrors('instructorId')}" th:errors="*{instructorId}"
+                      class="helper-text"></span>
             </div>
         </div>
         <div class="row">
@@ -91,15 +92,17 @@
             <div class="input-field col s6">
                 <input id="re-password" type="password" class="validate" th:field="*{recontrasenya}" required>
                 <label for="re-password">Repeteix la contrasenya</label>
-                <span th:if="${#fields.hasErrors('recontrasenya')}" th:errors="*{recontrasenya}" class="helper-text"></span>
+                <span th:if="${#fields.hasErrors('recontrasenya')}" th:errors="*{recontrasenya}"
+                      class="helper-text"></span>
             </div>
         </div>
         <div class="row">
 
-                <button class="btn waves-effect waves-light right" type="submit" name="action">Crear Compte
-                    <i class="material-icons right">send</i>
-                </button>
-            <a class="btn-floating btn-large waves-effect waves-light red "href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
+            <button class="btn waves-effect waves-light right" type="submit" name="action">Crear Compte
+                <i class="material-icons right">send</i>
+            </button>
+            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i
+                    class="material-icons">keyboard_backspace</i></a>
 
         </div>
 
@@ -112,7 +115,7 @@
     var rangeOfyears = [];
     const today = new Date();
     var startYear = today.getFullYear() - 90;
-    var startDate = new Date(new String(startYear));
+    var startDate = new Date(String(startYear));
     var instances = M.Datepicker.init(Calendar, {
         format: 'dd/mm/yyyy',
         minDate: startDate,

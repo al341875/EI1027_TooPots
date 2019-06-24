@@ -25,7 +25,8 @@
 
         <div class="row">
             <div class="input-field col s6">
-                <input readonly id="nomActivitat"type="text" th:field="*{nomActivitat}" class="validate"  maxlength="20" />
+                <input readonly id="nomActivitat" type="text" th:field="*{nomActivitat}" class="validate"
+                       maxlength="20"/>
                 <label for="nomActivitat">Nom d'activitat</label>
             </div>
 
@@ -33,11 +34,12 @@
 
         <div class="row">
             <div class="input-field col s3">
-                <input id="numAssistents" class="validate" placeholder="2" type="number"  th:field="*{numAssistents}" min=1 th:max="${puestosLliures}" required />
+                <input id="numAssistents" class="validate" placeholder="2" type="number" th:field="*{numAssistents}"
+                       min=1 th:max="${puestosLliures}" required/>
                 <label for="numAssistents"> Nombre d'assistents</label>
             </div>
             <div class="input-field col s3">
-				<input id="puestosLliures" type="text"  th:value="${puestosLliures}"  readonly></input>
+                <input id="puestosLliures" type="text" th:value="${puestosLliures}" readonly></input>
                 <label for="puestosLliures"> Puestos lliures</label>
             </div>
 
@@ -45,10 +47,11 @@
 
         <div class="row">
 
-                <button class="btn waves-effect waves-light right" type="submit" name="action"> Reserva
+            <button class="btn waves-effect waves-light right" type="submit" name="action"> Reserva
                     <i class="material-icons right">send</i>
                 </button>
-            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
+            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i
+                    class="material-icons">keyboard_backspace</i></a>
 
 
         </div>

@@ -2,21 +2,16 @@ package com.example.ei1027.controller;
 
 import com.example.ei1027.config.EncryptorFactory;
 import com.example.ei1027.dao.InstructorDao;
-import com.example.ei1027.dao.TipusActivitatDao;
 import com.example.ei1027.dao.UserDao;
 import com.example.ei1027.email.EmailService;
 import com.example.ei1027.email.EmailTemplates;
-import com.example.ei1027.model.CheckboxList;
 import com.example.ei1027.model.Estat;
 import com.example.ei1027.model.Instructor;
 import com.example.ei1027.model.UserDetails;
 import com.example.ei1027.validation.InstructorValidator;
-import com.example.ei1027.validation.excepcions.ClientException;
 import com.example.ei1027.validation.excepcions.InstructorException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,12 +19,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import javax.mail.MessagingException;
 
 
 @Controller
@@ -45,15 +39,12 @@ public class InstructorController {
     @Autowired
     private EncryptorFactory encryptorFactory;
 
-	@Value("${upload.file.directory}")
+    @Value("${upload.file.directory}")
     private String uploadDirectory;
 
 
     @Autowired
     private UserDao userDao;
-
-    @Autowired
-    private TipusActivitatDao tipusActivitatDao;
 
 
     @GetMapping("/pendents")
@@ -70,8 +61,6 @@ public class InstructorController {
         model.addAttribute("instructors", instructorDao.getInstructorsByStatus(Estat.ACCEPTADA.toString()));
         model.addAttribute("boldAcceptat", true);
         model.addAttribute("tabs", true);
-        model.addAttribute("tipusActivitats", tipusActivitatDao.getTipusActivitats());
-        model.addAttribute("tipus", new CheckboxList());
         return "instructor/list";
     }
 
@@ -83,9 +72,9 @@ public class InstructorController {
         return "instructor/list";
     }
 
-    @GetMapping(value = "/{instructorId}")
-    public String getInstructor(Model model, @PathVariable String instructorId) {
-        model.addAttribute("instructor", instructorDao.getInstructor(instructorId));
+    @GetMapping(value = "list")
+    public String getInstructor(Model model, @RequestParam String id) {
+        model.addAttribute("instructors", instructorDao.getInstructor(id));
         return "instructor/list";
     }
 
@@ -96,16 +85,16 @@ public class InstructorController {
     }
 
     @PostMapping(value = "/add")
-    public String addInstructor(@ModelAttribute("instructor") Instructor instructor, BindingResult bindingResult,@RequestParam("file") MultipartFile file,
-            RedirectAttributes redirectAttributes) throws MessagingException {
+    public String addInstructor(@ModelAttribute("instructor") Instructor instructor, BindingResult bindingResult, @RequestParam("file") MultipartFile file,
+                                RedirectAttributes redirectAttributes) throws MessagingException {
         InstructorValidator instructorValidator = new InstructorValidator();
         instructorValidator.validate(instructor, bindingResult);
         if (instructorDao.existId(instructor.getInstructorId()))
-        	throw new InstructorException("DNI duplicat","ClauPrimariaDuplicada");
+            throw new InstructorException("DNI duplicat", "ClauPrimariaDuplicada");
         if (instructorDao.existEmail(instructor.getEmail()))
-        	throw new InstructorException("Email duplicat","ClauPrimariaDuplicada");
+            throw new InstructorException("Email duplicat", "ClauPrimariaDuplicada");
         if (instructorDao.existIban(instructor.getIban()))
-        	throw new InstructorException("IBAN duplicat","ClauPrimariaDuplicada");
+            throw new InstructorException("IBAN duplicat", "ClauPrimariaDuplicada");
         UserDetails user = new UserDetails();
         user.setUsuari(instructor.getInstructorId());
         user.setTipus("instructor");
@@ -138,7 +127,8 @@ public class InstructorController {
         emailService.sendSimpleMessage(instructor.getEmail(), EmailTemplates.SOLICITUD_ENVIADA.subject(), EmailTemplates.SOLICITUD_ENVIADA.fileName());
         return "instructor/despRegistrar";
     }
-    @GetMapping( "/despRegistrar")
+
+    @GetMapping("/despRegistrar")
     public String update(Model model) {
         return "instructor/despRegistrar";
     }
@@ -151,10 +141,10 @@ public class InstructorController {
 
     @PostMapping(value = "/update")
     public String update(@ModelAttribute("instructor") Instructor instructor,
-                         BindingResult bindingResult,@RequestParam("file") MultipartFile file,
-				            RedirectAttributes redirectAttributes) {
-    	InstructorValidator instructorValidator = new InstructorValidator();
-    	instructorValidator.validate(instructor, bindingResult);
+                         BindingResult bindingResult, @RequestParam("file") MultipartFile file,
+                         RedirectAttributes redirectAttributes) {
+        InstructorValidator instructorValidator = new InstructorValidator();
+        instructorValidator.validate(instructor, bindingResult);
 //        if (instructorDao.existId(instructor.getInstructorId()))
 //            //Accion si ya existe un instructor con dicho id
 //        if (instructorDao.existEmail(instructor.getEmail()))
@@ -183,8 +173,9 @@ public class InstructorController {
         instructorDao.updateInstructor(instructor);
         return "redirect:acceptats";
     }
+
     @GetMapping(value = "/show/{instructorId}")
-    public String showClient(Model model,@PathVariable String instructorId) {
+    public String showClient(Model model, @PathVariable String instructorId) {
         model.addAttribute("instructor", instructorDao.getInstructor(instructorId));
         return "instructor/show";
     }
@@ -222,7 +213,7 @@ public class InstructorController {
     }
 
     @RequestMapping(value = "/imatges/{id}")
-    public String mostrarImatge(Model model,@PathVariable String id) {
+    public String mostrarImatge(Model model, @PathVariable String id) {
         model.addAttribute("instructor", instructorDao.getImatge(id));
         return "instructor/list";
     }

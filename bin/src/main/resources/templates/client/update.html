@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Editar  client</title>
+    <title>Editar client</title>
     <meta charset="UTF-8" />
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -30,7 +30,7 @@
         <div class="row">
             <div class="input-field col s6 offset-s3">
                 <img class="responsive-img circle"
-                     src="../static/imatges/${imatge}" th:src="@{/imatges/{id}(id=${imatge})}" >
+                     src="../static/imatges/${imatge}" th:src="@{/imatges/{id}(id=${imatge})}">
             </div>
         </div>
         <div class="row">
@@ -40,7 +40,7 @@
                 <span class="helper-text" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
             </div>
             <div class="input-field col s5">
-                <input  readonly id="nif" type="text" class="validate" th:field="*{clientId}" required>
+                <input readonly id="nif" type="text" class="validate" th:field="*{clientId}" required>
                 <label for="nif">NIF</label>
                 <span th:if="${#fields.hasErrors('clientId')}" th:errors="*{clientId}" class="helper-text"></span>
             </div>
@@ -91,10 +91,11 @@
         </div>
         <div class="row">
 
-                <button class="btn waves-effect waves-light right" type="submit" name="action">Actualitzar compte
-                    <i class="material-icons right">send</i>
-                </button>
-            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
+            <button class="btn waves-effect waves-light right" type="submit" name="action">Actualitzar compte
+                <i class="material-icons right">send</i>
+            </button>
+            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i
+                    class="material-icons">keyboard_backspace</i></a>
 
         </div>
 
@@ -107,7 +108,7 @@
     var rangeOfyears = [];
     const today = new Date();
     var startYear = today.getFullYear() - 90;
-    var startDate = new Date(new String(startYear));
+    var startDate = new Date(String(startYear));
     M.Datepicker.init(Calendar, {
         format: 'dd/mm/yyyy',
         minDate: startDate,

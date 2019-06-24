@@ -1,86 +1,164 @@
-<div th:fragment="pushpin-activitatInfo" class="pushpin"
-     style="padding: 0 2.5rem;
+<!--<div th:fragment="pushpin-activitatInfo" class="pushpin"-->
+<!--style="padding: 0 2.5rem;-->
+<!--border: 1px solid #90a4ae;-->
+<!--border-radius: 0.2rem;-->
+<!--background: white;-->
+<!--width: inherit!important;">-->
+<!--<div class="row">-->
+<!--<div class="col s12 center">-->
+<!--<h5>Detalls de l'activitat</h5>-->
+<!--<div class="divider"></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="row" style="margin-bottom: 5px!important;">-->
+<!--<div class="col s6"><label >Tipus de activitat</label></div>-->
+<!--<div class="col s6"><label >Descripció</label></div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--<div class="col s6 valign-wrapper">-->
+<!--<i class="material-icons" style="margin-right: 0.5rem!important;">grade</i>-->
+<!--<span th:text="${activitat.nomTipusActivitat}" ></span>-->
+<!--</div>-->
+<!--<div class="col s6 valign-wrapper">-->
+<!--<i class="material-icons" style="margin-right: 0.5rem!important;">info</i>-->
+<!--<span th:text="${activitat.textPerClient}"></span>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="row" style="margin-bottom: 5px!important;">-->
+<!--<div class="col s6"><label >Data</label></div>-->
+<!--<div class="col s6"><label >Hora</label></div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--<div class="col s6 valign-wrapper">-->
+<!--<i class="material-icons" style="margin-right: 0.5rem!important;">event</i>-->
+<!--<span th:text="${activitat.data}" ></span>-->
+<!--</div>-->
+<!--<div class="col s6 valign-wrapper">-->
+<!--<i class="material-icons" style="margin-right: 0.5rem!important;">access_time</i>-->
+<!--<span th:text="${activitat.horaDeTrobada}"></span>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="row" style="margin-bottom: 5px!important;">-->
+<!--<div class="col s6"><label>Duració</label></div>-->
+<!--<div class="col s6"><label>Assistents maxims</label></div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--<div class="col s6 valign-wrapper">-->
+<!--<i class="material-icons" style="margin-right: 0.5rem!important;">timer</i>-->
+<!--<span  th:text="${activitat.durada}" > </span>-->
+<!--</div>-->
+<!--<div class="col s6 valign-wrapper">-->
+<!--<i class="material-icons" style="margin-right: 0.5rem!important;">group</i>-->
+<!--<span th:text="  ${activitat.maxAssistents} "> </span>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="row" style="margin-bottom: 5px!important;">-->
+<!--<div class="col s6"><label>Estat</label></div>-->
+<!--<div class="col s6"><label>Ubicació</label></div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--<div class="col s6 valign-wrapper">-->
+<!--<i class="material-icons" style="margin-right: 0.5rem!important;">whatshot</i>-->
+<!--<span  th:text="${activitat.estat}" ></span>-->
+<!--</div>-->
+<!--<div class="col s6 valign-wrapper">-->
+<!--<i class="material-icons" style="margin-right: 0.5rem!important;">location_on</i>-->
+<!--<span  th:text="${activitat.lloc}" ></span>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="row" style="margin-bottom: 5px!important;">-->
+<!--<div class="col s6"><label>Punt de trobada</label></div>-->
+<!--<div class="col s6"><label>Preu</label></div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--<div class="col s6 valign-wrapper">-->
+<!--<i class="material-icons" style="margin-right: 0.5rem!important;">near_me</i>-->
+<!--<span  th:text="${activitat.puntDeTrobada}" ></span>-->
+<!--</div>-->
+<!--<div class="col s6 valign-wrapper">-->
+<!--<i class="material-icons" style="margin-right: 0.5rem!important;">euro_symbol</i>-->
+<!--<span  th:text="${activitat.preu}"></span>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--</div>-->
+
+<div th:fragment="pushpin-activitatInfo" class="pushpin" style="padding: 0 2.5rem;
                     border: 1px solid #90a4ae;
                     border-radius: 0.2rem;
                     background: white;
                     width: inherit!important;">
-    <div class="row">
-        <div class="col s12 center">
-            <h5>Detalls de l'activitat</h5>
-            <div class="divider"></div>
+    <div class="pushpin col s12">
+        <div class="row">
+            <div class="col s12 center">
+                <h5>Detalls de l'activitat</h5>
+                <div class="divider"></div>
+            </div>
         </div>
-    </div>
-    <div class="row" style="margin-bottom: 5px!important;">
-        <div class="col s6"><label >Tipus de activitat</label></div>
-        <div class="col s6"><label >Descripció</label></div>
-    </div>
-    <div class="row">
-        <div class="col s6 valign-wrapper">
-            <i class="material-icons" style="margin-right: 0.5rem!important;">grade</i>
-            <span th:text="${activitat.nomTipusActivitat}" ></span>
+        <div class="row" style="margin-bottom: 5px!important;">
+            <div class="col s6"><label>Data</label></div>
+            <div class="col s6"><label>Hora</label></div>
         </div>
-        <div class="col s6 valign-wrapper">
-            <i class="material-icons" style="margin-right: 0.5rem!important;">info</i>
-            <span th:text="${activitat.textPerClient}"></span>
+        <div class="row">
+            <div class="col s6 valign-wrapper">
+                <i class="material-icons" style="margin-right: 0.5rem!important;">event</i>
+                <span th:text="${activitat.data}"></span>
+            </div>
+            <div class="col s6 valign-wrapper">
+                <i class="material-icons" style="margin-right: 0.5rem!important;">access_time</i>
+                <span th:text="${activitat.horaDeTrobada}"></span>
+            </div>
         </div>
-    </div>
-    <div class="row" style="margin-bottom: 5px!important;">
-        <div class="col s6"><label >Data</label></div>
-        <div class="col s6"><label >Hora</label></div>
-    </div>
-    <div class="row">
-        <div class="col s6 valign-wrapper">
-            <i class="material-icons" style="margin-right: 0.5rem!important;">event</i>
-            <span th:text="${activitat.data}" ></span>
+        <div class="row" style="margin-bottom: 5px!important;">
+            <div class="col s6"><label>Duració</label></div>
+            <div class="col s6"><label>Places</label></div>
         </div>
-        <div class="col s6 valign-wrapper">
-            <i class="material-icons" style="margin-right: 0.5rem!important;">access_time</i>
-            <span th:text="${activitat.horaDeTrobada}"></span>
+        <div class="row">
+            <div class="col s6 valign-wrapper">
+                <i class="material-icons" style="margin-right: 0.5rem!important;">timer</i>
+                <span th:text="${activitat.durada}"></span>
+            </div>
+            <div class="col s6 valign-wrapper">
+                <i class="material-icons" style="margin-right: 0.5rem!important;">group</i>
+                <span th:text="${activitat.maxAssistents}"></span>
+            </div>
         </div>
-    </div>
-    <div class="row" style="margin-bottom: 5px!important;">
-        <div class="col s6"><label>Duració</label></div>
-        <div class="col s6"><label>Assistents maxims</label></div>
-    </div>
-    <div class="row">
-        <div class="col s6 valign-wrapper">
-            <i class="material-icons" style="margin-right: 0.5rem!important;">timer</i>
-            <span  th:text="${activitat.durada}" > </span>
+        <div class="row" style="margin-bottom: 5px!important;">
+            <div class="col s6"><label>Estat</label></div>
+            <div class="col s6"><label>Ubicació</label></div>
         </div>
-        <div class="col s6 valign-wrapper">
-            <i class="material-icons" style="margin-right: 0.5rem!important;">group</i>
-            <span th:text="  ${activitat.maxAssistents} "> </span>
+        <div class="row">
+            <div class="col s6 valign-wrapper">
+                <i class="material-icons" style="margin-right: 0.5rem!important;">whatshot</i>
+                <span th:text="${activitat.estat}">Obert</span>
+            </div>
+            <div class="col s6 valign-wrapper">
+                <i class="material-icons" style="margin-right: 0.5rem!important;">location_on</i>
+                <span th:text="${activitat.lloc}">Moncofa</span>
+            </div>
         </div>
-    </div>
-    <div class="row" style="margin-bottom: 5px!important;">
-        <div class="col s6"><label>Estat</label></div>
-        <div class="col s6"><label>Ubicació</label></div>
-    </div>
-    <div class="row">
-        <div class="col s6 valign-wrapper">
-            <i class="material-icons" style="margin-right: 0.5rem!important;">whatshot</i>
-            <span  th:text="${activitat.estat}" ></span>
+
+        <div class="row" style="margin-bottom: 5px!important;">
+            <div class="col s6"><label>Punt de trobada</label></div>
+            <div class="col s6"><label>Preu</label></div>
         </div>
-        <div class="col s6 valign-wrapper">
-            <i class="material-icons" style="margin-right: 0.5rem!important;">location_on</i>
-            <span  th:text="${activitat.lloc}" ></span>
+        <div class="row">
+            <div class="col s6 valign-wrapper">
+                <i class="material-icons" style="margin-right: 0.5rem!important;">near_me</i>
+                <span th:text="${activitat.puntDeTrobada}">Carrer Senia 69</span>
+            </div>
+            <div class="col s6 valign-wrapper">
+                <i class="material-icons" style="margin-right: 0.5rem!important;">euro_symbol</i>
+                <span th:text="${activitat.preu}">35</span>
+            </div>
+        </div>
+        <div th:if="${reservar}" class="row">
+            <a th:href="@{/reserva/add/{nomActivitat}(nomActivitat=*{nomLlarg})}" class="btn waves-effect red col s12">
+                RESERVAR
+            </a>
         </div>
     </div>
 
-    <div class="row" style="margin-bottom: 5px!important;">
-        <div class="col s6"><label>Punt de trobada</label></div>
-        <div class="col s6"><label>Preu</label></div>
-    </div>
-    <div class="row">
-        <div class="col s6 valign-wrapper">
-            <i class="material-icons" style="margin-right: 0.5rem!important;">near_me</i>
-            <span  th:text="${activitat.puntDeTrobada}" ></span>
-        </div>
-        <div class="col s6 valign-wrapper">
-            <i class="material-icons" style="margin-right: 0.5rem!important;">euro_symbol</i>
-            <span  th:text="${activitat.preu}"></span>
-        </div>
-    </div>
 
 </div>
-

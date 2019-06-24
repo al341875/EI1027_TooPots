@@ -11,26 +11,28 @@
         </div>
     </div>
     <div class="row" style="margin-bottom: 5px!important;">
-        <div class="col s6"><label >nom de l'activitat</label></div>
-        <div class="col s6"><label >Informació de l'activitat</label></div>
+        <div class="col s6"><label>nom de l'activitat</label></div>
+        <div class="col s6"><label>Informació de l'activitat</label></div>
     </div>
     <div class="row">
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">grade</i>
-            <span th:text="${reserva.nomActivitat}" ></span>
+            <span th:text="${reserva.nomActivitat}"></span>
         </div>
-        <div class="col s6 valign-wrapper">                <a  style="margin-right: 0.5rem!important;"             th:href="@{/activitat/show2/{nomllarg} (nomllarg=${reserva.nomActivitat})}" class="btn "><i class="material-icons">info</i></a>
+        <div class="col s6 valign-wrapper"><a style="margin-right: 0.5rem!important;"
+                                              th:href="@{/activitat/show2/{nomllarg} (nomllarg=${reserva.nomActivitat})}"
+                                              class="btn "><i class="material-icons">info</i></a>
 
         </div>
     </div>
     <div class="row" style="margin-bottom: 5px!important;">
-        <div class="col s6"><label >Data de Reserva</label></div>
-        <div class="col s6"><label >Data de la activitat</label></div>
+        <div class="col s6"><label>Data de Reserva</label></div>
+        <div class="col s6"><label>Data de la activitat</label></div>
     </div>
     <div class="row">
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">event</i>
-            <span th:text="${reserva.dataReserva}" ></span>
+            <span th:text="${reserva.dataReserva}"></span>
         </div>
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">access_time</i>
@@ -45,11 +47,11 @@
     <div class="row">
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">group</i>
-            <span  th:text="${reserva.numAssistents}" ></span>
+            <span th:text="${reserva.numAssistents}"></span>
         </div>
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">euro_symbol</i>
-            <span  th:text="${reserva.preuTotal}"></span>
+            <span th:text="${reserva.preuTotal}"></span>
         </div>
     </div>
 

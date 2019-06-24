@@ -1,6 +1,7 @@
 <ul th:fragment="navBar-list-instructor" id="nav-instructor" class="right hide-on-med-and-down col s5">
     <div class="right">
-        <li><a  th:href="@{/instructor/update/{instructorId}(instructorId=${session.user.usuari})}" th:text="${session.user.usuari}"></a></li>
+        <li><a th:href="@{/instructor/update/{instructorId}(instructorId=${session.user.usuari})}"
+               th:text="${session.user.usuari}"></a></li>
         <li><a href="/home"><i class="material-icons">home</i></a></li>
         <li><a href="/logout"><i class="material-icons">exit_to_app</i></a></li>
     </div>

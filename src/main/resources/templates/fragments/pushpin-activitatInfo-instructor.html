@@ -11,18 +11,18 @@
         </div>
     </div>
     <div class="row" style="margin-bottom: 5px!important;">
-        <div class="col s6"><label >Tipus de activitat</label></div>
-        <div class="col s6"><label >Descripció</label></div>
+        <div class="col s6"><label>Tipus de activitat</label></div>
+        <div class="col s6"><label>Descripció</label></div>
     </div>
     <div class="row">
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">grade</i>
-            <span th:text="${activitat.nomTipusActivitat}" ></span>
+            <span th:text="${activitat.nomTipusActivitat}"></span>
         </div>
-        <div class="col s6 valign-wrapper" >
+        <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">info</i>
 
-            <span style=" word-wrap: break-word;"  th:text="${activitat.descripcio}"></span>
+            <span style=" word-wrap: break-word;" th:text="${activitat.descripcio}"></span>
         </div>
     </div>
     <div class="row" style="margin-bottom: 5px!important;">
@@ -32,11 +32,11 @@
     <div class="row">
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">event</i>
-            <span th:text="${activitat.data}" ></span>
+            <span th:text="${activitat.data}"></span>
         </div>
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">access_time</i>
-            <span th:text="${activitat.horaDeTrobada}" ></span>
+            <span th:text="${activitat.horaDeTrobada}"></span>
         </div>
     </div>
     <div class="row" style="margin-bottom: 5px!important;">
@@ -46,7 +46,7 @@
     <div class="row">
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">timer</i>
-            <span th:text="${activitat.durada}" ></span>
+            <span th:text="${activitat.durada}"></span>
         </div>
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">group</i>
@@ -60,11 +60,11 @@
     <div class="row">
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">whatshot</i>
-            <span  th:text="${activitat.estat}" ></span>
+            <span th:text="${activitat.estat}"></span>
         </div>
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">location_on</i>
-            <span  th:text="${activitat.lloc}" ></span>
+            <span th:text="${activitat.lloc}"></span>
 
         </div>
     </div>
@@ -76,33 +76,36 @@
     <div class="row">
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">near_me</i>
-            <span  th:text="${activitat.puntDeTrobada}" ></span>
+            <span th:text="${activitat.puntDeTrobada}"></span>
 
         </div>
         <div class="col s6 valign-wrapper">
             <i class="material-icons" style="margin-right: 0.5rem!important;">euro_symbol</i>
-            <span  th:text="${activitat.preu}" ></span>
+            <span th:text="${activitat.preu}"></span>
 
         </div>
     </div>
     <div class="row">
-        <a th:href="@{/activitat/tanca/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" class="btn waves-effect green col s6">
+        <a th:href="@{/activitat/tanca/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}"
+           class="btn waves-effect green col s6">
             TANCAR INSCRIPCIÓ
         </a>
-        <a th:href="@{/activitat/cancela/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" class="btn waves-effect blue col s6">
+        <a th:href="@{/activitat/cancela/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}"
+           class="btn waves-effect blue col s6">
             cancela INSCRIPCIÓ
         </a>
     </div>
-        <div class="row">
-            <a  th:href="@{/activitat/update/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" class="btn waves-effect blue ">
-                <i
-                        class="material-icons">create</i>
-            </a>
-            <a th:href="@{/activitat/delete/{nomLlarg} (nomLlarg=${activitat.nomLlarg})}" class="btn red"><i
-                    class="material-icons">delete</i></a>
-            <a th:href="@{/reserva/list/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}" class="btn "><i class="material-icons">assignment</i></a>
+    <div class="row">
+        <a th:href="@{/activitat/update/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" class="btn waves-effect blue ">
+            <i
+                    class="material-icons">create</i>
+        </a>
+        <a th:href="@{/activitat/delete/{nomLlarg} (nomLlarg=${activitat.nomLlarg})}" class="btn red"><i
+                class="material-icons">delete</i></a>
+        <a th:href="@{/reserva/list/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}" class="btn "><i
+                class="material-icons">assignment</i></a>
 
-        </div>
+    </div>
 
 
 </div>

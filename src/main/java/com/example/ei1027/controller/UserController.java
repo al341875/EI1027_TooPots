@@ -49,11 +49,13 @@ public class UserController {
         session.invalidate();
         return "redirect:/";
     }
+
     @GetMapping(value = "/add")
     public String addAdmin(Model model) {
         model.addAttribute("admin", new UserDetails());
         return "admin/add";
     }
+
     @PostMapping(value = "/add")
     public String addAdmin(@ModelAttribute("admin") UserDetails userDetails, BindingResult bindingResult) {
         if (bindingResult.hasErrors())

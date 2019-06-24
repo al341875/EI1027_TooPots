@@ -7,12 +7,6 @@ import com.example.ei1027.model.Client;
 import com.example.ei1027.model.UserDetails;
 import com.example.ei1027.validation.ClientValidator;
 import com.example.ei1027.validation.excepcions.ClientException;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
@@ -23,22 +17,29 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 @Controller
 @RequestMapping("/client")
 public class ClientController {
 
 	@Autowired
 	private ClientDao clientDao;
-	@Autowired
-	private UserDao userDao;
-	@Value("${upload.file.directory}")
+    @Autowired
+    private UserDao userDao;
+    @Value("${upload.file.directory}")
     private String uploadDirectory;
-	@GetMapping("/list")
-	public String listClient(Model model) {
-		model.addAttribute("clients", clientDao.getClients());
-		return "client/list";
-	}
-	@GetMapping(value="/list/{clientId}")
+
+    @GetMapping("/list")
+    public String listClient(Model model) {
+        model.addAttribute("clients", clientDao.getClients());
+        return "client/list";
+    }
+
+    @GetMapping(value="/list/{clientId}")
 	public String getClient(Model model, @PathVariable String clientId) {
 		model.addAttribute("clients", clientDao.getClient(clientId));
 		return "client/list";
@@ -48,29 +49,31 @@ public class ClientController {
 		model.addAttribute("client", new Client());
 		return "client/add";
 	}
-	@GetMapping(value = "/show/{clientId}")
-	public String showClient(Model model,@PathVariable String clientId) {
-		model.addAttribute("client", clientDao.getClient(clientId));
-		return "client/show";
-	}
-	@PostMapping(value = "/add")
-	public String addClient(@ModelAttribute("client") Client client, BindingResult bindingResult,
-			@RequestParam("file") MultipartFile file,
-            RedirectAttributes redirectAttributes) {
+
+    @GetMapping(value = "/show/{clientId}")
+    public String showClient(Model model, @PathVariable String clientId) {
+        model.addAttribute("client", clientDao.getClient(clientId));
+        return "client/show";
+    }
+
+    @PostMapping(value = "/add")
+    public String addClient(@ModelAttribute("client") Client client, BindingResult bindingResult,
+                            @RequestParam("file") MultipartFile file,
+                            RedirectAttributes redirectAttributes) {
         ClientValidator clientValidator = new ClientValidator();
         clientValidator.validate(client, bindingResult);
         if (clientDao.existId(client.getClientId()))
-        	throw new ClientException("DNI duplicat","ClauPrimariaDuplicada");
+            throw new ClientException("DNI duplicat", "ClauPrimariaDuplicada");
         //El id ya existe!
         if (clientDao.existEmail(client.getEmail()))
-        	throw new ClientException("E-mail duplicat","ClauPrimariaDuplicada");
+            throw new ClientException("E-mail duplicat", "ClauPrimariaDuplicada");
         //El email ya existe!
-		//afegir client en tabla usuari
-		UserDetails user = new UserDetails();
-		user.setUsuari(client.getClientId());
-		user.setTipus("client");
-		user.setContrasenya(client.getContrasenya());
-		userDao.add(user);
+        //afegir client en tabla usuari
+        UserDetails user = new UserDetails();
+        user.setUsuari(client.getClientId());
+        user.setTipus("client");
+        user.setContrasenya(client.getContrasenya());
+        userDao.add(user);
         if (bindingResult.hasErrors())
 			return "client/add";
         if (file.isEmpty()) {
@@ -92,10 +95,10 @@ public class ClientController {
         client.setImatge(file.getOriginalFilename());
 
         try {
-            
-        	clientDao.addClient(client);
+
+            clientDao.addClient(client);
         }catch(DuplicateKeyException e) {
-        	throw new ClientException("Ja existeix un client en el NIF: "+client.getClientId(),"ClauPrimariaDuplicada");
+            throw new ClientException("Ja existeix un client en el NIF: " + client.getClientId(), "ClauPrimariaDuplicada");
         }
 	
 		return "redirect:list";
@@ -107,8 +110,8 @@ public class ClientController {
 	}
 	@PostMapping(value="/update")
 	public String update(@ModelAttribute("client") Client client,
-						 BindingResult bindingResult,@RequestParam("file") MultipartFile file,
-				            RedirectAttributes redirectAttributes) {
+                         BindingResult bindingResult, @RequestParam("file") MultipartFile file,
+                         RedirectAttributes redirectAttributes) {
         ClientValidator clientValidator = new ClientValidator();
         clientValidator.validate(client, bindingResult);
         //if (clientDao.existId(client.getClientId()))
@@ -134,16 +137,17 @@ public class ClientController {
             e.printStackTrace();
         }
         client.setImatge(file.getOriginalFilename());
-		clientDao.updateClient(client);
-		return "redirect:list";
-	  }
+        clientDao.updateClient(client);
+        return "redirect:list";
+    }
 	@RequestMapping(value = "/delete/{clientId}")
 	public String delete(@PathVariable String clientId) {
 		clientDao.deleteClient(clientId);
 		return "redirect:../list";
 	}
+
     @RequestMapping(value = "/imatges/{id}")
-    public String mostrarImatge(Model model,@PathVariable String id) {
+    public String mostrarImatge(Model model, @PathVariable String id) {
         model.addAttribute("client", clientDao.getImatge(id));
         return "client/list";
     }

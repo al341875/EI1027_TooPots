@@ -1,6 +1,5 @@
-<div th:fragment="photo-carousel" class="carousel carousel-slider">
-    <a class="carousel-item" href="#one!"><img  src="http://www.jdevoto.cl/web/wp-content/uploads/2018/04/default-user-img.jpg"></a>
-    <a class="carousel-item" href="#two!"><img  src="http://www.jdevoto.cl/web/wp-content/uploads/2018/04/default-user-img.jpg"></a>
-    <a class="carousel-item" href="#three!"><img  src="http://www.jdevoto.cl/web/wp-content/uploads/2018/04/default-user-img.jpg"></a>
-    <a class="carousel-item" href="#four!"><img  src="http://www.jdevoto.cl/web/wp-content/uploads/2018/04/default-user-img.jpg"></a>
+<div th:fragment="photo-carousel" class="carousel carousel-slider" style="max-height: 500px;">
+    <a th:if="${imgPromo}" th:each="img: ${imatges}" class="carousel-item" href="#one!"><img
+            th:src="@{/imatges/{id}(id=${img.imatge})}"></a>
+    <!--<a class="carousel-item" href="#two!"><img th:src="@{/imatges/{id}(id=${activitat.imatge})}"></a>-->
 </div>

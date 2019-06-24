@@ -30,7 +30,8 @@
 
         <div class="container" style="margin-top: 5%">
 
-            <a class="carousel-item"> <img class="responsive-img" src="../static/imatges/{activitat.imatge}" th:src="@{/imatges/{id}(id=${activitat.imatge})}"
+            <a class="carousel-item"> <img class="responsive-img" src="../static/imatges/{activitat.imatge}"
+                                           th:src="@{/imatges/{id}(id=*{activitat.imatge})}"
             ></a>
 
             <div class="row">
@@ -45,7 +46,8 @@
     </form>
 </div>
 <div class="row">
-    <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()" ><i class="material-icons">keyboard_backspace</i></a>
+    <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i
+            class="material-icons">keyboard_backspace</i></a>
 
 </div>
 </body>

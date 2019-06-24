@@ -8,17 +8,19 @@ public class Client {
 	String dataNaixement;
 	String contrasenya;
 	String recontrasenya;
-	String imatge;
-	public String getImatge() {
-		return imatge;
-	}
+    String imatge;
 
-	public void setImatge(String imatge) {
-		this.imatge = imatge;
-	}
-	public String getClientId() {
-		return clientId;
-	}
+    public String getImatge() {
+        return imatge;
+    }
+
+    public void setImatge(String imatge) {
+        this.imatge = imatge;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
 
 	public void setClientId(String id_client) {
 		this.clientId = id_client;

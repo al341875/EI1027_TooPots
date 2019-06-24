@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>show  client</title>
-    <meta charset="UTF-8" />
+    <title>show client</title>
+    <meta charset="UTF-8"/>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
@@ -29,29 +29,29 @@
         <div class="row">
             <div class="input-field col s6 offset-s3">
                 <img class="responsive-img circle"
-                     src="../static/imatges/${imatge}" th:src="@{/imatges/{id}(id=${imatge})}" >
+                     th:src="@{/imatges/{id}(id=*{imatge})}">
             </div>
         </div>
         <div class="row">
             <div class="input-field col s7">
-                <input readonly id="nom" type="text"  th:field="*{nom}" required>
+                <input readonly id="nom" type="text" th:field="*{nom}" required>
                 <label for="nom">Nom</label>
 
             </div>
             <div class="input-field col s5">
-                <input  readonly id="nif" type="text"  th:field="*{clientId}" required>
+                <input readonly id="nif" type="text" th:field="*{clientId}" required>
                 <label for="nif">NIF</label>
 
             </div>
         </div>
         <div class="row">
             <div class="input-field col s8">
-                <input readonly id="naixement" type="text"  th:field="*{dataNaixement}" required>
+                <input readonly id="naixement" type="text" th:field="*{dataNaixement}" required>
                 <label for="naixement">Data de naixement</label>
 
             </div>
             <div class="input-field col s4">
-                <input id="sexe" readonly   type="text"  th:field="*{sexe}" required>
+                <input id="sexe" readonly type="text" th:field="*{sexe}" required>
 
 
                 <label for="sexe">Sexe</label>
@@ -69,7 +69,8 @@
         <div class="row">
 
 
-            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
+            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i
+                    class="material-icons">keyboard_backspace</i></a>
 
         </div>
 
@@ -82,7 +83,7 @@
     var rangeOfyears = [];
     const today = new Date();
     var startYear = today.getFullYear() - 90;
-    var startDate = new Date(new String(startYear));
+    var startDate = new Date(String(startYear));
     M.Datepicker.init(Calendar, {
         format: 'dd/mm/yyyy',
         minDate: startDate,

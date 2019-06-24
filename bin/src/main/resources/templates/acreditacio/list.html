@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Llistar acreditacions</title>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
@@ -23,25 +23,24 @@
 <body>
 <header th:replace="fragments/navBar :: navBar"></header>
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Estat</th>
-            <th></th>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Estat</th>
+        <th></th>
 
 
-        </tr>
-        <tr th:each="acreditacio : ${acreditacions}">
-            <td th:text="${acreditacio.idInstructor}">ID</td>
-            <td th:text="${acreditacio.estat}">Estat</td>
+    </tr>
+    <tr th:each="acreditacio : ${acreditacions}">
+        <td th:text="${acreditacio.idInstructor}">ID</td>
+        <td th:text="${acreditacio.estat}">Estat</td>
 
-            <td> <a  target="_blank" th:href="@{/pdfs/{id}(id=${acreditacio.certificatUrl})}" >visualitza</a></td>
+        <td><a target="_blank" th:href="@{/pdfs/{id}(id=${acreditacio.certificatUrl})}">visualitza</a></td>
 
 
-
-        </tr>
-    </table>
-    <td><a th:href="@{/client/add/}">Afegeix</a>
+    </tr>
+</table>
+<td><a th:href="@{/client/add/}">Afegeix</a>
 
 </body>
 </html>

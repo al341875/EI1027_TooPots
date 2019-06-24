@@ -7,6 +7,9 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style>
@@ -24,42 +27,49 @@
 <body>
 <header th:replace="fragments/navBar.html :: navBar"></header>
 
-<div class="row">
-    <form class="col s6 offset-s3" th:action="@{/activitat/show}"
-          th:object="${activitat}" method="get" enctype="multipart/form-data">
+<!--<div class="row">-->
+<!--<form class="col s6 offset-s3" th:action="@{/activitat/show}"-->
+<!--th:object="${activitat}" method="get" enctype="multipart/form-data">-->
 
-        <div class="container" style="margin-top: 5%">
+<!--<div class="container" style="margin-top: 5%">-->
 
-               <a class="carousel-item"> <img class="responsive-img" src="../static/imatges/{activitat.imatge}" th:src="@{/imatges/{id}(id=${activitat.imatge})}"
-                ></a>
+<!--<a class="carousel-item"> <img class="responsive-img" th:src="@{/imatges/{id}(id=*{imatge})}"-->
+<!--&gt;</a>-->
 
-            <div class="row">
+<!--<div class="row">-->
 
-                    <div th:replace="fragments/pushpin-activitatInfo.html :: pushpin-activitatInfo"></div>
-                <a th:href="@{/reserva/add/{nomActivitat}(nomActivitat=${activitat.nomLlarg})}" class="btn waves-effect red col s12">
-                    RESERVA
-                </a>
-            </div>
+<!--<div th:replace="fragments/pushpin-activitatInfo.html :: pushpin-activitatInfo"></div>-->
+<!--<a th:href="@{/reserva/add/{nomActivitat}(nomActivitat=*{nomLlarg})}" class="btn waves-effect red col s12">-->
+<!--RESERVA-->
+<!--</a>-->
+<!--</div>-->
 
-        </div>
-
-
+<!--</div>-->
 
 
-    </form>
-</div>
+<!--</form>-->
+<!--</div>-->
+
+
 <section class="row" style="margin-top: 0.75rem!important">
     <div class="col s8">
         <div th:replace="fragments/photo-carousel.html :: photo-carousel"></div>
     </div>
     <div class="col m3 valign-wrapper">
         <div th:replace="fragments/pushpin-activitatInfo.html :: pushpin-activitatInfo"></div>
+
     </div>
 </section>
-<div class="row">
-    <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()" ><i class="material-icons">keyboard_backspace</i></a>
 
-</div>
+<section class="row">
+    <div class="col s7 offset-s1">
+        <h4><strong th:text="${activitat.nomTipusActivitat}">Senderisme Moncofa</strong></h4>
+        <h5>Descripció:</h5>
+        <p th:text="${activitat.textPerClient}"></p>
+    </div>
+</section>
+
+
 <script>
     var elems = document.querySelector('.carousel');
     var instance = M.Carousel.init(elems, {
@@ -67,12 +77,14 @@
         indicators: true
     });
 </script>
+
+<script>
+    var elems = document.querySelector('.pushpin');
+    var instance = M.Pushpin.init(elems, {
+        offset: 125
+    });
+</script>
+
 </body>
 
-
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-
-</div>
 </html>

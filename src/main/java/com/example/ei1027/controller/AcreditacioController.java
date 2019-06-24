@@ -3,8 +3,10 @@ package com.example.ei1027.controller;
 
 import com.example.ei1027.dao.AcreditaDao;
 import com.example.ei1027.dao.AcreditacioDao;
+import com.example.ei1027.dao.TipusActivitatDao;
 import com.example.ei1027.model.Acredita;
 import com.example.ei1027.model.Acreditacio;
+import com.example.ei1027.model.CheckboxList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -27,8 +29,13 @@ public class AcreditacioController {
     private AcreditacioDao acreditacioDao;
     @Autowired
     private AcreditaDao acreditaDao;
+
+    @Autowired
+    private TipusActivitatDao tipusActivitatDao;
+
     @Value("${upload.file.directory}")
     private String uploadDirectory;
+
     @GetMapping(value = "/add")
     public String addAcreditacio(Model model) {
         model.addAttribute("acreditacio", new Acreditacio());
@@ -66,18 +73,25 @@ public class AcreditacioController {
         acreditacioDao.addAcreditacio(acreditacio);
         return "redirect:list";
     }
+
     @RequestMapping(value = "/pdf/{id}")
-    public String mostrarAcreditacio(Model model,@PathVariable String id) {
+    public String mostrarAcreditacio(Model model, @PathVariable String id) {
         model.addAttribute("acreditacio", acreditacioDao.getAcreditacio(id));
         return "acreditacio/list";
     }
+
     @RequestMapping(value = "/list/{id}")
-    public String mostrarAcreditacions(Model model,@PathVariable String id) {
+    public String mostrarAcreditacions(Model model, @PathVariable String id) {
         model.addAttribute("acreditacions", acreditacioDao.getAcreditacio2(id));
+        model.addAttribute("idInstructor", id);
+        model.addAttribute("tipusActivitats", tipusActivitatDao.getTipusActivitats());
+        model.addAttribute("tipusAsignats", acreditaDao.getAllAcreditaByInstructor(id));
+        model.addAttribute("tipus", new CheckboxList());
         return "acreditacio/list";
     }
+
     @RequestMapping(value = "/pdfs/{id}")
-    public String mostrarImatge(Model model,@PathVariable String id) {
+    public String mostrarImatge(Model model, @PathVariable String id) {
         model.addAttribute("client", acreditacioDao.getPdf(id));
         return "client/list";
     }

@@ -30,7 +30,7 @@
         <div class="row">
             <div class="input-field col s6 offset-s3">
                 <img class="responsive-img circle"
-                     src="../static/imatges/${imatge}" th:src="@{/imatges/{id}(id=${imatge})}" >
+                     src="../static/imatges/${imatge}" th:src="@{/imatges/{id}(id=${imatge})}">
             </div>
         </div>
         <div class="row">
@@ -91,10 +91,11 @@
         </div>
         <div class="row">
 
-                <button class="btn waves-effect waves-light right" type="submit" name="action">Actualitzar compte
+            <button class="btn waves-effect waves-light right" type="submit" name="action">Actualitzar compte
                     <i class="material-icons right">send</i>
                 </button>
-            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
+            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i
+                    class="material-icons">keyboard_backspace</i></a>
 
         </div>
 
@@ -107,7 +108,7 @@
     var rangeOfyears = [];
     const today = new Date();
     var startYear = today.getFullYear() - 90;
-    var startDate = new Date(new String(startYear));
+    var startDate = new Date(String(startYear));
     M.Datepicker.init(Calendar, {
         format: 'dd/mm/yyyy',
         minDate: startDate,

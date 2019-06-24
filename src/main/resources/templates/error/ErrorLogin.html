@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Missatge d'excepció</title>
@@ -11,11 +11,11 @@
 <body>
 
 <div class="container">
-    <div class="alert" th:classappend= "${#strings.equals(name,'usuariNoValid')}? 'alert-danger' : 'alert-info'">
+    <div class="alert" th:classappend="${#strings.equals(name,'usuariNoValid')}? 'alert-danger' : 'alert-info'">
         <h3 th:text="${message}"></h3>
         <p>Pulsa el botó per a tonar al inici</p>
     </div>
-    <div th:align="center" >
+    <div th:align="center">
         <a href="/login" class="btn btn-primary" th:align="left">Log in</a>
     </div>
 </div>

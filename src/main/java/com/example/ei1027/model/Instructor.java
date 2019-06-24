@@ -11,15 +11,15 @@ public class Instructor {
 	String dataNaixement;
 	String contrasenya;
 	String recontrasenya;
-	String imatge;
+    String imatge;
 
-	public String getImatge() {
-		return imatge;
-	}
+    public String getImatge() {
+        return imatge;
+    }
 
-	public void setImatge(String imatge) {
-		this.imatge = imatge;
-	}
+    public void setImatge(String imatge) {
+        this.imatge = imatge;
+    }
 
 	public String getInstructorId() {
 		return instructorId;

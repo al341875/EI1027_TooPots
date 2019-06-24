@@ -8,9 +8,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script type = "text/javascript"
-            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 </head>
 <body>
 <header th:replace="fragments/navBar :: navBar"></header>
@@ -22,16 +22,18 @@
           th:object="${nivell}" method="post">
         <div class="row">
             <div class="input-field col s5">
-                <input id="descripcio" type="text"    class="validate" th:field="*{descripcio}" required>
+                <input id="descripcio" type="text" class="validate" th:field="*{descripcio}" required>
                 <label for="descripcio">Descripcio</label>
             </div>
         </div>
         <div class="row">
 
-            <button class="btn waves-effect waves-light right" type="submit" value="Afegeix nivell"  name="action">Crear nivell
+            <button class="btn waves-effect waves-light right" type="submit" value="Afegeix nivell" name="action">Crear
+                nivell
                 <i class="material-icons right">send</i>
             </button>
-            <a class="btn  waves-effect waves-light red right" href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
+            <a class="btn  waves-effect waves-light red right" href="javascript:history.back()"><i
+                    class="material-icons">keyboard_backspace</i></a>
 
         </div>
 

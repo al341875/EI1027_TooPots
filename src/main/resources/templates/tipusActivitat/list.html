@@ -8,12 +8,12 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script type = "text/javascript"
-            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
     </script>
 </head>
-<body >
+<body>
 <header th:replace="fragments/navBar :: navBar"></header>
 <div class="row" style="text-align: center">
     <h2>Llistat dels tipus d'Activitat disponibles</h2>
@@ -27,12 +27,12 @@
             <li class="collection-item avatar valign-wrapper" th:each="tipusActivitat : ${tipusActivitats}">
                 <span class="title" th:text="${tipusActivitat.nomTipusActivitat + ' (' + tipusActivitat.nivell + ')'}">tipusActivitat (nivell)</span>
                 <div class="secondary-content">
-                    <a th:href="@{/tipusActivitat/update/{nomTipusActivitat}(nomTipusActivitat=${tipusActivitat.nomTipusActivitat})}" class="btn teal"><i
+                    <a th:href="@{/tipusActivitat/update/{nomTipusActivitat}(nomTipusActivitat=${tipusActivitat.nomTipusActivitat})}"
+                       class="btn teal"><i
                             class="material-icons">create</i></a>
-                    <a th:href="@{/tipusActivitat/delete/{nomTipusActivitat}(nomTipusActivitat=${tipusActivitat.nomTipusActivitat})}" class="btn red"><i
+                    <a th:href="@{/tipusActivitat/delete/{nomTipusActivitat}(nomTipusActivitat=${tipusActivitat.nomTipusActivitat})}"
+                       class="btn red"><i
                             class="material-icons">delete</i></a>
-
-
 
 
                 </div>
@@ -40,8 +40,10 @@
         </ul>
     </section>
 
-        <a class="btn-floating btn-large waves-effect waves-light " th:href="@{/tipusActivitat/add/}"><i class="material-icons">add</i></a>
-    <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()" ><i class="material-icons">keyboard_backspace</i></a>
-<div>
+    <a class="btn-floating btn-large waves-effect waves-light " th:href="@{/tipusActivitat/add/}"><i
+            class="material-icons">add</i></a>
+    <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i
+            class="material-icons">keyboard_backspace</i></a>
+    <div>
 </body>
 </html>

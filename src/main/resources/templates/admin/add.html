@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Crear nou administrador</title>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
@@ -24,7 +24,7 @@
 
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/user/add}"
-          th:object="${admin}" method="post" >
+          th:object="${admin}" method="post">
         <div class="row">
             <div class="input-field col s6 offset-s3">
                 <img class="responsive-img circle"
@@ -49,10 +49,11 @@
 
         <div class="row">
 
-                <button class="btn waves-effect waves-light right" type="submit" name="action">Crear Compte
-                    <i class="material-icons right">send</i>
-                </button>
-            <a class="btn-floating btn-large waves-effect waves-light red "href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
+            <button class="btn waves-effect waves-light right" type="submit" name="action">Crear Compte
+                <i class="material-icons right">send</i>
+            </button>
+            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i
+                    class="material-icons">keyboard_backspace</i></a>
 
         </div>
 

@@ -15,14 +15,14 @@
                 <div class="row">
                     <div class="input-field col s8 offset-s2">
                         <input id="contrasenya" type="password" class="validate" th:field="*{contrasenya}">
-                    <label for="contrasenya">Contrasenya</label>
+                        <label for="contrasenya">Contrasenya</label>
                         <span th:if="${#fields.hasErrors('contrasenya')}" th:errors="*{contrasenya}"
                               class="helper-text"></span>
 
                     </div>
                 </div>
                 <div class="row">
-                    <button class="btn waves-effect waves-light col s8 offset-s2"  type="submit" name="action">
+                    <button class="btn waves-effect waves-light col s8 offset-s2" type="submit" name="action">
                         Inicia sessió
                     </button>
                 </div>

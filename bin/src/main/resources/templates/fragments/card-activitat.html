@@ -24,8 +24,10 @@
 
 <div th:fragment="card-activitat" class="card sticky-action">
     <div class="card-image">
-        <img    src="../static/imatges/{activitat.imatge}" th:src="@{/imatges/{id}(id=${activitat.imatge})}">
-        <a class="btn-floating btn-large halfway-fab waves-effect waves-light "th:href="@{/activitat/show/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" ><i class="material-icons">visibility</i></a>
+        <img src="../static/imatges/{activitat.imatge}" th:src="@{/imatges/{id}(id=${activitat.imatge})}">
+        <a class="btn-floating btn-large halfway-fab waves-effect waves-light "
+           th:href="@{/activitat/show/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}"><i
+                class="material-icons">visibility</i></a>
 
     </div>
 
@@ -40,7 +42,8 @@
                 <i class="material-icons vertical-align">event</i>
                     <span class="vertical-align" th:text="${activitat.data}"></span>
             </span>
-            <span class="vertical-align tipus"><i class="material-icons">bookmark</i></span><span class="vertical-align" th:text="${activitat.nomTipusActivitat}"></span>
+            <span class="vertical-align tipus"><i class="material-icons">bookmark</i></span><span class="vertical-align"
+                                                                                                  th:text="${activitat.nomTipusActivitat}"></span>
         </div>
     </div>
 </div>

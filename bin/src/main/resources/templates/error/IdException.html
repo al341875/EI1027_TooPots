@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-   <meta charset="UTF-8">
-   <title>Missatge d'excepció</title>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Missatge d'excepció</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
 
 <div class="container">
-   <div class="alert" th:classappend= "${#strings.equals(name,'ClauPrimariaDuplicada')}? 'alert-danger' : 'alert-info'">
-       <h3 th:text="${message}"></h3> 
-       <p>Pulsa el botó per a tonar arrere</p>
-   </div>
-   <div th:align="center" >
-       <a href="javascript:history.back()" class="btn btn-primary" th:align="left">Torna arrere</a>
-   </div>
+    <div class="alert" th:classappend="${#strings.equals(name,'ClauPrimariaDuplicada')}? 'alert-danger' : 'alert-info'">
+        <h3 th:text="${message}"></h3>
+        <p>Pulsa el botó per a tonar arrere</p>
+    </div>
+    <div th:align="center">
+        <a href="javascript:history.back()" class="btn btn-primary" th:align="left">Torna arrere</a>
+    </div>
 </div>
 </body>
 </html>

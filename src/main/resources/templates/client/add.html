@@ -94,7 +94,8 @@
                 <button class="btn waves-effect waves-light right" type="submit" name="action">Crear Compte
                     <i class="material-icons right">send</i>
                 </button>
-            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()" ><i class="material-icons">keyboard_backspace</i></a>
+            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i
+                    class="material-icons">keyboard_backspace</i></a>
 
         </div>
 
@@ -107,7 +108,7 @@
     var rangeOfyears = [];
     const today = new Date();
     var startYear = today.getFullYear() - 90;
-    var startDate = new Date(new String(startYear));
+    var startDate = new Date(String(startYear));
     M.Datepicker.init(Calendar, {
         format: 'dd/mm/yyyy',
         minDate: startDate,

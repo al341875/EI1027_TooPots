@@ -2,7 +2,6 @@ package com.example.ei1027.dao;
 
 
 import com.example.ei1027.config.EncryptorFactory;
-import com.example.ei1027.model.Acreditacio;
 import com.example.ei1027.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,7 +29,7 @@ public class ClientDao{
 		String contrasenyaEnc = encryptorFactory.getEncryptor().encryptPassword(client.getContrasenya());
 		this.jdbcTemplate.update(
 				"insert into Client(id_client,nom,email,data_naixement,sexe,contrasenya,imatge) values(?,?,?,?,?,?,?)",
-				client.getClientId(), client.getNom(), client.getEmail(), DOB, client.getSexe(), contrasenyaEnc,client.getImatge());
+				client.getClientId(), client.getNom(), client.getEmail(), DOB, client.getSexe(), contrasenyaEnc, client.getImatge());
 	}
 
 	public Client getClient(String idClient) {
@@ -48,7 +47,7 @@ public class ClientDao{
 		String contrasenyaEnc = this.encryptorFactory.getEncryptor().encryptPassword(client.getContrasenya());
 		this.jdbcTemplate.update("update Client set nom=?,email=?,sexe=?,data_naixement=?, contrasenya=?, imatge=? "
 				+ "where id_client=?",
-				client.getNom(), client.getEmail(), client.getSexe(), DOB, contrasenyaEnc,client.getImatge(), client.getClientId());
+				client.getNom(), client.getEmail(), client.getSexe(), DOB, contrasenyaEnc, client.getImatge(), client.getClientId());
 	}
 
 	public List<Client> getClients() {
@@ -64,10 +63,10 @@ public class ClientDao{
 		return this.jdbcTemplate.queryForObject("select count(email) from client where email = ?", Integer.class, email) > 0;
 	}
 
-	public Client getImatge(String url){
-			return this.jdbcTemplate.queryForObject(
-					"select * from client where imatge=?  ",
-					new Object[] {url}, new ClientMapper());
+	public Client getImatge(String url) {
+		return this.jdbcTemplate.queryForObject(
+				"select * from client where imatge=?  ",
+				new Object[]{url}, new ClientMapper());
 	}
 
 	private static final class ClientMapper implements RowMapper<Client> {

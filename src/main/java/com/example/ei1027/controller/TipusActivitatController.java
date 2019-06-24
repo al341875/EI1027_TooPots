@@ -1,13 +1,18 @@
 package com.example.ei1027.controller;
 
+import com.example.ei1027.dao.AcreditaDao;
 import com.example.ei1027.dao.NivellDao;
 import com.example.ei1027.dao.TipusActivitatDao;
+import com.example.ei1027.model.Acredita;
 import com.example.ei1027.model.TipusActivitat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/tipusActivitat")
@@ -17,6 +22,8 @@ public class TipusActivitatController {
     private TipusActivitatDao tipusActivitatDao;
     @Autowired
     private NivellDao nivellDao;
+    @Autowired
+    private AcreditaDao acreditaDao;
 
     @GetMapping("/list")
     public String listTipusActitat(Model model) {
@@ -33,7 +40,7 @@ public class TipusActivitatController {
     @GetMapping(value = "/add")
     public String addNivell(Model model) {
         model.addAttribute("tipusActivitat", new TipusActivitat());
-        model.addAttribute("nivells",nivellDao.findAll() );
+        model.addAttribute("nivells", nivellDao.findAll());
 
         return "tipusActivitat/add";
     }
@@ -47,7 +54,7 @@ public class TipusActivitatController {
     @GetMapping(value="/update/{nomTipusActivitat}")
     public String update(Model model, @PathVariable String nomTipusActivitat) {
         model.addAttribute("tipusActivitat", tipusActivitatDao.getTipusActivitat(nomTipusActivitat));
-        model.addAttribute("nivells",nivellDao.findAll() );
+        model.addAttribute("nivells", nivellDao.findAll());
 
         return "tipusActivitat/update";
     }
@@ -56,7 +63,7 @@ public class TipusActivitatController {
                          BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "tipusActivitat/update";
-        tipusActivitat.setNomTipusActivitat(nomTipusActivitat);
+        tipusActivitat.setNom(nomTipusActivitat);
         tipusActivitatDao.updateTipusActivitat(tipusActivitat);
         return "redirect:../list";
     }
@@ -64,6 +71,19 @@ public class TipusActivitatController {
     public String delete(@PathVariable String nomTipusActivitat) {
         tipusActivitatDao.deleteTipusActivitat(nomTipusActivitat);
         return "redirect:../list";
+    }
+
+    @PostMapping(value = "/asignaTipusActivitat/{instructorId}")
+    public String asigna(@RequestParam(value = "tipusActivitat", required = false) String[] tipusActivitats, @PathVariable String instructorId) {
+        List<Acredita> acreditaciones = new ArrayList<>();
+        if (tipusActivitats != null && tipusActivitats.length > 0) {
+            for (String tipusActivitat : tipusActivitats)
+                acreditaciones.add(new Acredita(tipusActivitat, instructorId));
+            acreditaDao.add(acreditaciones);
+        } else
+            acreditaDao.deleteAll(instructorId);
+
+        return "redirect:../../acreditacio/list/" + instructorId;
     }
 
 }
