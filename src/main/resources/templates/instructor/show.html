@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>show instructor</title>
+    <meta charset="UTF-8"/>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        .helper-text {
+            color: red !important;
+        }
+
+        .inputError {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="fragments/navBar :: navBar"></header>
+
+<div class="row">
+    <form class="col s6 offset-s3" th:action="@{/instructor/show}"
+          th:object="${instructor}" method="get" enctype="multipart/form-data">
+        <div class="row">
+            <div class="input-field col s6 offset-s3">
+                <img class="responsive-img circle"
+                     src="../static/imatges/${imatge}" th:src="@{/imatges/{id}(id=${imatge})}" >
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s7">
+                <input readonly id="nom" type="text"  th:field="*{nom}" required>
+                <label for="nom">Nom</label>
+            </div>
+            <div class="input-field col s5">
+                <input readonly id="nif" type="text" W th:field="*{instructorId}" required>
+                <label for="nif">NIF</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s3">
+                <input readonly id="naixement" type="text"  th:field="*{dataNaixement}" required>
+                <label for="naixement">Data de naixement</label>
+            </div>
+            <div class="input-field col s3">
+                <input readonly type="text" th:field="*{sexe}" required>
+                <label>Sexe</label>
+            </div>
+            <div class="input-field col s6">
+                <input readonly id="domicili" type="text" th:field="*{domicili}" required>
+                <label for="domicili">Adreça</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input readonly id="iban" type="text" th:field="*{iban}" required>
+                <label for="iban">IBAN</label>
+
+            </div>
+            <div class="input-field col s6">
+                <input readonly  id="email" type="email"  th:field="*{email}" required>
+                <label for="email">Email</label>
+            </div>
+        </div>
+        <div class="row">
+            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
+
+        </div>
+    </form>
+</div>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    const Calendar = document.querySelector('.datepicker');
+    var rangeOfyears = [];
+    const today = new Date();
+    var startYear = today.getFullYear() - 90;
+    var startDate = new Date(new String(startYear));
+    var instances = M.Datepicker.init(Calendar, {
+        format: 'dd/mm/yyyy',
+        minDate: startDate,
+        maxDate: today,
+        firstDay: 1,
+        yearRange: [startYear, today.getFullYear()],
+        i18n: {
+            months: ['Gener',
+                'Febrer',
+                'Març',
+                'Abril',
+                'Maig',
+                'Juny',
+                'Juliol',
+                'Agost',
+                'Setembre',
+                'Octubre',
+                'Novembre',
+                'Decembre'],
+            monthsShort: ['Gen',
+                'Feb',
+                'Mar',
+                'Abr',
+                'Mai',
+                'Jun',
+                'Jul',
+                'Ago',
+                'Set',
+                'Oct',
+                'Nov',
+                'Dec'],
+            weekdays: ['Diumenge',
+                'Dilluns',
+                'Dimarts',
+                'Dimecres',
+                'Dijous',
+                'Divendres',
+                'Dissabte'
+            ],
+            weekdaysShort: ['Diu',
+                'Dil',
+                'Dim',
+                'Dim',
+                'Dij',
+                'Div',
+                'Dis'],
+            weekdaysAbbrev: ['Dg', 'Dl', 'Dt', 'Dc', 'Dj', 'Dv', 'Ds'],
+            cancel: 'Cancelar'
+        }
+    });
+</script>
+<script>
+    const Sexo = document.querySelector('select');
+    var instances = M.FormSelect.init(Sexo, {});
+</script>
+<script>
+    var elems = document.querySelectorAll('.autocomplete');
+    var options = {
+        data: {
+            'Carrer': null,
+            'Avinguda': null,
+            'Plaça': null,
+            'Diagonal': null,
+            'Via': null,
+            'Carretera': null,
+            'Camí': null,
+            'Calçada': null,
+            'Carreró': null,
+            'Boulevar': null
+        }
+    };
+
+    var instances = M.Autocomplete.init(elems, options);
+</script>
+</body>
+</html>

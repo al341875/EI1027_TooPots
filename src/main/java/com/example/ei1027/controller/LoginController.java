@@ -4,6 +4,8 @@ import com.example.ei1027.dao.ActivitatDao;
 import com.example.ei1027.dao.UserDao;
 import com.example.ei1027.model.UserDetails;
 import com.example.ei1027.validation.UserValidator;
+import com.example.ei1027.validation.excepcions.UserException;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +24,24 @@ public class LoginController {
     private ActivitatDao activitatDao;
 
 	@RequestMapping("/home")
-	public String login(Model model) {
-		model.addAttribute("user", new UserDetails());
-        model.addAttribute("activitats", activitatDao.getActivitats());
+	public String login(Model model,HttpSession session) {
+		UserDetails user = new UserDetails();
+		model.addAttribute("user",user );
+		model.addAttribute("username",user.getUsuari() );
+
+		if (session.getAttribute("usertype").equals("client"))
+			return "home/client";
+		else if(session.getAttribute("usertype").equals("instructor"))
+			return "home/monitor";
+		else if(session.getAttribute("usertype").equals("admin"))
+			return "home/admin";
         return "home/main";
 	}
-
+	@RequestMapping("/login")
+	public String login2(Model model) {
+		model.addAttribute("user", new UserDetails());
+		return "home/login";
+	}
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String checkLogin(@ModelAttribute("user") UserDetails userData,
 							 BindingResult bindingResult, HttpSession session) {
@@ -36,18 +50,31 @@ public class LoginController {
 		UserDetails user = userDao.find(userData);
 
 		if (bindingResult.hasErrors() || user == null) {
-			return "home/main";
+            throw new UserException("Usuari no valid","usuariNoValid");
 		}
+
+
+
+
 		//System.out.println("el usuario es :"+ user.getClave());
 	       // Comprova que el login siga correcte
 		// intentant carregar les dades de l'usuari 
 		session.setAttribute("user", user);
-//		session.setAttribute("username",user.getUsuari());
+		session.setAttribute("username",user.getUsuari());
+		session.setAttribute("usertype",user.getTipus());
 		if (user.getTipus().equals("client"))
-			return "redirect:home";
-		else if (user.getTipus().equals("admin"))
-			return "redirect:instructor/pendents";
-		return "redirect:home";
+			return "home/client";
+		else if(user.getTipus().equals("instructor"))
+			if (userDao.instructorsAcceptats(user.getUsuari())) {
+				return "home/monitor";
+			}else {
+				throw new UserException("Usuari no valid","usuariNoValid");
+
+			}
+		else if(user.getTipus().equals("admin"))
+			return "home/admin";
+		return "redirect:login";
+		//return "redirect:home";
 
 //			if(user.getTipus().equals("client")) {session.setAttribute("home", "home/client");
 //			return "redirect:/home/client";
@@ -64,7 +91,7 @@ public class LoginController {
 	@RequestMapping("/logout") 
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:home?logout=true";
+		return "redirect:login";
 	}
 //	@RequestMapping("/home")
 //	public String home(HttpSession session) {

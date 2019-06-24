@@ -18,9 +18,8 @@ public class ActivitatMapper implements RowMapper<Activitat> {
         Activitat.setEstat(rs.getString("estat"));
         Activitat.setDescripcio(rs.getString("descripcio"));
         Activitat.setDurada(rs.getFloat("durada"));
-        LocalDate date = rs.getDate("data").toLocalDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
-        Activitat.setData(date.format(formatter));
+        LocalDate DOB = rs.getObject("data", LocalDate.class);
+        Activitat.setData(String.format("%d/%d/%d", DOB.getDayOfMonth(), DOB.getMonthValue(), DOB.getYear()));
         Activitat.setPreu(rs.getFloat("preu"));
         Activitat.setMinAssistents(rs.getInt("min_assistents"));
         Activitat.setMaxAssistents(rs.getInt("max_assistents"));
@@ -30,6 +29,7 @@ public class ActivitatMapper implements RowMapper<Activitat> {
         Activitat.setTextPerClient(rs.getString("text_per_clients"));
         Activitat.setIdInstructor(rs.getString("id_instructor"));
         Activitat.setNomTipusActivitat(rs.getString("nom_tipus_activitat"));
+        Activitat.setImatge(rs.getString("imatge"));
         return Activitat;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.ei1027.dao;
 
 import com.example.ei1027.config.EncryptorFactory;
+import com.example.ei1027.model.Estat;
 import com.example.ei1027.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -8,6 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -49,6 +51,13 @@ public class UserDao {
 		String contrasenya = userDetails.getContrasenya();
 		String contrasenyaEnc = this.jdbcTemplate.queryForObject("select contrasenya from usuaris where usuari = ?", String.class, userDetails.getUsuari());
 		return encryptorFactory.getEncryptor().checkPassword(contrasenya, contrasenyaEnc);
+	}
+	public UserDetails getUser(String id) {
+		return this.jdbcTemplate.queryForObject("select * from usuaris where usuari = ?", new UserMapper(), id) ;
+	}
+	public Boolean instructorsAcceptats(String id) {
+		return this.jdbcTemplate.queryForObject(
+				"select count(id_instructor) from instructor where estat = ? AND id_instructor=?", Integer.class, Estat.ACCEPTADA.toString(),id) >0;
 	}
 
 	private static final class UserMapper implements RowMapper<UserDetails> {

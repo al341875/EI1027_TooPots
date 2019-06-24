@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Llistar acreditacions</title>
+    <meta charset="UTF-8" />
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        .helper-text {
+            color: red !important;
+        }
+
+        .inputError {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="fragments/navBar :: navBar"></header>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Estat</th>
+            <th></th>
+
+
+        </tr>
+        <tr th:each="acreditacio : ${acreditacions}">
+            <td th:text="${acreditacio.idInstructor}">ID</td>
+            <td th:text="${acreditacio.estat}">Estat</td>
+
+            <td> <a  target="_blank" th:href="@{/pdfs/{id}(id=${acreditacio.certificatUrl})}" >visualitza</a></td>
+
+
+
+        </tr>
+    </table>
+    <td><a th:href="@{/client/add/}">Afegeix</a>
+
+</body>
+</html>

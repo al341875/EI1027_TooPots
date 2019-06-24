@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
@@ -8,16 +8,16 @@
     <h1>
         Benvingut a tooPots
     </h1>
+    <p th:text="${session.user.usuari}"></p>
     <ul>
         <li><a href="client/list">Lista de clients.</a></li>
         <li><a href="instructor/add">Sol·licitud d'instructor.</a></li>
-        <li><a href="instructor/list">Lista d'instructors i sol·licituds</a></li>
+        <li><a href="instructor/pendents">Lista d'instructors i sol·licituds</a></li>
         <li><a href="activitat/list"> activitat</a></li>
-        <li><a href="/login.html">login</a></li>
         <li><a href="/nivell/list">nivell add</a></li>
         <li><a href="/tipusActivitat/list">tipusActivitat</a></li>
+        <li><a href="/login">login</a></li>
 
     </ul>
 
 </body>
-</html>

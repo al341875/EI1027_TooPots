@@ -18,6 +18,13 @@ public class Activitat {
 	String textPerClient;
 	String idInstructor;
 	String nomTipusActivitat;
+	String imatge;
+	public String getImatge() {
+		return imatge;
+	}
+	public void setImatge(String imatge) {
+		this.imatge = imatge;
+	}
 	public String getNomLlarg() {
 		return nomLlarg;
 	}

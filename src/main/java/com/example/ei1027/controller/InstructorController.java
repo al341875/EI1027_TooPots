@@ -1,5 +1,6 @@
 package com.example.ei1027.controller;
 
+import com.example.ei1027.config.EncryptorFactory;
 import com.example.ei1027.dao.InstructorDao;
 import com.example.ei1027.dao.TipusActivitatDao;
 import com.example.ei1027.dao.UserDao;
@@ -11,12 +12,22 @@ import com.example.ei1027.model.Instructor;
 import com.example.ei1027.model.UserDetails;
 import com.example.ei1027.validation.InstructorValidator;
 import com.example.ei1027.validation.excepcions.ClientException;
+import com.example.ei1027.validation.excepcions.InstructorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.mail.MessagingException;
 
@@ -32,10 +43,18 @@ public class InstructorController {
     private EmailService emailService;
 
     @Autowired
+    private EncryptorFactory encryptorFactory;
+
+	@Value("${upload.file.directory}")
+    private String uploadDirectory;
+
+
+    @Autowired
     private UserDao userDao;
 
     @Autowired
     private TipusActivitatDao tipusActivitatDao;
+
 
     @GetMapping("/pendents")
     public String listInstructorsPendents(Model model) {
@@ -77,15 +96,16 @@ public class InstructorController {
     }
 
     @PostMapping(value = "/add")
-    public String addInstructor(@ModelAttribute("instructor") Instructor instructor, BindingResult bindingResult) throws MessagingException {
+    public String addInstructor(@ModelAttribute("instructor") Instructor instructor, BindingResult bindingResult,@RequestParam("file") MultipartFile file,
+            RedirectAttributes redirectAttributes) throws MessagingException {
         InstructorValidator instructorValidator = new InstructorValidator();
         instructorValidator.validate(instructor, bindingResult);
-//        if (instructorDao.existId(instructor.getInstructorId()))
-//            //Accion si ya existe un instructor con dicho id
-//        if (instructorDao.existEmail(instructor.getEmail()))
-//            //Accion si ya existe el email en un instructor
-//        if (instructorDao.existIban(instructor.getIban()))
-//            //Accion si ya existe el iban en un instructor
+        if (instructorDao.existId(instructor.getInstructorId()))
+        	throw new InstructorException("DNI duplicat","ClauPrimariaDuplicada");
+        if (instructorDao.existEmail(instructor.getEmail()))
+        	throw new InstructorException("Email duplicat","ClauPrimariaDuplicada");
+        if (instructorDao.existIban(instructor.getIban()))
+        	throw new InstructorException("IBAN duplicat","ClauPrimariaDuplicada");
         UserDetails user = new UserDetails();
         user.setUsuari(instructor.getInstructorId());
         user.setTipus("instructor");
@@ -93,14 +113,34 @@ public class InstructorController {
         userDao.add(user);
         if (bindingResult.hasErrors())
             return "instructor/add";
-        try {
-            instructorDao.addInstructor(instructor);
-            emailService.sendSimpleMessage(instructor.getEmail(), EmailTemplates.SOLICITUD_ENVIADA.subject(), EmailTemplates.SOLICITUD_ENVIADA.fileName());
 
-        }catch(DuplicateKeyException e) {
-        	throw new ClientException("DNI o camp unic(iban, email) duplicat","ClauPrimariaDuplicada");
+
+        if (file.isEmpty()) {
+            // Enviar mensaje de error porque no hay fichero seleccionado
+            redirectAttributes.addFlashAttribute("message",
+                    "Please select a file to upload");
+            return "redirect:/uploadStatus";
         }
-        return "redirect:pendents";
+
+        try {
+            // Obtener el fichero y guardarlo
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(uploadDirectory + "imatges/"
+                    + file.getOriginalFilename());
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        instructor.setImatge(file.getOriginalFilename());
+
+        instructorDao.addInstructor(instructor);
+
+        emailService.sendSimpleMessage(instructor.getEmail(), EmailTemplates.SOLICITUD_ENVIADA.subject(), EmailTemplates.SOLICITUD_ENVIADA.fileName());
+        return "instructor/despRegistrar";
+    }
+    @GetMapping( "/despRegistrar")
+    public String update(Model model) {
+        return "instructor/despRegistrar";
     }
 
     @GetMapping(value = "/update/{instructorId}")
@@ -111,7 +151,8 @@ public class InstructorController {
 
     @PostMapping(value = "/update")
     public String update(@ModelAttribute("instructor") Instructor instructor,
-                         BindingResult bindingResult) {
+                         BindingResult bindingResult,@RequestParam("file") MultipartFile file,
+				            RedirectAttributes redirectAttributes) {
     	InstructorValidator instructorValidator = new InstructorValidator();
     	instructorValidator.validate(instructor, bindingResult);
 //        if (instructorDao.existId(instructor.getInstructorId()))
@@ -122,10 +163,31 @@ public class InstructorController {
 //            //Accion si ya existe el iban en un instructor
         if (bindingResult.hasErrors())
             return "instructor/update";
+        if (file.isEmpty()) {
+            // Enviar mensaje de error porque no hay fichero seleccionado
+            redirectAttributes.addFlashAttribute("message",
+                    "Please select a file to upload");
+            return "redirect:/uploadStatus";
+        }
+
+        try {
+            // Obtener el fichero y guardarlo
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(uploadDirectory + "imatges/"
+                    + file.getOriginalFilename());
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        instructor.setImatge(file.getOriginalFilename());
         instructorDao.updateInstructor(instructor);
         return "redirect:acceptats";
     }
-
+    @GetMapping(value = "/show/{instructorId}")
+    public String showClient(Model model,@PathVariable String instructorId) {
+        model.addAttribute("instructor", instructorDao.getInstructor(instructorId));
+        return "instructor/show";
+    }
     @RequestMapping(value = "/delete/{instructorId}")
     public String delete(@PathVariable String instructorId) {
         instructorDao.deleteInstructor(instructorId);
@@ -157,6 +219,12 @@ public class InstructorController {
     public String getActivitatsInstructor(Model model, @PathVariable String instructorId){
         model.addAttribute("activitats", instructorDao.findActivitiesByInstructorId(instructorId));
         return "instructor/activitats";
+    }
+
+    @RequestMapping(value = "/imatges/{id}")
+    public String mostrarImatge(Model model,@PathVariable String id) {
+        model.addAttribute("instructor", instructorDao.getImatge(id));
+        return "instructor/list";
     }
 
 }

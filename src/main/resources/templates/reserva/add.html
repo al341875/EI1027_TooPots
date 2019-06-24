@@ -4,6 +4,8 @@
     <title>Reservar activitat</title>
     <meta charset="UTF-8"/>
     <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <!-- Compiled and minified CSS -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -12,37 +14,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
+<header th:replace="fragments/navBar :: navBar"></header>
+<div class="row" style="text-align: center">
+
+    <h2>Reservar activitat</h2>
+</div>
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/reserva/add}"
-          th:object="${reserva}" method="post">
+          th:object="${reserva}" method="post" enctype="multipart/form-data">
 
         <div class="row">
-            <div class="input-field col s5">
-                <input id="idClient" type="text" th:field="*{idClient}">
-                <label for="idClient">idClient</label>
-
-            </div>
             <div class="input-field col s6">
-                <input readonly id="nomActivitat" type="text" th:field="*{nomActivitat}" class="validate"
-                       maxlength="20"/>
-                <label for="nomActivitat">nomActivitat</label>
+                <input readonly id="nomActivitat"type="text" th:field="*{nomActivitat}" class="validate"  maxlength="20" />
+                <label for="nomActivitat">Nom d'activitat</label>
             </div>
 
         </div>
+
         <div class="row">
             <div class="input-field col s3">
-                <input id="numAssistents" class="validate" placeholder="2" type="number"  th:field="*{numAssistents}" />
-                <label for="numAssistents"> nombre de asistents</label>
+                <input id="numAssistents" class="validate" placeholder="2" type="number"  th:field="*{numAssistents}" min=1 th:max="${puestosLliures}" required />
+                <label for="numAssistents"> Nombre d'assistents</label>
+            </div>
+            <div class="input-field col s3">
+				<input id="puestosLliures" type="text"  th:value="${puestosLliures}"  readonly></input>
+                <label for="puestosLliures"> Puestos lliures</label>
             </div>
 
         </div>
 
         <div class="row">
-            <div class="col s12">
-                <button class="btn waves-effect waves-light right" type="submit" name="action"> reserva
+
+                <button class="btn waves-effect waves-light right" type="submit" name="action"> Reserva
                     <i class="material-icons right">send</i>
                 </button>
-            </div>
+            <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
+
+
         </div>
     </form>
 </div>

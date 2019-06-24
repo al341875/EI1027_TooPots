@@ -1,0 +1,31 @@
+<div th:fragment="tabs-navBar-instructor" class="nav-content">
+    <ul class="tabs tabs-transparent">
+        <li class="tab col s2" th:style="${boldPendent} ?
+                        'color:white!important; font-weight:bold; border-bottom: 3px solid white' :
+                        'color: rgba(255,255,255,0.7)!important' ">
+            <a th:style="${boldPendent} ?
+                            'color: white' :
+                            'color: rgba(255,255,255,0.7)' " target="_self" href="pendents">
+                Pendents
+            </a>
+        </li>
+        <li class="tab col s2" th:style="${boldAcceptat} ?
+                        'color:white!important; font-weight:bold; border-bottom: 3px solid white' :
+                        'color: rgba(255,255,255,0.7)!important' ">
+            <a th:style="${boldAcceptat} ?
+                            'color: white' :
+                            'color: rgba(255,255,255,0.7)' " target="_self" href="acceptats">
+                Acceptats
+            </a>
+        </li>
+        <li class="tab col s2" th:style="${boldRebutjat} ?
+                    'color:white!important; font-weight:bold; border-bottom: 3px solid white' :
+                    'color: rgba(255,255,255,0.7)!important'">
+            <a th:style="${boldRebutjat} ?
+                            'color: white' :
+                            'color: rgba(255,255,255,0.7)' " target="_self" href="rebutjats">
+                Rebutjats
+            </a>
+        </li>
+    </ul>
+</div>
