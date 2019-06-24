@@ -98,7 +98,7 @@ public class ClientController {
         	throw new ClientException("Ja existeix un client en el NIF: "+client.getClientId(),"ClauPrimariaDuplicada");
         }
 	
-		return "redirect:list";
+		return "home/client";
 	}
 	@GetMapping(value="/update/{clientId}")
 	public String update(Model model, @PathVariable String clientId) {
@@ -135,7 +135,7 @@ public class ClientController {
         }
         client.setImatge(file.getOriginalFilename());
 		clientDao.updateClient(client);
-		return "redirect:list";
+		return "/home/client";
 	  }
 	@RequestMapping(value = "/delete/{clientId}")
 	public String delete(@PathVariable String clientId) {

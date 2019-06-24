@@ -203,12 +203,12 @@ public class ActivitatController {
     @RequestMapping(value = "/tanca/{nomLlarg}")
     public String tancaActivitat(@PathVariable String nomLlarg) {
         activitatDao.tancaActivitat(nomLlarg);
-        return "redirect:../list";
+        return "redirect:../listInstructor";
     }
     @RequestMapping(value = "/cancela/{nomLlarg}")
     public String cancelaActivitat(@PathVariable String nomLlarg) {
         activitatDao.cancelaActivitat(nomLlarg);
-        return "redirect:../list";
+        return "redirect:../listInstructor";
     }
     @RequestMapping(value = "/imatges/{id}")
     public String mostrarImatge(Model model,@PathVariable String id) {

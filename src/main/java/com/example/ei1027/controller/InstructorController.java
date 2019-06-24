@@ -172,7 +172,7 @@ public class InstructorController {
         }
         instructor.setImatge(file.getOriginalFilename());
         instructorDao.updateInstructor(instructor);
-        return "redirect:acceptats";
+        return "/home/monitor";
     }
     @GetMapping(value = "/show/{instructorId}")
     public String showClient(Model model,@PathVariable String instructorId) {

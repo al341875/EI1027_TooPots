@@ -51,14 +51,13 @@ public class TipusActivitatController {
 
         return "tipusActivitat/update";
     }
-    @PostMapping(value="/update/{nomTipusActivitat}")
-    public String update(@PathVariable String nomTipusActivitat, @ModelAttribute("tipusActivitat") TipusActivitat tipusActivitat,
+    @PostMapping(value="/update")
+    public String update( @ModelAttribute("tipusActivitat") TipusActivitat tipusActivitat,
                          BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "tipusActivitat/update";
-        tipusActivitat.setNomTipusActivitat(nomTipusActivitat);
         tipusActivitatDao.updateTipusActivitat(tipusActivitat);
-        return "redirect:../list";
+        return "redirect:list";
     }
     @RequestMapping(value = "/delete/{nomTipusActivitat}")
     public String delete(@PathVariable String nomTipusActivitat) {
