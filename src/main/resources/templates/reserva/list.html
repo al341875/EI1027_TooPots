@@ -34,6 +34,9 @@
                 <a th:if="${reserva.estatPagament.equals('pendent')}"
                    th:href="@{/reserva/accept/{idReserva} (idReserva=${reserva.idReserva})}"
                    class="btn green"><i class="material-icons">done</i></a>
+                <a th:if="${reserva.estatPagament.equals('pendent')}"
+                   th:href="@{/reserva/delete/{idReserva} (idReserva=${reserva.idReserva})}"
+                   class="btn red"><i class="material-icons">delete</i></a>
 
 
 
