@@ -3,6 +3,9 @@ package com.example.ei1027.controller;
 import com.example.ei1027.dao.NivellDao;
 import com.example.ei1027.dao.TipusActivitatDao;
 import com.example.ei1027.model.TipusActivitat;
+import com.example.ei1027.validation.excepcions.TipusActivitatException;
+import com.example.ei1027.validation.excepcions.UserException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,7 +64,9 @@ public class TipusActivitatController {
     }
     @RequestMapping(value = "/delete/{nomTipusActivitat}")
     public String delete(@PathVariable String nomTipusActivitat) {
-        tipusActivitatDao.deleteTipusActivitat(nomTipusActivitat);
+        if(tipusActivitatDao.hiHanActivitatsdAquestTipus(nomTipusActivitat))
+        	throw new TipusActivitatException("Hi han activitats d'aquest tipus, eliminales abans de esborrar el tipus","tipusActivitat");
+    	tipusActivitatDao.deleteTipusActivitat(nomTipusActivitat);
         return "redirect:../list";
     }
 

@@ -23,8 +23,10 @@
 </style>
 
 <div th:fragment="card-activitat" class="card sticky-action">
-    <div class="card-image">
-        <img    src="../static/imatges/{activitat.imatge}" th:src="@{/imatges/{id}(id=${activitat.imatge})}">
+    <div class="card-image" >
+        <img  style=" height:200px;
+    width:auto;
+    max-height:250px;"  src="../static/imatges/{activitat.imatge}" th:src="@{/imatges/{id}(id=${activitat.imatge})}">
         <a class="btn-floating btn-large halfway-fab waves-effect waves-light "th:href="@{/activitat/show/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" ><i class="material-icons">visibility</i></a>
 
     </div>

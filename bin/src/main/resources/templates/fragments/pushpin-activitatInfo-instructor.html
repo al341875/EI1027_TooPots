@@ -19,9 +19,10 @@
             <i class="material-icons" style="margin-right: 0.5rem!important;">grade</i>
             <span th:text="${activitat.nomTipusActivitat}" ></span>
         </div>
-        <div class="col s6 valign-wrapper">
+        <div class="col s6 valign-wrapper" >
             <i class="material-icons" style="margin-right: 0.5rem!important;">info</i>
-            <span th:text="${activitat.descripcio}"></span>
+
+            <span style=" word-wrap: break-word;"  th:text="${activitat.descripcio}"></span>
         </div>
     </div>
     <div class="row" style="margin-bottom: 5px!important;">

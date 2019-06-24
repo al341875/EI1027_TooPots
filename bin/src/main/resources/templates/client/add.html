@@ -21,12 +21,13 @@
     </style>
 </head>
 <body>
-<div class="row" style="text-align: center">
-    <h2>Registrarse com a clients</h2>
-</div>
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/client/add}"
           th:object="${client}" method="post" enctype="multipart/form-data">
+
+        <div class="row" style="text-align: center">
+            <h2>Nou client</h2>
+        </div>
         <div class="row">
             <div class="input-field col s6 offset-s3">
                 <img class="responsive-img circle"
@@ -71,7 +72,7 @@
         </div>
         <div class="row">
             <div class="input-field col s6">
-                <input type="file" class="form-control-file" name="file" id="file"/>
+                <input type="file" class="form-control-file" name="file" id="file" required/>
             </div>
         </div>
         <div class="row">

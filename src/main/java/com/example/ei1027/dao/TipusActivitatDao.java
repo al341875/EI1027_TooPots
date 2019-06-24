@@ -48,4 +48,7 @@ public class TipusActivitatDao {
 	public void deleteTipusActivitat(String nomTipusActivitat) {
 		this.jdbcTemplate.update("delete from Tipus_activitat where nom_tipus_activitat=?", nomTipusActivitat);
 	}
+	public boolean hiHanActivitatsdAquestTipus(String nomTipusActivitat) {
+		return this.jdbcTemplate.queryForObject("select count(nom_tipus_activitat) from Activitat where nom_tipus_activitat = ?", Integer.class, nomTipusActivitat) > 0;
+	}
 }

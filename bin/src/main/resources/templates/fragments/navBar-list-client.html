@@ -1,7 +1,6 @@
 <ul th:fragment="navBar-list-client" id="nav-client" class="right hide-on-med-and-down col s5">
     <div class="right">
-        <li><a href="/instructor/add">Convertir-se en instructor</a></li>
-        <li><a th:href="@{/client/update/{clientId}(clientId=${session.user.usuari})}" th:text="${session.user.usuari}"></a></li>
+        <li><a th:href="@{/client/update/{clientId}(clientId=${session.user.usuari})}" >Dades personals</a></li>
         <li><a href="/home"><i class="material-icons">home</i></a></li>
         <li><a href="/logout"><i class="material-icons">exit_to_app</i></a></li>
     </div>

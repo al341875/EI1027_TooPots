@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>llistat instructors</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
@@ -11,8 +11,14 @@
             src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
     </script>
-
+    <link rel = "stylesheet"
+          href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script type = "text/javascript"
+            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
     <style>
+
         .searchBox{
             position: fixed!important;
             bottom: 23px!important;
@@ -39,11 +45,18 @@
 <header th:replace="fragments/navBar.html :: navBar"></header>
 <div class="row" style="text-align: center">
     <h2>Llistat de instructors</h2>
-</div>
-<div>
-    <a  class="waves-effect waves-light btn-small" th:href="@{/instructor/pendents/}">Pendents</a>
-    <a  class="waves-effect waves-light btn-small" th:href="@{/instructor/acceptats/}">acceptats</a>
-    <a  class="waves-effect waves-light btn-small" th:href="@{/instructor/rebutjats/}">rebutjats</a>
+    <ul id = "dropdown" class = "dropdown-content right" >
+        <li><a th:href="@{/instructor/pendents/}">Pendents</a></li>
+        <li><a  th:href="@{/instructor/acceptats/}">Acceptats</a></li>
+       <li> <a   th:href="@{/instructor/rebutjats/}">Rebutjats</a></li>
+
+    </ul>
+    <div class="row right">
+        <a class = "btn dropdown-button" href = "#" data-activates = "dropdown"><i class="material-icons">filter_list</i>
+            <i class = "mdi-navigation-arrow-drop-down right"></i></a>
+    </div>
+
+
 
 </div>
 <section>
@@ -55,9 +68,7 @@
                 <a th:href="@{/instructor/show/{instructorId}(instructorId=${instructor.instructorId})}"    class="btn blue"><i class="material-icons">info</i></a>
                 <a  th:if="${instructor.estat.equals('acceptada')}" th:href="@{/acreditacio/list/{id}(id=${instructor.instructorId})}"
                     class="btn blue"><i class="material-icons">insert_drive_file</i></a>
-                <a th:if="${instructor.estat.equals('acceptada')}"
-                   th:href="@{/instructor/update/{instructorId}(instructorId=${instructor.instructorId})}" class="btn teal"><i
-                        class="material-icons">create</i></a>
+              
                 <a th:if="${instructor.estat.equals('acceptada')}"
                    th:href="@{/instructor/decline/{instructorId}(instructorId=${instructor.instructorId})}" class="btn red"><i
                         class="material-icons">delete</i></a>
@@ -81,6 +92,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+
 <script>
     var elems = document.querySelector('.tooltipped');
     var instances = M.Tooltip.init(elems, {});
@@ -94,6 +106,27 @@
     var instances = M.FloatingActionButton.init(elems, {
         direction: 'left'
     });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems, options);
+    });
+
+    // Or with jQuery
+
+    $('.dropdown-trigger').dropdown();
+    $('.dropdown-button').dropdown({
+            inDuration: 300,
+            outDuration: 225,
+            constrain_width: false, // Does not change width of dropdown to that of the activator
+            hover: true, // Activate on hover
+            gutter: 0, // Spacing from edge
+            belowOrigin: false, // Displays dropdown below the button
+            alignment: 'left' // Displays dropdown with edge aligned to the left of button
+        }
+    );
+
 </script>
 </body>
 </html>

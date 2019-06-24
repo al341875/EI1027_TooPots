@@ -38,7 +38,7 @@
 <header th:replace="fragments/navBar.html :: navBar"></header>
 
 <div class="row" style="text-align: center">
-    <h2>Llistat de activitats  </h2>
+    <h2>Llistat d'activitats  </h2>
 
 </div>
 <div class="row">
@@ -47,9 +47,10 @@
     </div>
 </div>
     <div class="row">
-        <a th:href="@{/activitat/add/}" class="btn-floating btn-large waves-effect waves-light "><i class="material-icons">add</i></a>
 
         <a class="btn-floating btn-large waves-effect waves-light red " href="javascript:history.back()" ><i class="material-icons">keyboard_backspace</i></a>
+        <a th:href="@{/activitat/add/}" class="btn-floating btn-large waves-effect waves-light "><i class="material-icons">add</i></a>
+
     </div>
 </body>
 </html>

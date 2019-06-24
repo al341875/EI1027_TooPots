@@ -1,0 +1,53 @@
+<style>
+
+    .vertical-align {
+        padding-right: 3% !important;
+        vertical-align: middle;
+    }
+
+    .dificultad {
+        color: rgba(0, 0, 0, 0.75);
+        font-weight: bold;
+        font-size: 1.1em;
+        padding-right: 3% !important;
+    }
+
+    .blue-btn {
+        background-color: transparent !important;
+        border: 1px solid black;
+        color: black;
+        font-weight: bold;
+        border-radius: 50%;
+        text-transform: lowercase !important;
+    }
+</style>
+
+<div th:fragment="card-activitat" class="card sticky-action">
+    <div class="card-image" >
+        <img  tyle=" height:200px;
+    width:auto;
+    max-height:250px;"  src="../static/imatges/{activitat.imatge}" th:src="@{/imatges/{id}(id=${activitat.imatge})}">
+        <a class="btn-floating btn-large halfway-fab waves-effect waves-light "th:href="@{/activitat/show2/{nomLlarg}(nomLlarg=${activitat.nomLlarg})}" ><i class="material-icons">visibility</i></a>
+
+    </div>
+
+    <div class="card-content">
+        <span class="card-title valign-wrapper">
+            <a href="#" class="black-text" th:text="${activitat.nomLlarg}"></a>
+        </span>
+    </div>
+    <div class="card-action">
+        <div class="center-align">
+            <span style="padding-right: 2%!important;">
+                <i class="material-icons vertical-align">event</i>
+                    <span class="vertical-align" th:text="${activitat.data}"></span>
+            </span>
+            <span class="vertical-align tipus"><i class="material-icons">bookmark</i></span><span class="vertical-align" th:text="${activitat.nomTipusActivitat}"></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    var elems = document.querySelector('.tooltipped');
+    var instances = M.Tooltip.init(elems, {});
+</script>

@@ -4,41 +4,100 @@
     <title>Pagar activitat</title>
     <meta charset="UTF-8"/>
     <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        .helper-text {
+            color: red !important;
+        }
+
+        .inputError {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <header th:replace="fragments/navBar :: navBar"></header>
+<div class="row" style="text-align: center">
 
+        <h2>Pagar activitat</h2>
+</div>
 <div class="row">
+    <form class="col s6 offset-s3"  th:action="@{/reserva/pagament}"
+          th:object="${reserva}" method="post" enctype="multipart/form-data">
 
-<form class="col s6 offset-s3" th:action="@{/reserva/pagament}"
-      th:object="${reserva}" method="post">
-    <div class="row">
-        <div class="col s12">
-            <input readonly id="preuTotal"type="number" th:field="*{preuTotal}" class="validate"  />
+        <div class="row">
+            <div class="input-field col s7">
+                <input readonly id="nomActivitat"type="text" th:field="*{nomActivitat}" />
+                <label for="nomActivitat">nom de l'Activitat</label>
+            </div>
+            <div class="input-field col s5">
+                <input readonly id="preuTotal"type="number" th:field="*{preuTotal}"   />
+                <label for="preuTotal">Preu</label>
+            </div>
         </div>
-        <div class="input-field col s6">
-            <input readonly id="nomActivitat"type="text" th:field="*{nomActivitat}" class="validate"  maxlength="20" />
-            <label for="nomActivitat">nomActivitat</label>
+        <div class="row">
+            <div class="input-field col s9">
+                <input id="nom" type="text"  minlength="6" maxlength="40" required>
+                <label for="nom">Nom complet  del titular</label>
+            </div>
         </div>
+        <div class="row">
+            <div class="input-field col s3">
+                <input id="caducitat" type="text" placeholder="MM/YY"  minlength="4" maxlength="5"  required>
+                <label for="caducitat">Data de caducitat</label>
 
-    </div>
-    <div class="row">
+            </div>
+            <div class="input-field col s6">
+                <input id="tarj" type="text"  minlength="10" maxlength="25"  required>
+                <label for="tarj">Número de targeta</label>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="pob" type="text" minlength="3" maxlength="25" required>
+                <label for="pob">Població</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="domicili" type="text"  minlength="4" maxlength="35" class="autocomplete" required>
+                <label for="domicili">Adreça</label>
+            </div>
+        </div>
+        <div class="row">
             <button class="btn waves-effect waves-light right"  name="action"> pagar reserva
                 <i class="material-icons right">send</i>
             </button>
-            <a class="btn  waves-effect waves-light red right" href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
+            <a class="btn-floating btn-large waves-effect waves-light left red " href="javascript:history.back()"><i class="material-icons">keyboard_backspace</i></a>
 
-    </div>
-</form>
+        </div>
+    </form>
 </div>
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+<script>
+    var elems = document.querySelectorAll('.autocomplete');
+    var options = {
+        data: {
+            'Carrer': null,
+            'Avinguda': null,
+            'Plaça': null,
+            'Diagonal': null,
+            'Via': null,
+            'Carretera': null,
+            'Camí': null,
+            'Calçada': null,
+            'Carreró': null,
+            'Boulevar': null
+        }
+    };
+
+    var instances = M.Autocomplete.init(elems, options);
+</script>
 </body>
 </html>
