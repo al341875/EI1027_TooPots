@@ -1,0 +1,4 @@
+<div th:fragment="carousel" class="carousel carousel-slider" style="height: 100%; width: 100%; margin: auto auto">
+    <a th:if="${imgPromo}" th:each="img: ${imatges}" class="carousel-item" href="#one!"><img
+            th:src="@{/imatges/{id}(id=${img.imatge})}"></a>
+</div>

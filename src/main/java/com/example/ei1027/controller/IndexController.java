@@ -23,6 +23,7 @@ public class IndexController {
     public String index(Model model) {
         List<ImatgePromocional> list = imatgesPromocionalsDao.findAll();
         model.addAttribute("imatges", list);
+        model.addAttribute("imgPromo", true);
         return "index";
     }
 }
