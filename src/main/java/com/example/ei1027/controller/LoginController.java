@@ -47,10 +47,14 @@ public class LoginController {
 							 BindingResult bindingResult, HttpSession session) {
 		UserValidator userValidator = new UserValidator();
 		userValidator.validate(userData, bindingResult);
+		if(!userDao.existsUser(userData.getUsuari())){
+			throw new UserException("Usuari no valid","usuariNoValid");
+
+		}
 		UserDetails user = userDao.find(userData);
 
 		if (bindingResult.hasErrors() || user == null) {
-            throw new UserException("Usuari no valid","usuariNoValid");
+            throw new UserException("Contrasenya no valid","usuariNoValid");
 		}
 
 

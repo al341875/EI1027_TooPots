@@ -22,15 +22,17 @@
 </head>
 <body>
 <header th:replace="fragments/navBar :: navBar"></header>
+<div class="row" style="text-align: center">
 
+    <h2>Les meues dades</h2>
+</div>
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/instructor/update}"
           th:object="${instructor}" method="post" enctype="multipart/form-data">
-        <div class="row">
-            <div class="input-field col s6 offset-s3">
-                <img class="responsive-img circle"
-                     src="../static/imatges/${imatge}" th:src="@{/imatges/{id}(id=${imatge})}" >
-            </div>
+        <div class="row" style="margin-top: 5%">
+            <img style=" height:200px; width:auto; max-height:250px;"
+                 src="../static/imatges/${instructor.imatge}" th:src="@{/imatges/{id}(id=${instructor.imatge})}"
+                 >
         </div>
         <div class="row">
             <div class="input-field col s7">

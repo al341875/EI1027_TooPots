@@ -22,13 +22,16 @@
 </head>
 <body>
 <header th:replace="fragments/navBar :: navBar"></header>
+<div class="row" style="text-align: center">
 
+    <h2>Perfil instructor</h2>
+</div>
 <div class="row">
     <form class="col s6 offset-s3" th:action="@{/instructor/show}"
           th:object="${instructor}" method="get" enctype="multipart/form-data">
-        <div class="row" style="alignment: center">
+        <div class="row" >
                 <img style=" height:200px; width:auto; max-height:250px;"
-                     src="../static/imatges/${instructor.imatge}" th:src="@{/imatges/{id}(id=${instructor.imatge})}" alt="" class="circle">
+                     src="../static/imatges/${instructor.imatge}" th:src="@{/imatges/{id}(id=${instructor.imatge})}">
         </div>
         <div class="row">
             <div class="input-field col s7">

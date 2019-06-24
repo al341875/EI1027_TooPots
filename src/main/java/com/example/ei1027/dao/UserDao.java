@@ -59,6 +59,9 @@ public class UserDao {
 		return this.jdbcTemplate.queryForObject(
 				"select count(id_instructor) from instructor where estat = ? AND id_instructor=?", Integer.class, Estat.ACCEPTADA.toString(),id) >0;
 	}
+	public boolean existsUser(String dni) {
+		return this.jdbcTemplate.queryForObject("select count(usuari) from usuaris where usuari = ?", Integer.class, dni) > 0;
+	}
 
 	private static final class UserMapper implements RowMapper<UserDetails> {
 		public UserDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
