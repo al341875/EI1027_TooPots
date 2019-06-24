@@ -175,14 +175,23 @@ public class ReservaController {
     }
 
 
-    @RequestMapping(value="/pagament/{idReserva}")
-    public String pagament(Model model, @PathVariable Integer idReserva){
-        model.addAttribute("reserva", reservaDao.getReserva(idReserva));
 
-        reservaDao.aceptarPagament(idReserva);
 
-        return "redirect:../pagades";
+    @GetMapping(value="/pagament/{idReserva}")
+    public String pagament(Model model, @PathVariable Integer idReserva) {
+        model.addAttribute("reserva",reservaDao.getReserva(idReserva) );
+        return "reserva/pagament";
+    }
+    @PostMapping(value="/pagament")
+    public String pagament(@ModelAttribute("reserva") Reserva reserva,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "reserva/pendents";
+        System.out.println("procesant solicitud");
+        reservaDao.aceptarPagament(reserva.getIdReserva());
+        System.out.println("Solicitud de pagament acceptada");
 
+        return "redirect:pagades";
     }
     @RequestMapping(value="/confirma/{idReserva}")
     public String confirma(Model model, @PathVariable Integer idReserva) {
