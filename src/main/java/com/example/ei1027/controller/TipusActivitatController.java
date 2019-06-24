@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("/tipusActivitat")
 public class TipusActivitatController {
@@ -68,8 +71,14 @@ public class TipusActivitatController {
 
     @PostMapping(value = "/asignaTipusActivitat/{instructorId}")
     public String asigna(@RequestParam(value = "tipusActivitat", required = false) String[] tipusActivitats, @PathVariable String instructorId) {
-        for (String tipusActivitat : tipusActivitats)
-            acreditaDao.addAcredita(new Acredita(tipusActivitat, instructorId));
+        List<Acredita> acreditaciones = new ArrayList<>();
+        if (tipusActivitats != null && tipusActivitats.length > 0) {
+            for (String tipusActivitat : tipusActivitats)
+                acreditaciones.add(new Acredita(tipusActivitat, instructorId));
+            acreditaDao.add(acreditaciones);
+        } else
+            acreditaDao.deleteAll(instructorId);
+
         return "redirect:../list";
     }
 

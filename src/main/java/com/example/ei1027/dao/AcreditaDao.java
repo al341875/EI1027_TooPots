@@ -15,37 +15,55 @@ public class AcreditaDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public List<Acredita> getAllAcredita(){
-		return this.jdbcTemplate.query(
-				"select * from acredita", new AcreditaMapper());
+    public List<Acredita> getAllAcreditaByInstructor(String instructorId) {
+        return this.jdbcTemplate.query(
+                "select * from acredita where id_instructor = ?", new AcreditaMapper(), instructorId);
+    }
+
+    public List<Acredita> getAcredita(String instructorId, String nomTipusActivitat) {
+        return this.jdbcTemplate.query("select * from acredita where id_instructor=? AND nom_tipus_activitat=?  ", new AcreditaMapper(), instructorId, nomTipusActivitat);
+    }
+
+    public void add(List<Acredita> acreditaciones) {
+        List<Acredita> acreditacionesBD = this.getAllAcreditaByInstructor(acreditaciones.get(0).getInstructorId());
+        for (Acredita acredita : acreditacionesBD)
+            if (!acreditaciones.contains(acredita))
+                this.deleteAcredita(acredita.getNomTipusActivitat(), acredita.getInstructorId());
+        for (Acredita acredita : acreditaciones)
+            if (!acreditacionesBD.contains(acredita))
+                this.add(acredita);
+    }
+
+    public void add(Acredita acredita) {
+        this.jdbcTemplate.update(
+                "insert into Acredita(nom_tipus_activitat, id_instructor) values(?,?)",
+                acredita.getNomTipusActivitat(),
+                acredita.getInstructorId());
+    }
+
+    public void updateAcredita(Acredita acredita) {
+        this.jdbcTemplate.update("update Acredita set nom_tipus_activitat=?,id_instructor=? ",
+                acredita.getNomTipusActivitat(), acredita.getInstructorId());
 	}
 
-	public Acredita getAcredita(String instructorId, String nomTipusActivitat) {
-		return this.jdbcTemplate.queryForObject("select * from acredita where instructor_id=? AND nomTipusActivitat=?  ", new AcreditaMapper(), instructorId, nomTipusActivitat);
-	}
+    public void deleteAcredita(String nomTipusActivitat, String idInstructor) {
+        this.jdbcTemplate.update("delete from acredita where nom_tipus_activitat=? AND id_instructor=?", nomTipusActivitat, idInstructor);
+    }
 
-	public void addAcredita(Acredita acredita) {
-		this.jdbcTemplate.update(
-				"insert into Acredita(nomTipusActivitat, instructor_id) values(?,?)",
-				acredita.getNomTipusActivitat(),
-				acredita.getInstructorId());
-	}
-	
-	public void updateAcredita(Acredita acredita) {
-		this.jdbcTemplate.update("update Acredita set nomTipusActivitat=?,instructor_id=? ",
-				acredita.getNomTipusActivitat(), acredita.getInstructorId());
-	}
+    public void deleteAll(String idInstructor) {
+        this.jdbcTemplate.update("delete from acredita where id_instructor=?", idInstructor);
+    }
 
-	public void deleteAcredita(String nomTipusActivitat, String instructor_id) {
-		this.jdbcTemplate.update("delete from acredita where nom_tipus_activitat=? AND instructor_id=?", nomTipusActivitat, instructor_id);
-	}
+    public boolean exist(Acredita acredita) {
+        return this.jdbcTemplate.queryForObject("select count(*) from acredita where nom_tipus_activitat=? AND id_instructor=?", Integer.class, acredita.getNomTipusActivitat(), acredita.getInstructorId()).intValue() > 0;
+    }
 
 	private static final class AcreditaMapper implements RowMapper<Acredita> {
 		public Acredita mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Acredita acredita = new Acredita();
-			acredita.setNomTipusActivitat("nomTipusActivitat");
-			acredita.setInstructorId(rs.getString("instructor_id"));
-			return acredita;
+            acredita.setNomTipusActivitat(rs.getString("nom_tipus_activitat"));
+            acredita.setInstructorId(rs.getString("id_instructor"));
+            return acredita;
 		}
 	}
 	
