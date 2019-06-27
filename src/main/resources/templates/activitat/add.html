@@ -77,7 +77,7 @@
         </div>
         <div class="row">
         <div class="input-field col s6">
-            <input id="Lloc"type="text" th:field="*{lloc}" class="validate"  minlength="8" maxlength="20" />
+            <input id="Lloc"type="text" th:field="*{lloc}" class="validate"  minlength="3" maxlength="20" />
             <label for="Lloc">Lloc</label>
             <span class="helper-text" th:if="${#fields.hasErrors('lloc')}" th:errors="*{lloc}"></span>
         </div>
